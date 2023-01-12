@@ -17,11 +17,18 @@ namespace SeeShellsV3.Data
         public IEnumerable<IShellItem> Evidence { get; init; }
         public RegistryHive RegistryHive { get => Evidence.FirstOrDefault()?.RegistryHive ?? null; }
 
-        public virtual string LongDescription => LongDescriptionPattern
-            .Replace("{TYPENAME}", TypeName)
-            .Replace("{USER}", User.Name)
-            .Replace("{PLACE}", "\"" + Place.Name + "\" (" + Place.Type + ")")
-            .Replace("{TIMESTAMP}", TimeStamp.ToString());
+        public virtual string LongDescription
+        {
+            get
+            {
+                DateTime duplicatedTimeStamp = TimeStamp;
+                return LongDescriptionPattern
+                    .Replace("{TYPENAME}", TypeName)
+                    .Replace("{USER}", User.Name)
+                    .Replace("{PLACE}", "\"" + Place.Name + "\" (" + Place.Type + ")")
+                    .Replace("{TIMESTAMP}", duplicatedTimeStamp.ToLocalTime().ToString());
+            }
+        }
 
         /// <summary>
         /// A pattern for creating a LongDescription. Use {USER}, {PLACE}, {TYPENAME}, and {TIMESTAMP} to insert field strings into

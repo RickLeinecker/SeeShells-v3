@@ -17,6 +17,7 @@
 
         <local:RadioButtonSelector x:Key="RadioSelector" />
         <local:EventTableSelector x:Key="EventSelector" />
+        <local:UtcToLocalTimeStringConverter x:Key="UtcToLocalTimeStringConverter"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -118,7 +119,7 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Event Time" Binding="{Binding TimeStamp}"/>
+                    <DataGridTextColumn Header="Event Time" Binding="{Binding TimeStamp, Converter={StaticResource UtcToLocalTimeStringConverter}}"/>
                     <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
                     <DataGridTextColumn Header="Type" Binding="{Binding TypeName}"/>
                     <DataGridTextColumn Header="User" Binding="{Binding User.Name}"/>

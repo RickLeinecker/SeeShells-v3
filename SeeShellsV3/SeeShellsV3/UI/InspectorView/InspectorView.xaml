@@ -12,8 +12,9 @@
         <local:CamelCaseConverter x:Key="CamelCaseConverter"/>
         <local:UpperCaseConverter x:Key="UpperCaseConverter"/>
         <local:SelectedItemConverter x:Key="SelectedItemConverter"/>
+        <local:UtcToLocalTimeStringConverter x:Key="UtcToLocalTimeStringConverter"/>
 
-        <!-- User -->
+            <!-- User -->
         <DataTemplate DataType="{x:Type data:User}">
             <StackPanel Margin="10" Grid.IsSharedSizeScope="True">
                 <StackPanel.Resources>
@@ -308,7 +309,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock FontWeight="Bold" Text="Last Registry Write Date" Grid.Column="0" HorizontalAlignment="Right"/>
-                    <TextBlock Text="{Binding LastRegistryWriteDate}" Grid.Column="1" Margin="6 0 0 0"/>
+                    <TextBlock Text="{Binding LastRegistryWriteDate, Converter={StaticResource UtcToLocalTimeStringConverter}}" Grid.Column="1" Margin="6 0 0 0"/>
                 </Grid>
                 <Separator Margin="0 10"/>
                 <TextBlock FontWeight="Bold">
@@ -324,7 +325,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock TextWrapping="Wrap" FontWeight="Bold" Text="{Binding Key, Converter={StaticResource CamelCaseConverter}}" Grid.Column="0" HorizontalAlignment="Right"/>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Value}" Grid.Column="1" Margin="6 0 0 0"/>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Value, Converter={StaticResource UtcToLocalTimeStringConverter}}" Grid.Column="1" Margin="6 0 0 0"/>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -363,7 +364,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock FontWeight="Bold" Text="Event Time" Grid.Column="0" HorizontalAlignment="Right"/>
-                    <TextBlock Text="{Binding TimeStamp}" Grid.Column="1" Margin="6 0 0 0"/>
+                    <TextBlock Text="{Binding TimeStamp, Converter={StaticResource UtcToLocalTimeStringConverter}}" Grid.Column="1" Margin="6 0 0 0"/>
                 </Grid>
                 <Grid Margin="4">
                     <Grid.ColumnDefinitions>
