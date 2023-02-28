@@ -5,7 +5,7 @@ import {devs} from "./DevArray";
 import Grid from '@mui/material/Grid';
 import { MainContent, Title, MainText, Contain} from "./customStyles";
 
-export default function Devs()
+export default function Devs({size})
 {
     const HeaderContent = styled.div`
         background: #2C313D;
@@ -41,7 +41,7 @@ export default function Devs()
     `
     return(
         <Contain>
-            <Header tab = "Developers"/>
+            <Header tab = "Developers" size={size}/>
             <HeaderContent>
                     <Title>
                         Meet The Team

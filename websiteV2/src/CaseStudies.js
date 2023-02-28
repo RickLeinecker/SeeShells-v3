@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 
 const caseStudies = require("./CaseStudiesArray.json");
 
-export default function CaseStudies() {
+export default function CaseStudies({size}) {
     const HeaderContent = styled.div`
         background: #2C313D;
     `
@@ -78,7 +78,7 @@ export default function CaseStudies() {
 
     return (
         <Contain>    
-            <Header tab="Case Studies" />
+            <Header tab="Case Studies" size = {size}/>
             <HeaderContent>
                 <Title>
                     Case Studies
