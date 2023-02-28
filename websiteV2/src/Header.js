@@ -5,7 +5,7 @@ import logo from "./seeshellsLogo-flipped.png";
 import {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import {FaBars} from "react-icons/fa";
-import {Drawer, Menu, MenuItem} from '@mui/material';
+import {Drawer} from '@mui/material';
 import { RiCloseFill } from "react-icons/ri";
 
 const tabs = require("./tabs.json")
@@ -19,25 +19,9 @@ export default function Header(props)
     }, [])
 
     const [drawer, setDrawer] = useState(false);
-    const [state, setState] = useState({
-        top: false,
-        left: false,
-        bottom: false,
-        right: false,
-      });
-    const [anchorEl, setAnchorEl] = useState(null)
-    const open = Boolean(anchorEl)
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-      };
-      const handleClose = () => {
-        setAnchorEl(null);
-      };
-
+  
     const HeaderBar = styled.div`
         display: flex;
-        position: sticky;
         width: 100vw;
         background: #2C313D;
         height: "10vh";
@@ -115,7 +99,6 @@ export default function Header(props)
 
     function checkSize()
     {
-        console.log("Testing" + props.size.width);
         if (props.size.width <= 750)
         {
             return(
@@ -171,7 +154,7 @@ export default function Header(props)
         else
         {
             return(
-                <div style={{display:"flex", flexDirection: "row", alignItems:"center", border:"2px solid white"}}> 
+                <div style={{display:"flex", flexDirection: "row", alignItems:"center"}}> 
                     <h1 style={{fontSize: 35}}>
                     SeeShells
                     </h1>
@@ -180,13 +163,6 @@ export default function Header(props)
         }
     }
 
-      const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-          return;
-        }
-    
-        setState({ ...state, [anchor]: open });
-      };
     
       const drawerContents = () => (
           <DrawerContainer>
@@ -194,7 +170,6 @@ export default function Header(props)
                 <RiCloseFill style={{color: "#FFFBF0", height:"40px", width:"40px"}} onClick={() => setDrawer(false)}/>
             </ExitButton>
             {tabs.tabs.map((tab) =>{
-                console.log(tab.replaceAll(" ", ""))
                 return(
                     <MobileTab onClick={() => {navigation(`/${(tab == "About") ? "" : tab.replaceAll(" ", "")}`)}}>
                         {tab}
@@ -208,19 +183,6 @@ export default function Header(props)
     <div>
         <HeaderBar>
             {checkSize()}
-            <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-            'aria-labelledby': 'basic-button',
-            }}
-        >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
-        </Menu>
         </HeaderBar>
         <Drawer anchor={'left'} onClose={() => setDrawer(false)} open={drawer} sx={{width:"40vw"}}>
             {drawerContents()}
