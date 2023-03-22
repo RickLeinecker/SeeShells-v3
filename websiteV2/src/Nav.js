@@ -5,6 +5,7 @@ import About from "./About";
 import Devs from "./Devs";
 import CaseStudies from "./CaseStudies"
 import HowToUse from "./HowToUse";
+import { StyledEngineProvider } from '@mui/material/styles';
 
 export default function Nav()
 {
@@ -25,6 +26,7 @@ export default function Nav()
       console.log(windowSize.width)
 
     return(
+      <StyledEngineProvider injectFirst>
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<About size ={windowSize}/>} />
@@ -33,5 +35,6 @@ export default function Nav()
                 <Route path="/CaseStudies" element={<CaseStudies size={windowSize} />} />
            </Routes>
         </BrowserRouter>
+      </StyledEngineProvider>
     )
 }

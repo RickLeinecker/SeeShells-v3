@@ -3,10 +3,11 @@ import Header from "./Header";
 import Foldery from "./Foldery.js";
 import TestButton from "./TestButton.js"
 import SideBar from "./SideBar.js"
-import { MainContent, Title, MainText, Contain } from "./customStyles";
-import { useState, useRef } from "react";
-import { useEffect } from "react";
-import { useMemo } from "react";
+import { MainContent, Title,  Contain } from "./customStyles";
+import { useState} from "react";
+import {FaListUl} from "react-icons/fa";
+import {Menu} from '@mui/material';
+
 
 const howToInfo = require("./HowToInfoArray.json")
 const options = require("./HowToUseArray.json")
@@ -19,11 +20,15 @@ export default function HowToUse({size})
     let click = false;
     let button = null;
 
+    let mobile = (size.width <= 750)
+
     const [finished, setFinished] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const options = require("./HowToUseArray.json")
 
     const optionsScroll = (option) =>
     {
-        console.log(document.getElementById(option).id + " Testing")
 
       
 
@@ -41,24 +46,39 @@ export default function HowToUse({size})
 
     const testCallback =  (option, entries) => {
         
-        console.log(entries[0].intersectionRatio)
-        if (entries[0].intersectionRatio < 1)
+        if (!mobile)
         {
-            return
-        }
-        console.log(click)
-        if (click)
-            return
+            if (entries[0].intersectionRatio < 1)
+            {
+                return
+            }
+            if (click)
+                return
 
-        if (button != null)
-            button.style.fontWeight = "";
-        
-        button = document.getElementById(`${option + "button"}`)
-        button.style.fontWeight = "700"
+            if (button != null)
+                button.style.fontWeight = "";
+            
+            button = document.getElementById(`${option + "button"}`)
+            button.style.fontWeight = "700"
+        }
+        else
+        {
+            if (entries[0].intersectionRatio < 1)
+            {
+                return
+            }
+            if (click)
+                return
+
+            
+        }
     }
 
     const HeaderContent = styled.div`
+        position: relative;
         background: #2C313D;
+        display: flex;
+        justify-content: center;
     `
 
     const MenuSelectBox = styled.div`
@@ -69,45 +89,56 @@ export default function HowToUse({size})
     const PageInfo = styled.div`
         flex-direction: column;
         display:flex;
-        width: 80vw;
+        width: ${mobile ? "100vw" : "80vw"};
         height: 100%;
         align-items: center;
         margin: 2%;
         margin-bottom: 0;
         margin-top:0;
         overflow: auto;
-
         
     `
 
-    const testing = useMemo (() => {
+    const MenuButton = styled.div`
+
+    `
+    const MenuBox = styled.div`
+        width: 40vw
+    `
+
+    const pageContent = () => {
         if (finished)
         {
             return(
                 <PageInfo id={"PageInfo"}>
-                    <Foldery InfoSection={howToInfo.parsing} testCallback={testCallback} currTab={"Online"}/>
+                    <Foldery InfoSection={howToInfo.parsing} testCallback={testCallback} currTab={"Online"} size ={size} mobile={mobile}/>
                         <div style={{marginBottom:"500px"}} />
-                    <Foldery InfoSection={howToInfo.ShellInspector} testCallback={testCallback} currTab={"Online"} />
+                    <Foldery InfoSection={howToInfo.ShellInspector} testCallback={testCallback} currTab={"Online"} size={size} mobile={mobile} />
                 </PageInfo>
             )
         }
-    }, [finished])
+    }
+    
+    function openMenu()
+    {
+        setMenuOpen(true);
+    }
+
 
     return (
-        <Contain>
-            <Header tab="How to Use" size={size}/>
-            <HeaderContent>
-                <Title>
-                    How To Use
-                </Title>
-            </HeaderContent>
-            <MainContent style={{display:"flex", flexDirection:"row", overflow:"hidden"}}>
-                <MenuSelectBox>
-                <SideBar scroll={optionsScroll} update={setFinished} button={button}/>
-                        {testing}
-                </MenuSelectBox>
-
-            </MainContent>
-        </Contain>
+            <Contain>
+                <Header tab="How to Use" size={size}/>
+                <HeaderContent>
+                    <Title>
+                        How To Use
+                    </Title>
+                </HeaderContent>
+                <MainContent style={{display:"flex", flexDirection:"row", overflow:"hidden"}}>
+                    <MenuSelectBox>
+                    <SideBar scroll={optionsScroll} update={setFinished} button={button} mobile = {mobile}/>
+                            {pageContent()}
+                    </MenuSelectBox>
+                </MainContent>
+            </Contain>
     );
 }

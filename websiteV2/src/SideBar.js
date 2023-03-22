@@ -3,7 +3,7 @@ import {useState, useEffect} from "react"
 
 const options = require("./HowToUseArray.json")
 
-export default function SideBar ({scroll, update, button})
+export default function SideBar ({scroll, update, button, mobile})
 {
     const OptionButtons = styled.div`
         text-align:left;
@@ -25,18 +25,21 @@ export default function SideBar ({scroll, update, button})
         height:fit-content;
     `
     useEffect(() => {
-        console.log("Testing");
         update(true);
     }, [button])
-    return (
-        <SideBar>
-            {options.options.map((option) => {
-                return(
-                    <OptionButtons id = {`${option + "button"}`} style={{fontWeight : `${button == option ? "700" : ""}`}} onClick={() => scroll(option)}>
-                        {option}
-                    </OptionButtons>
-            )})
-            }
-        </SideBar>
-    )
+    console.log("Testing Side" + mobile);
+    if (!mobile)
+    {
+        return (
+            <SideBar>
+                {options.options.map((option) => {
+                    return(
+                        <OptionButtons id = {`${option + "button"}`} style={{fontWeight : `${button == option ? "700" : ""}`}} onClick={() => scroll(option)}>
+                            {option}
+                        </OptionButtons>
+                )})
+                }
+            </SideBar>
+        )
+    }
 }

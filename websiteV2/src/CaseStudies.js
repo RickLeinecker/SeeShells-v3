@@ -6,7 +6,10 @@ import Grid from '@mui/material/Grid';
 
 const caseStudies = require("./CaseStudiesArray.json");
 
-export default function CaseStudies() {
+export default function CaseStudies({size}) {
+
+    let mobile = (size.width <= 750)
+
     const HeaderContent = styled.div`
         background: #2C313D;
     `
@@ -19,18 +22,10 @@ export default function CaseStudies() {
     `
     const ImageDiv = styled.div`
         margin-top: 15px;
-        height: 210px;
-        width: 210px;
+        height: ${mobile ? "125px" : "210px"};
+        width: ${mobile ? "125px" : "210px"};
         background: #2C313D;
         border-radius: 10px;
-    `
-    const CaseStudyBox = styled.div`
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 15px;
-        justify-content:center;
-
     `
     const CaseTitle = styled.div`
         font-family: "IBM Plex Sans Condensed";
@@ -46,22 +41,22 @@ export default function CaseStudies() {
     `
     const StudiesButtons = styled.div`
         font-family: "IBM Plex Sans Condensed";
-        font-size: 16pt;
+        font-size: ${mobile ? "12pt" : "16pt"};
         margin-top:5px;
         text-align: center;
         background: #2C313D;
+        margin-top:10px;
         padding:15px;
-        width: 75px;
+        width: ${mobile ? "55px" : "75px"};
         border-radius: 5px;
     `
     const Image = styled.img`
-        height: 210px;
-        width: 210px;
+        height: ${mobile ? "125px" : "210px"};
+        width: ${mobile ? "125px" : "210px"};
     `
     const Logo = styled.img`
-        height: 190px;
-        width: 190px;
-        margin-top: 10px;
+        height: ${mobile ? "125px" : "210px"};
+        width: ${mobile ? "125px" : "210px"};
         
 
     `
@@ -76,9 +71,23 @@ export default function CaseStudies() {
         )
     }
 
+    function buttons()
+    {
+        if (!mobile)
+        {
+            return(
+                <Grid item align="center" xs={7} sm={4} lg={3} >
+                    <StudiesButtons>
+                        Reg File
+                    </StudiesButtons>
+                </Grid>
+            )
+        }
+    }
+
     return (
         <Contain>    
-            <Header tab="Case Studies" />
+            <Header tab="Case Studies" size = {size}/>
             <HeaderContent>
                 <Title>
                     Case Studies
@@ -96,8 +105,8 @@ export default function CaseStudies() {
                                     {Case.title}
                                 </CaseTitle>
                                     <ImageDiv>
-                                    {displayImageOrDefault(Case.vidLink)}
-                                </ImageDiv>
+                                        {displayImageOrDefault(Case.vidLink)}
+                                    </ImageDiv>
                                 <Caption>
                                     {Case.caption }
                                 </Caption>
@@ -107,11 +116,7 @@ export default function CaseStudies() {
                                             PDF
                                         </StudiesButtons>
                                     </Grid>
-                                    <Grid item align="center" xs={7} sm={4} lg={3} >
-                                        <StudiesButtons>
-                                            Reg File
-                                        </StudiesButtons>
-                                    </Grid>
+                                    {buttons()}
                                 </div>
                             </Grid> 
                         )
@@ -139,11 +144,7 @@ export default function CaseStudies() {
                                             PDF
                                         </StudiesButtons>
                                     </Grid>
-                                    <Grid item align="center" xs={7} sm={4} lg={3} >
-                                        <StudiesButtons>
-                                            Reg File
-                                        </StudiesButtons>
-                                    </Grid>
+                                    {buttons()}
                                 </div>
                             </Grid> 
                         )

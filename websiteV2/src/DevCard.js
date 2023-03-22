@@ -35,9 +35,19 @@ export default function DevCard({dev})
         )
     }
 
+    function resume()
+    {
+        if(dev.resume != null)
+        {
+            return(
+                dev.resume
+            )
+        }
+    }
+
     return(
             <div style={{textAlign:"center", width:210, marginTop:"20px", marginRight:"15px"}}>
-                <div style={{whiteSpace: "pre",height:75, justifyContent:"center", alignItems:"center", display:"flex"}}>    
+                <div style={{whiteSpace: "pre",height:75, justifyContent:"center", alignItems:"center", display:"flex", textAlign:"center"}}>    
                     <MainText style={{fontSize:25}}>
                         {dev.name}
                     </MainText>
@@ -49,7 +59,7 @@ export default function DevCard({dev})
                     <MainText style={{fontSize: 20}}>
                         {dev.role}
                         <br/>
-                        Resume Link
+                        {resume()}
                     </MainText>
                 </div>
             </div>

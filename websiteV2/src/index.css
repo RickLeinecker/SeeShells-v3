@@ -18,6 +18,10 @@ code {
 ::-webkit-scrollbar {
   display: none;
 }
+.MuiMenu-root ul{
+  background: #2C313D;
+  color: #FFFBF0;
+}
 
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans+Condensed:regular,bold,italic&subset=latin,latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Jost:regular,bold,italic&subset=latin,latin-ext');

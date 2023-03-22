@@ -6,14 +6,14 @@ import { MainContent, Title, MainText, Contain} from "./customStyles";
 
 export default function About({size}) 
 {
-  console.log("About " + size.width)
 
   let mobile = (size.width <= 750)
   const AboutHeader = styled.div`
     display: flex;
     width: 100vw;
     background: #2C313D;
-    height: ${mobile ? "" : "40vh"};
+    min-height: 300px
+    height: ${mobile ? "" : "45vh"};
     color: #FFFBF0;
     font-family: "IBM Plex Sans Condensed";
   `
@@ -23,9 +23,11 @@ export default function About({size})
   font-family: "Jost"; 
   font-size: 35px;
   display: flex; 
-  width: 45vw; 
+  width: 45vw;
   align-items: center; 
   justify-content: center;
+  padding-top:20px;
+  padding-bottom:20px;
   `
 
   const Logo = styled.div`
