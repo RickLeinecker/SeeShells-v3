@@ -7,6 +7,7 @@ import { MainContent, Title, MainText, Contain} from "./customStyles";
 
 export default function Devs({size})
 {
+
     const HeaderContent = styled.div`
         background: #2C313D;
     `
@@ -47,6 +48,7 @@ export default function Devs({size})
         text-align: center;
         height: auto;
     `
+    
     return(
         <Contain>
             <Header tab = "Developers" size={size}/>
