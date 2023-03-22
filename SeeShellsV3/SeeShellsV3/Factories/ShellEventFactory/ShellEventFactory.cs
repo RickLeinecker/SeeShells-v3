@@ -26,8 +26,10 @@ namespace SeeShellsV3.Factories
 
             // try to generate events for every type, in order of priority
             foreach (var generator in iGenerators)
+            {
                 if (generator.CanGenerate(item))
                     shellEvents.AddRange(generator.Generate(item));
+            }
 
             return shellEvents;
         }
@@ -53,7 +55,7 @@ namespace SeeShellsV3.Factories
                 .SelectMany(s => s.GetTypes())
                 .Where(p => typeof(IShellEventGenerator).IsAssignableFrom(p))
                 .Where(q => q.IsClass)
-                .Select(r => (IShellEventGenerator) container.Resolve(r))
+                .Select(r => (IShellEventGenerator)container.Resolve(r))
                 .OrderByDescending(g => g.Priority)
                 .ToList();
         }

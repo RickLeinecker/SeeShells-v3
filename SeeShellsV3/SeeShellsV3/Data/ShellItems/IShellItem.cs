@@ -31,9 +31,9 @@ namespace SeeShellsV3.Data
 
         int? NodeSlot { init; get; }
 
-        DateTime? SlotModifiedDate { init; get; }
+        DateTime? SlotModifiedDate { set; get; }
 
-        DateTime LastRegistryWriteDate { init; get; }
+        DateTime LastRegistryWriteDate { set; get; }
 
         /// <summary>
         /// Parent of this shell item

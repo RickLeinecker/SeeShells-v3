@@ -29,7 +29,9 @@ namespace SeeShellsV3.UI
         DateTime? Begin { get;  set; }
         DateTime? End { get; set; }
         string Path { get; set; }
+        string Keyword { get; set; }
         Type Type { get; set; }
+
     }
 
     /// <summary>
@@ -55,6 +57,15 @@ namespace SeeShellsV3.UI
                 if (binding != null) { binding.UpdateSource(); }
                 Keyboard.ClearFocus();
             }
+        }
+
+        private void KeywordUpdate(object sender, KeyEventArgs e)
+        {
+                TextBox tBox = (TextBox)sender;
+                DependencyProperty prop = TextBox.TextProperty;
+
+                BindingExpression binding = BindingOperations.GetBindingExpression(tBox, prop);
+                if (binding != null) { binding.UpdateSource(); }
         }
     }
 }

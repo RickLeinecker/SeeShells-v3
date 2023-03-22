@@ -18,6 +18,8 @@ using System.Collections;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using SeeShellsV3.Services;
+using System.Security.Policy;
+using MahApps.Metro.Controls;
 
 namespace SeeShellsV3.UI
 {
@@ -39,6 +41,9 @@ namespace SeeShellsV3.UI
     {
         [Dependency]
         public IExportWindowVM ViewModel { get => DataContext as IExportWindowVM; set => DataContext = value; }
+
+		[Dependency]
+		public ISelected Selected { get; set; }
         public ExportWindow()
         {
             InitializeComponent();
@@ -77,10 +82,10 @@ namespace SeeShellsV3.UI
 
 		private void Add_Module_Click(object sender, RoutedEventArgs e)
 		{
-            if (moduleSelector.SelectedIndex != 0)
-            {
-                ViewModel.AddModule(moduleSelector.SelectedItem as string);
-            }
+			if (moduleSelector.SelectedIndex != 0)
+			{
+				ViewModel.AddModule(moduleSelector.SelectedItem as string);
+			}
 		}
 	}
 }

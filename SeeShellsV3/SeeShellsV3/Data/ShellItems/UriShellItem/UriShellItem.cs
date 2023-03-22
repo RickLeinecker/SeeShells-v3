@@ -49,7 +49,7 @@ namespace SeeShellsV3.Data
                         
         public DateTime ConnectedDate
         {
-            init => fields[nameof(ConnectedDate)] = value;
+            set => fields[nameof(ConnectedDate)] = value;
             get => fields.GetStructOrDefault(nameof(ConnectedDate), DateTime.MinValue);
         }
     }

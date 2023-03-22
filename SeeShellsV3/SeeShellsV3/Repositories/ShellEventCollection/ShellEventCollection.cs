@@ -10,6 +10,8 @@ namespace SeeShellsV3.Repositories
     public class ShellEventCollection : ObservableSortedList<IShellEvent>, IShellEventCollection
     {
         public event FilterEventHandler Filter;
+
+        public Boolean updating { get; set; }
         public ICollectionView FilteredView => collectionViewSource.View;
 
         public ShellEventCollection()

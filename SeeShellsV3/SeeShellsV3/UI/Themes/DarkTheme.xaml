@@ -3,16 +3,12 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
+        <ResourceDictionary Source="./DarkThemeBehind.xaml" />
+        <ResourceDictionary Source="./Palettes.xaml" />
 
         <ResourceDictionary Source="/AvalonDock.Themes.VS2013;component/DarkBrushs.xaml" />
         <ResourceDictionary Source="/AvalonDock.Themes.VS2013;component/Themes/Generic.xaml" />
 
-        <!--
-            TODO: create custom MahApps theme that matches SeeShells sketches
-            https://mahapps.com/docs/themes/thememanager
-        -->
-            
         <!--
             TODO: create custom Avalon Dock theme that matches SeeShells sketches
             https://stackoverflow.com/questions/10017949/restyling-avalondock-for-high-contrast-themes

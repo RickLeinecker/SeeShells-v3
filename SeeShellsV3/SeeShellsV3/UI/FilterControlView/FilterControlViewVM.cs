@@ -9,6 +9,7 @@ using SeeShellsV3.Data;
 using SeeShellsV3.Repositories;
 using System.Windows.Data;
 using System.Globalization;
+using System.ComponentModel;
 
 namespace SeeShellsV3.UI
 {
@@ -21,6 +22,10 @@ namespace SeeShellsV3.UI
         public IRegistryHiveCollection RegistryHiveCollection { get; set; }
 
         public IShellEventCollection ShellEvents { get; private set; }
+
+        public IShellItemCollection ShellItems { get; private set; }
+
+        public ISelected Selected { get; private set; }
 
         public User User
         {
@@ -67,6 +72,18 @@ namespace SeeShellsV3.UI
             }
         }
 
+        public string Keyword {
+            get => keyword;
+            set
+            {
+                string old = keyword;
+                keyword = value;
+
+                if (old != keyword)
+                    ShellEvents.FilteredView.Refresh();
+
+                NotifyPropertyChanged();
+            } }
         public string Path
         {
             get => path;
@@ -91,7 +108,10 @@ namespace SeeShellsV3.UI
                 begin = value;
 
                 if (old != begin)
+                {
                     ShellEvents.FilteredView.Refresh();
+                    ShellItems.FilteredView.Refresh();
+                }
 
                 NotifyPropertyChanged();
             }
@@ -106,7 +126,10 @@ namespace SeeShellsV3.UI
                 end = value;
 
                 if (old != end)
+                {
                     ShellEvents.FilteredView.Refresh();
+                    ShellItems.FilteredView.Refresh();
+                }
 
                 NotifyPropertyChanged();
             }
@@ -118,16 +141,73 @@ namespace SeeShellsV3.UI
         private DateTime? begin = null;
         private DateTime? end = null;
         private string path = null;
+        private string keyword = null;
 
-        public FilterControlViewVM([Dependency] IShellEventCollection shellEvents)
+        public FilterControlViewVM([Dependency] IShellEventCollection shellEvents, [Dependency] IShellItemCollection shellItems ,[Dependency] ISelected selected)
         {
             ShellEvents = shellEvents;
+            ShellItems = shellItems;
+            Selected = selected;
+
+            Selected.PropertyChanged += new PropertyChangedEventHandler(selectChange);
+            
             ShellEvents.Filter += new FilterEventHandler(FilterType);
             ShellEvents.Filter += new FilterEventHandler(FilterPath);
             ShellEvents.Filter += new FilterEventHandler(FilterUser);
             ShellEvents.Filter += new FilterEventHandler(FilterRegistryHive);
             ShellEvents.Filter += new FilterEventHandler(FilterBeginDate);
             ShellEvents.Filter += new FilterEventHandler(FilterEndDate);
+            ShellEvents.Filter += new FilterEventHandler(FilterKeyword);
+            ShellItems.Filter += new FilterEventHandler(FilterItemBegin);
+            ShellItems.Filter += new FilterEventHandler(FilterItemEnd);
+        }
+
+        void selectChange(object sender, PropertyChangedEventArgs e)
+        {
+            if (Selected.CurrentData != null && Selected.regView)
+            {
+                ShellItem temp = (ShellItem)Selected.CurrentData;
+
+
+                if (temp.Place != null && temp.Place.PathName != null)
+                {
+                    if (temp.Place.PathName.EndsWith("\\"))
+                        Path = (temp.Place.PathName ?? string.Empty) + (temp.Place.Name ?? string.Empty);
+                    else
+                        Path = (temp.Place.PathName ?? string.Empty) + "\\" + (temp.Place.Name ?? string.Empty);
+                }
+
+                else
+                {
+                    if (temp.Place.PathName == null && temp.Place.Name != null)
+                        Path = temp.Place.Name;
+                }
+            }
+
+        }
+
+        void FilterKeyword(object sender, FilterEventArgs e)
+        {
+            if (Keyword == null)
+                e.Accepted = true;
+            else
+                e.Accepted = e.Item is IShellEvent se && se.Description.ToLower().Contains(Keyword.ToLower());
+        }
+
+        void FilterItemBegin(object o, FilterEventArgs e)
+        {
+            if (Begin == null)
+                e.Accepted = true;
+            else
+                e.Accepted = e.Item is IShellItem si && si.LastRegistryWriteDate >= Begin;
+        }
+
+        void FilterItemEnd(object o, FilterEventArgs e)
+        {
+            if (End == null)
+                e.Accepted = true;
+            else
+                e.Accepted = e.Item is IShellItem si && si.LastRegistryWriteDate <= End;
         }
 
         void FilterType(object o, FilterEventArgs e)

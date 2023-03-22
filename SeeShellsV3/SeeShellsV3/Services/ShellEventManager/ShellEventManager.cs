@@ -10,6 +10,7 @@ using Unity;
 using SeeShellsV3.Data;
 using SeeShellsV3.Factories;
 using SeeShellsV3.Repositories;
+using System.Diagnostics;
 
 namespace SeeShellsV3.Services
 {
@@ -32,6 +33,14 @@ namespace SeeShellsV3.Services
 
         public IEnumerable<IShellEvent> GenerateEvents(IEnumerable<IShellItem> shellItems)
         {
+            if (ShellEvents.Count != 0)
+            {
+                ShellEvents.updating = true;
+                foreach (ShellEvent e in ShellEvents.ToList())
+                {
+                    ShellEvents.Remove(e);
+                }
+            }
             ShellEventGenerateBegin?.Invoke(this, EventArgs.Empty);
             IList<IIntermediateShellEvent> intermediateShellEvents = new List<IIntermediateShellEvent>();
             IList<IShellEvent> generatedEvents = new List<IShellEvent>();
@@ -69,6 +78,7 @@ namespace SeeShellsV3.Services
             }
 
             ShellEventGenerateEnd?.Invoke(this, EventArgs.Empty);
+            ShellEvents.updating = false;
             return generatedEvents;
         }
     }

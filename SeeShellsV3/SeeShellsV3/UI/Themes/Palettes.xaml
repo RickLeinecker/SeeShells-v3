@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    xmlns:oxy="http://oxyplot.org/wpf">
+    <x:Array Type="Color" x:Key="Palette0">
+        <Color>#332288</Color>
+        <Color>#DDCC77</Color>
+        <Color>#117733</Color>
+        <Color>#CC6677</Color>
+        <Color>#44AA99</Color>
+        <Color>#AA4499</Color>
+        <Color>#88CCEE</Color>
+        <Color>#882255</Color>
+    </x:Array>
+    <x:Array Type="Color" x:Key="Palette1">
+        <Color>#88CCEE</Color>
+        <Color>#44AA99</Color>
+        <Color>#117733</Color>
+        <Color>#999933</Color>
+        <Color>#DDCC77</Color>
+        <Color>#CC6677</Color>
+        <Color>#882255</Color>
+        <Color>#AA4499</Color>
+    </x:Array>
+    <x:Array Type="Color" x:Key="Palette2">
+        <Color>#FFADAD</Color>
+        <Color>#FFD6A5</Color>
+        <Color>#FDFFB6</Color>
+        <Color>#CAFFBF</Color>
+        <Color>#9BF6FF</Color>
+        <Color>#A0C4FF</Color>
+        <Color>#BDB2FF</Color>
+        <Color>#FFC6FF</Color>
+    </x:Array>
+</ResourceDictionary>

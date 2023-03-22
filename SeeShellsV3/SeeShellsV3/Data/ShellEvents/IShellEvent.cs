@@ -32,7 +32,7 @@ namespace SeeShellsV3.Data
         /// <summary>
         /// The time that the event occured
         /// </summary>
-        DateTime TimeStamp { get; }
+        DateTime TimeStamp { get; set; }
 
         /// <summary>
         /// The user that performed the action

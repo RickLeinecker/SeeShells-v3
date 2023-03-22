@@ -58,14 +58,18 @@
                     <oxy:HeatMapSeries Name="HeatMapSeries" ColorAxisKey="z" />
                 </oxy:Plot.Series>
                 <oxy:Plot.Axes>
-                    <oxy:LinearColorAxis Key="z" Name="ColorAxis"
-                                         AxisDistance="10" Position="Right"
+                    <oxy:LinearColorAxis Key="z"
+                                         Name="ColorAxis"
+                                         AxisDistance="10"
+                                         Position="Right"
                                          TicklineColor="Transparent"
-                                         LowColor="#00FFAE63" HighColor="#D61818"
-                                         PaletteSize="100" Minimum="0">
-                        <GradientStop Color="#00FFAE63" Offset="0" />
-                        <GradientStop Color="#FFAE63" Offset="0.1" />
-                        <GradientStop Color="#D61818" Offset="1.0" />
+                                         LowColor="{DynamicResource MahApps.Colors.Accent5}"
+                                         HighColor="{DynamicResource MahApps.Colors.AccentBase}"
+                                         PaletteSize="100"
+                                         Minimum="0">
+                        <GradientStop Color="{DynamicResource MahApps.Colors.Accent5}" Offset="0" />
+                        <GradientStop Color="{DynamicResource MahApps.Colors.Accent3}" Offset="0.1" />
+                        <GradientStop Color="{DynamicResource MahApps.Colors.AccentBase}" Offset="1.0" />
                     </oxy:LinearColorAxis>
                     <oxy:LinearAxis Name="WeekAxis" IsAxisVisible="False"
                                     IsZoomEnabled="False" IsPanEnabled="False"/>

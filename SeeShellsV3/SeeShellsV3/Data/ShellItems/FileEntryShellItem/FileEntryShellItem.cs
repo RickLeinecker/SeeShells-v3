@@ -59,19 +59,19 @@ namespace SeeShellsV3.Data
 
         public DateTime ModifiedDate
         {
-            init => fields[nameof(ModifiedDate)] = value;
+            set => fields[nameof(ModifiedDate)] = value;
             get => fields.GetStructOrDefault(nameof(ModifiedDate), DateTime.MinValue);
         }
 
         public DateTime AccessedDate
         {
-            init => fields[nameof(AccessedDate)] = value;
+            set => fields[nameof(AccessedDate)] = value;
             get => fields.GetStructOrDefault(nameof(AccessedDate), DateTime.MinValue);
         }
 
         public DateTime CreationDate
         {
-            init => fields[nameof(CreationDate)] = value;
+            set => fields[nameof(CreationDate)] = value;
             get => fields.GetStructOrDefault(nameof(CreationDate), DateTime.MinValue);
         }
     }

@@ -26,5 +26,7 @@ namespace SeeShellsV3.Repositories
         /// A view of this collection that has been filtered by the <see cref="Filter"/> event handlers.
         /// </summary>
         ICollectionView FilteredView { get; }
+
+        Boolean updating { get; set; }
     }
 }

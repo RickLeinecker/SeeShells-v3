@@ -148,8 +148,8 @@ namespace SeeShellsV3.UI
 
         private void OnItemsChange(object sender, NotifyCollectionChangedEventArgs args) => ResetHeatMap();
         private void Clear_MenuItem_Click(object sender, RoutedEventArgs e) => ClearSelected();
-        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e) => e.Handled = !AllowInteraction;
-        private void OnMouseRightButtonDown(object sender, MouseButtonEventArgs e) => ClearSelected();
+        private void OnMouseRightButtonDown(object sender, MouseButtonEventArgs e) => e.Handled = !AllowInteraction;
+        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e) => ClearSelected();
         private void Left_Button_Click(object sender, RoutedEventArgs e) => SetCurrentValue(YearProp, Year - 1);
         private void Right_Button_Click(object sender, RoutedEventArgs e) => SetCurrentValue(YearProp, Year + 1);
         private void OnMouseMove(object sender, MouseEventArgs e)
@@ -165,7 +165,7 @@ namespace SeeShellsV3.UI
                 return;
             }
 
-            if (Mouse.RightButton == MouseButtonState.Released)
+            if (Mouse.LeftButton == MouseButtonState.Released)
             {
                 _last_selected = null;
                 return;
