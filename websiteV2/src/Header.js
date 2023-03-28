@@ -133,7 +133,7 @@ export default function Header(props)
 
     function about()
     {
-        if (props.tab != "About")
+        if (props.tab != "About" && props.size.width >= 850)
         {
             return(
                 <div style={{display:"flex", flexDirection: "row", alignItems:"center"}}>

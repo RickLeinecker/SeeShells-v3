@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Header from "./Header";
 import DevCard from "./DevCard";
-import {devs} from "./DevArray";
+import {v3devs, v2devs, v1devs} from "./DevArray";
 import Grid from '@mui/material/Grid';
 import { MainContent, Title, MainText, Contain} from "./customStyles";
 
@@ -20,16 +20,24 @@ export default function Devs({size})
     const Subtitle = styled.h2`
         font-family: "IBM Plex Sans Hebrew";
         font-size: 30px;
+        
     `
 
     const Developers = styled.div`
         display: flex;
         flex-direction: column;
-        padding: 15px;
         padding-left: 25px;
         padding-right: 25px;
         align-items: center;
         justify-content: center;
+    `
+
+    const Sponsor = styled.div`
+        font-family: "Jost";
+        font-size: 20;
+        padding-bottom: 10px;
+        margin-top: -12px;
+
     `
 
     
@@ -59,9 +67,50 @@ export default function Devs({size})
                         <Subtitle>
                             SeeShells V3
                         </Subtitle>
+                        <Sponsor>
+                            Sponsor: Professor Edward Amoruso
+                        </Sponsor>
                     </Line>
                     <Grid container justifyContent={"center"} columns={20} >
-                        {devs.map((dev) => {
+                        {v3devs.map((dev) => {
+                                return(
+                                    <Grid item align="center"  sm={"auto"} md={6} lg={"auto"}>
+                                        <DevCard dev = {dev}/>
+                                    </Grid>
+                                )
+                        })}
+                    </Grid>
+                </Developers>
+                <Developers>
+                    <Line>
+                        <Subtitle>
+                            SeeShells V2
+                        </Subtitle>
+                        <Sponsor>
+                            Sponsor: Dr. Richard Leinecker
+                        </Sponsor>
+                    </Line>
+                    <Grid container justifyContent={"center"} columns={20} >
+                        {v2devs.map((dev) => {
+                                return(
+                                    <Grid item align="center"  sm={"auto"} md={6} lg={"auto"}>
+                                        <DevCard dev = {dev}/>
+                                    </Grid>
+                                )
+                        })}
+                    </Grid>
+                </Developers>
+                <Developers>
+                    <Line>
+                        <Subtitle>
+                            SeeShells V1
+                        </Subtitle>
+                        <Sponsor>
+                            Sponsor: Dr. Richard Leinecker
+                        </Sponsor>
+                    </Line>
+                    <Grid container justifyContent={"center"} columns={20} >
+                        {v1devs.map((dev) => {
                                 return(
                                     <Grid item align="center"  sm={"auto"} md={6} lg={"auto"}>
                                         <DevCard dev = {dev}/>

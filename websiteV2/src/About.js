@@ -26,7 +26,8 @@ export default function About({size})
   width: 45vw;
   align-items: center; 
   justify-content: center;
-  padding:20px;
+  padding-top:20px;
+  padding-bottom:20px;
   `
 
   const Logo = styled.div`

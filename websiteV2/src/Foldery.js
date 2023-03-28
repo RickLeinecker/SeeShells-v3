@@ -5,11 +5,14 @@ import logo from "./seeshellsLogo-flipped.png";
 
 const howToInfo = require("./HowToInfoArray.json")
 
-export default function Foldery ({InfoSection, currTab, testCallback})
+export default function Foldery ({InfoSection, currTab, testCallback, size, mobile})
 {
     let currButton = null;
 
     const [selected, setSelected] = useState(currTab);
+    const [thisSize, setThisSize] = useState();
+
+    
 
     let obsOptions = {
         root: document.querySelector("#PageInfo"),
@@ -22,15 +25,14 @@ export default function Foldery ({InfoSection, currTab, testCallback})
         flex-direction: column;
         display:flex;
         justify-content:center;
-        width: 80%;
+        width: ${mobile ? "100%" : "80%"};
         margin-bottom:200px;
     `
     const InfoTabBox = styled.div`
         
         display:flex;
-        align: center;
         justify-content:center;
-        width: 90%;
+        width: ${mobile ? "100%" : "90%"};
         background: #2C313D;
         border-radius: 0 10px 10px 10px;
         height: fit-content;
@@ -70,14 +72,14 @@ export default function Foldery ({InfoSection, currTab, testCallback})
     const Type = styled.div`
         background: #2C313D;
         border-radius: 20px 20px 0 0;
-        height:5vh;
-        width:200px;
+        height:${mobile ?"60px" :"50px"};
+        width:${mobile ? "100px" : "200px"};
         margin-right: 5px;
         display: flex;
         justify-content: center;
         align-items: center;
+        text-align:center;
         font-size: 20px;
-        white-space: pre;
         font-family: "Jost";
         &:hover {
             cursor: pointer;
@@ -98,9 +100,12 @@ export default function Foldery ({InfoSection, currTab, testCallback})
     useEffect(() => {
         let test =  new IntersectionObserver((entries) => testCallback(InfoSection.title, entries), obsOptions)
         let element = document.getElementById(InfoSection.title)
-        console.log(element)
         test.observe(element)
-    }, [selected]);
+    }, [selected, thisSize]);
+
+    useEffect(() => {
+        setThisSize(size);
+    }, [size])
 
     return (                          
         <InfoBox id={`${InfoSection.title}`}>
@@ -109,7 +114,6 @@ export default function Foldery ({InfoSection, currTab, testCallback})
             </HowToTitle>
             <Tabs>
                 {InfoSection.tabNames.map((Tab) => {
-                    console.log(InfoSection.tabs[selected].title == Tab)
                     return(
                         <Type style={{background: (InfoSection.tabs[selected].title == Tab) ? "" : "#474E60"}} onClick={() => update(Tab)}>
                             {Tab}
