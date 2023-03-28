@@ -8,6 +8,7 @@ using SeeShellsV3.Data;
 using Microsoft.Win32;
 using System.Windows.Data;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace SeeShellsV3.Repositories
 {
@@ -16,6 +17,7 @@ namespace SeeShellsV3.Repositories
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Boolean regView { get; set; }
+
 
         public object CurrentInspector
         {

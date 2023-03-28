@@ -165,7 +165,9 @@ namespace SeeShellsV3.Services
                 }
             }
 
+
             RegistryImportEnd?.Invoke(this, EventArgs.Empty);
+            System.Diagnostics.Debug.WriteLine("Getting here?");
             return (hive, parsedItems);
         }
 

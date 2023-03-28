@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 using SeeShellsV3.Data;
@@ -16,5 +17,6 @@ namespace SeeShellsV3.Repositories
         object CurrentData { get; set; }
 
         Boolean regView { get; set; }
+
     }
 }

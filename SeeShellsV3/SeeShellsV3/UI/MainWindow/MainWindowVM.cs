@@ -82,6 +82,8 @@ namespace SeeShellsV3.UI
                 await Task.Run(() => RegImporter.ImportRegistry(true)) :
                 await Task.Run(() => RegImporter.ImportRegistry(false, true, hiveLocation));
 
+            System.Diagnostics.Debug.WriteLine("What about here?");
+
             if (root == null || parsedItems == null)
             {
                 Status = "No New Shellbags Found.";
@@ -94,6 +96,7 @@ namespace SeeShellsV3.UI
                 await Task.Run(() => ShellEventManager.GenerateEvents(parsedItems));
                 Status = "Done.";
             }
+
 
             await Task.Run(() => Thread.Sleep(3000));
             Status = string.Empty;

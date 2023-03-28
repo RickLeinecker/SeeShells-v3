@@ -33,14 +33,15 @@ namespace SeeShellsV3.Services
 
         public IEnumerable<IShellEvent> GenerateEvents(IEnumerable<IShellItem> shellItems)
         {
-            if (ShellEvents.Count != 0)
-            {
-                ShellEvents.updating = true;
-                foreach (ShellEvent e in ShellEvents.ToList())
-                {
-                    ShellEvents.Remove(e);
-                }
-            }
+            //if (ShellEvents.Count != 0)
+            //{
+            //    ShellEvents.updating = true;
+            //    foreach (ShellEvent e in ShellEvents.ToList())
+            //    {
+            //        ShellEvents.Remove(e);
+            //    }
+            //}
+
             ShellEventGenerateBegin?.Invoke(this, EventArgs.Empty);
             IList<IIntermediateShellEvent> intermediateShellEvents = new List<IIntermediateShellEvent>();
             IList<IShellEvent> generatedEvents = new List<IShellEvent>();
