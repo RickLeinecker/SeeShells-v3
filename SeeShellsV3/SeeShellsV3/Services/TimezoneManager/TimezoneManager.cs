@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text.Json;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
+using CsvHelper;
 using SeeShellsV3.Data;
 using SeeShellsV3.Events;
 using SeeShellsV3.Repositories;
@@ -39,11 +47,7 @@ namespace SeeShellsV3.Services
 
 
             // Populates SupportedTimezones with all the timezones currently available in SeeShells
-            SupportedTimezones.Add(new Timezone("UTC", displayName:"Coordinated Universal Time"));
-            SupportedTimezones.Add(new Timezone("Eastern Standard Time"));
-            SupportedTimezones.Add(new Timezone("Central Standard Time"));
-            SupportedTimezones.Add(new Timezone("Mountain Standard Time"));
-            SupportedTimezones.Add(new Timezone("Pacific Standard Time"));
+            SupportedTimezones = LoadSupportedTimezones();
         }
 
 
@@ -167,6 +171,31 @@ namespace SeeShellsV3.Services
             }
 
             throw new TimezoneNotSupportedException();
+        }
+
+        public Collection<Timezone> LoadSupportedTimezones()
+        {
+            Collection<Timezone> supportedTimezones = new Collection<Timezone>();
+
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string internalResourcePath = assembly.GetManifestResourceNames().Single(str => str.EndsWith("Timezones.csv"));
+            StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(internalResourcePath));
+            CsvReader csv = new CsvReader(reader, CultureInfo.CurrentCulture);
+
+            csv.Read();
+            csv.ReadHeader();
+            csv.Context.TypeConverterOptionsCache.GetOptions<string>().NullValues.Add("null");
+
+            while (csv.Read())
+            {
+                string registry = csv.GetField<string>("RegistryName");
+                string display = csv.GetField<string>("DisplayName");
+
+                Timezone current = display != null ? new Timezone(registry, displayName: display) : new Timezone(registry);
+                supportedTimezones.Add(current);
+            }
+
+            return supportedTimezones;
         }
     }
 
