@@ -15,7 +15,7 @@ namespace SeeShellsV3.Services
 {
     public class TimezoneManager: ITimezoneManager
     {
-        public Timezone CurrentTimezone { get; set; } = new Timezone("Coordinated Universal Time", "UTC");
+        public Timezone CurrentTimezone { get; set; } = new Timezone("UTC", displayName: "Coordinated Universal Time");
 
         public Collection<Timezone> SupportedTimezones { get; init; } = new Collection<Timezone>();
 
@@ -39,11 +39,11 @@ namespace SeeShellsV3.Services
 
 
             // Populates SupportedTimezones with all the timezones currently available in SeeShells
-            SupportedTimezones.Add(new Timezone("Coordinated Universal Time", "UTC"));
-            SupportedTimezones.Add(new Timezone("Eastern Standard Time", "EST"));
-            SupportedTimezones.Add(new Timezone("Central Standard Time", "CST"));
-            SupportedTimezones.Add(new Timezone("Mountain Standard Time", "MST"));
-            SupportedTimezones.Add(new Timezone("Pacific Standard Time", "PST"));
+            SupportedTimezones.Add(new Timezone("UTC", displayName:"Coordinated Universal Time"));
+            SupportedTimezones.Add(new Timezone("Eastern Standard Time"));
+            SupportedTimezones.Add(new Timezone("Central Standard Time"));
+            SupportedTimezones.Add(new Timezone("Mountain Standard Time"));
+            SupportedTimezones.Add(new Timezone("Pacific Standard Time"));
         }
 
 
@@ -126,7 +126,7 @@ namespace SeeShellsV3.Services
         /// <returns>A DateTime object representing the same time <see cref="input"/> does, in the timezone of <see cref="CurrentTimezone"/></returns>
         private DateTime ConvertTimezone(DateTime dateTime, Timezone oldTimezone)
         {
-            if (CurrentTimezone.Identifier == "UTC")
+            if (CurrentTimezone.Registry == "UTC")
             {
                 return TimeZoneInfo.ConvertTimeToUtc(dateTime, oldTimezone.Information);
             }
@@ -155,24 +155,7 @@ namespace SeeShellsV3.Services
 
             DateTime dateTime = Convert.ToDateTime(input);
 
-            if (CurrentTimezone.Identifier == "UTC")
-            {
-                return TimeZoneInfo.ConvertTimeToUtc(dateTime, oldTimezone.Information);
-            }
-            if (dateTime.Kind == DateTimeKind.Utc)
-            {
-                return TimeZoneInfo.ConvertTimeFromUtc(dateTime, CurrentTimezone.Information);
-            }
-            if (dateTime.Kind == DateTimeKind.Unspecified)
-            {
-                return TimeZoneInfo.ConvertTime(dateTime, oldTimezone.Information, CurrentTimezone.Information);
-            }
-            if (dateTime.Kind == DateTimeKind.Local)
-            {
-                return TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo.Local, CurrentTimezone.Information);
-            }
-
-            throw new TimezoneNotSupportedException();
+            return ConvertTimezone(dateTime, oldTimezone);
         }
 
         public Timezone GetTimezone(string input)

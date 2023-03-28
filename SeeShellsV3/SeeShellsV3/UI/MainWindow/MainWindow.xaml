@@ -58,7 +58,7 @@
                               Margin="5 0"/>
             
             <Menu Background="Transparent">
-                <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Identifier}" Background="Transparent" ItemsSource="{Binding TimezoneManager.SupportedTimezones}" Width="39">
+                <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Name}" Background="Transparent" ItemsSource="{Binding TimezoneManager.SupportedTimezones}">
                     <MenuItem.ItemTemplate>
                         <DataTemplate>
                             <MenuItem Header="{Binding Name}" Background="Transparent" Click="ChangeTimezone_Click"/>
