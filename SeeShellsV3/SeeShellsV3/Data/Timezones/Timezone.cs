@@ -4,23 +4,44 @@ namespace SeeShellsV3.Data
 {
     public class Timezone : ITimezone
     {
-        public string Name { get; init; }
+        public string Name
+        {
+            get
+            {
+                bool isInDaylight = Information.SupportsDaylightSavingTime && Information.IsDaylightSavingTime(DateTime.Now);
+                return isInDaylight ? DaylightName : DisplayName;
+            }
+        }
+        /// <summary>
+        /// The timezone name in daylight savings.
+        /// </summary>
+        private string DaylightName { get; init; }
 
-        public string Identifier { get; init; }
+        /// <summary>
+        /// The display name of the timezone if not in daylight savings.
+        /// </summary>
+        private string DisplayName { get; init; }
 
+        public string Registry { get; init; }
         public TimeZoneInfo Information { get; init; }
 
-        public Timezone(string name, string identifier)
+        /// <summary>
+        /// Constructs a timezone object
+        /// </summary>
+        /// <param name="registryName">The name of the timezone as it appears in the registry.</param>
+        /// <param name="displayName">Optional parameter to display the name differently than the registry name.</param>
+        public Timezone(string registryName, string displayName = null)
         {
-            Name = name;
-            Identifier = identifier;
+            Registry = registryName;
+            Information = TimeZoneInfo.FindSystemTimeZoneById(registryName);
 
-            Information = TimeZoneInfo.FindSystemTimeZoneById(name == "Coordinated Universal Time" ? "UTC" : name);
+            DisplayName = displayName ?? registryName;
+            DaylightName = Information.SupportsDaylightSavingTime ? Information.DaylightName : null;
         }
 
         public bool Identify(string input)
         {
-            return input == Name || input == Identifier;
+            return input == Registry || input == Name;
         }
 
         public bool Identify(TimeZoneInfo input)
