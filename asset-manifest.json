@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/SeeShells-v3/static/css/main.6f6dd5f5.css",
+    "main.js": "/SeeShells-v3/static/js/main.cfe75255.js",
+    "static/js/787.cda612ba.chunk.js": "/SeeShells-v3/static/js/787.cda612ba.chunk.js",
+    "static/media/seeshellsLogo-flipped.png": "/SeeShells-v3/static/media/seeshellsLogo-flipped.5912a69642572a25f90c.png",
+    "index.html": "/SeeShells-v3/index.html",
+    "main.6f6dd5f5.css.map": "/SeeShells-v3/static/css/main.6f6dd5f5.css.map",
+    "main.cfe75255.js.map": "/SeeShells-v3/static/js/main.cfe75255.js.map",
+    "787.cda612ba.chunk.js.map": "/SeeShells-v3/static/js/787.cda612ba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6f6dd5f5.css",
+    "static/js/main.cfe75255.js"
+  ]
+}
