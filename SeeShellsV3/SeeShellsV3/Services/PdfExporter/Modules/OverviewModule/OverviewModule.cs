@@ -44,11 +44,11 @@ namespace SeeShellsV3.Services
 				
 			ShellEvents = shellEvents;
 
-			PieModel = new PlotModel {Title = "ShellEvents"};
+			PieModel = new PlotModel { Title = "ShellEvents", IsLegendVisible = true };
 
-			PieLegend = new Legend();
+			PieLegend = new Legend { LegendPlacement = LegendPlacement.Outside, LegendOrientation = LegendOrientation.Horizontal, LegendPosition = LegendPosition.TopCenter, LegendPadding = 0, ShowInvisibleSeries = false };
 
-			OxyPlot.Series.PieSeries seriesP1 = new OxyPlot.Series.PieSeries {Title = "PieLegend", LegendFormat = "", InsideLabelFormat = "", FontSize=12, StrokeThickness = 2.0, InsideLabelPosition = 0.6, AngleSpan = 360, StartAngle = 0};
+			OxyPlot.Series.PieSeries seriesP1 = new OxyPlot.Series.PieSeries { LegendFormat = "{0}", InsideLabelFormat = "", OutsideLabelFormat = "{2:0}%", FontSize=12, StrokeThickness = 2.0, InsideLabelPosition = 0.6, AngleSpan = 360, StartAngle = 0};
 
 			int OtherCount = 0;
 
@@ -58,13 +58,11 @@ namespace SeeShellsV3.Services
 				{
 					PieSlice slice = new PieSlice(type.Replace("Event", ""), shellEvents.FilteredView.OfType<IShellEvent>().Where(e => (e.GetType().Name == type) == true).Count());
                     seriesP1.Slices.Add(slice);
-					//PieModel.Series.Add(new OxyPlot.Series.PieSeries {Title = type.Replace("Event", ""), FontSize = 12, StrokeThickness = 2.0, InsideLabelPosition = 0.6, AngleSpan = 360, StartAngle = 0});
 				}
 				else
 					OtherCount += shellEvents.FilteredView.OfType<IShellEvent>().Where(e => (e.GetType().Name == type) == true).Count();
 			}
             seriesP1.Slices.Add(new PieSlice("Other", OtherCount));
-            //PieModel.Series.Add(new OxyPlot.Series.PieSeries { Title = "Other", FontSize = 12, StrokeThickness = 2.0, InsideLabelPosition = 0.6, AngleSpan = 360, StartAngle = 0 });
 
             if (shellEvents.FilteredView.OfType<IShellEvent>().Any())
 			{
@@ -75,7 +73,7 @@ namespace SeeShellsV3.Services
             ShellbagsCount = shellItems.Count;
 			EventsCount = shellEvents.FilteredView.OfType<IShellEvent>().Count();
 
-			PieModel.Series.Add(seriesP1);
+			LegendPieSeries.SetSeries(seriesP1, PieModel);
 			PieModel.Legends.Add(PieLegend);
 		}
 
@@ -150,23 +148,21 @@ namespace SeeShellsV3.Services
 			string view = @"
 				<Grid Background=""White"">
 					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="" 50 ""/>
-						<ColumnDefinition Width="" 375 ""/>
+						<ColumnDefinition Width="" 400 ""/>
 						<ColumnDefinition Width="" 250 ""/>
-						<ColumnDefinition Width="" * ""/>
 					</Grid.ColumnDefinitions >
 					<Grid.RowDefinitions >
 						<RowDefinition Height = ""300""/>
 					</Grid.RowDefinitions >
-						<oxy:PlotView Grid.Column=""1"" Name=""PieSeries"" Height=""300"" Width=""335"" Model=""{Binding PieModel}""/>
-						<StackPanel Name=""ShellbagCount"" Grid.Column=""2""  HorizontalAlignment=""Center"" VerticalAlignment=""Top"">
+						<oxy:PlotView Grid.Column=""0"" Name=""PieSeries"" Height=""300"" Width=""400"" Model=""{Binding PieModel}""/>
+						<StackPanel Name=""ShellbagCount"" Grid.Column=""1""  HorizontalAlignment=""Center"" VerticalAlignment=""Top"">
 							<TextBlock HorizontalAlignment=""Center"" VerticalAlignment=""Center"" FontSize=""36""/>
 							<TextBlock Text=""Number of ShellBags"" HorizontalAlignment=""Center"" VerticalAlignment=""Center""
 											FontSize=""18"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
 							<TextBlock Text=""{Binding ShellbagsCount}"" HorizontalAlignment=""Center"" VerticalAlignment=""Center""
 											FontSize=""16"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
 						</StackPanel>
-						<StackPanel Name=""ShellEventCount"" Grid.Column=""2""  HorizontalAlignment=""Center"" VerticalAlignment=""Top"">
+						<StackPanel Name=""ShellEventCount"" Grid.Column=""1""  HorizontalAlignment=""Center"" VerticalAlignment=""Top"">
 							<TextBlock HorizontalAlignment=""Center"" VerticalAlignment=""Center"" FontSize=""65""/>
 							<TextBlock HorizontalAlignment=""Center"" VerticalAlignment=""Center""/>
 							<TextBlock Text=""Number of ShellEvents"" HorizontalAlignment=""Center"" VerticalAlignment=""Center""
@@ -174,7 +170,7 @@ namespace SeeShellsV3.Services
 							<TextBlock Text=""{Binding EventsCount}"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"" 
 											FontSize=""16"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
 						</StackPanel>
-						<StackPanel Name=""EventSpan"" Grid.Column=""2""  HorizontalAlignment=""Center"" VerticalAlignment=""Center"">
+						<StackPanel Name=""EventSpan"" Grid.Column=""1""  HorizontalAlignment=""Center"" VerticalAlignment=""Center"">
 							<TextBlock HorizontalAlignment=""Center"" VerticalAlignment=""Center"" FontSize=""75""/>
 							<TextBlock Text=""Event Span"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"" 
 											FontSize=""18"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
