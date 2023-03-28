@@ -26,7 +26,8 @@ namespace SeeShellsV3.Data
                 uint signature = BlockHelper.UnpackDWord(value, 0x06);
                 return KnownSignatures.Contains(signature);
             }
-            catch { return false; }
+            catch {
+                return false; }
         }
 
         public IShellItem Parse(RegistryHive hive, RegistryKeyWrapper keyWrapper, byte[] value, IShellItem parent = null)

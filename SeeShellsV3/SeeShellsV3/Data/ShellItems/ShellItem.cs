@@ -2,6 +2,10 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using NLog.LayoutRenderers;
+using System.Windows.Navigation;
 
 namespace SeeShellsV3.Data
 {
@@ -15,7 +19,7 @@ namespace SeeShellsV3.Data
 
         public Place Place
         {
-            init { fields[nameof(Place)] = value; value.Items.Add(this); }
+            init { fields[nameof(Place)] = value; value.Items.Add(this);}
             get => fields.GetClassOrDefault<Place>(nameof(Place), null);
         }
 
@@ -28,25 +32,25 @@ namespace SeeShellsV3.Data
         public byte[] Value
         {
             init => fields[nameof(Value)] = value;
-            get => fields.GetClassOrDefault<byte[]>(nameof(Value), null);
+                get => fields.GetClassOrDefault<byte[]>(nameof(Value), null);
         }
 
         public int? NodeSlot
         {
-            init => fields[nameof(NodeSlot)] = value;
+            init => fields[nameof(NodeSlot)] = value; 
             get => fields.GetClassOrDefault<object>(nameof(NodeSlot), null) as int?;
         }
 
         public DateTime? SlotModifiedDate
         {
-            init => fields[nameof(SlotModifiedDate)] = value;
+            set => fields[nameof(SlotModifiedDate)] = value; 
             get => fields.GetClassOrDefault<object>(nameof(SlotModifiedDate), null) as DateTime?;
         }
 
         public DateTime LastRegistryWriteDate
         {
-            init => fields[nameof(LastRegistryWriteDate)] = value;
-            get => fields.GetStructOrDefault(nameof(LastRegistryWriteDate), DateTime.MinValue);
+            set => fields[nameof(LastRegistryWriteDate)] = value;
+                get => fields.GetStructOrDefault(nameof(LastRegistryWriteDate), DateTime.MinValue);
         }
 
         public IShellItem Parent
@@ -94,6 +98,8 @@ namespace SeeShellsV3.Data
             get => fields;
         }
 
+        public ObservableCollection<Fields> ActualFields { get => ReturnFields(); }
+
         public IReadOnlyCollection<IExtensionBlock> ExtensionBlocks
         {
             init => extensionBlocks = value;
@@ -103,6 +109,33 @@ namespace SeeShellsV3.Data
         protected IList<IShellItem> children = new List<IShellItem>();
         protected Dictionary<string, object> fields = new Dictionary<string, object>();
         protected IReadOnlyCollection<IExtensionBlock> extensionBlocks = new List<IExtensionBlock>();
+        protected ObservableCollection<Fields> actualFields = new ObservableCollection<Fields>();
+
+        public ObservableCollection<Fields> ReturnFields()
+        {
+            ICollection<string> keys = fields.Keys;
+
+            if (actualFields.Count > 0)
+            { 
+                for (int i = 0; i < actualFields.Count; i++) 
+                {
+                    Fields temp = actualFields[i];
+
+                    temp.Value = fields[temp.Name];
+
+                    actualFields[i] = temp;
+                }
+
+                return actualFields;
+            }
+
+            foreach (string key in keys) 
+            {
+                Fields field = new Fields(key, fields[key]);
+                actualFields.Add(field);
+            }
+            return actualFields;
+        }
 
         public int CompareTo(IShellItem other)
         {

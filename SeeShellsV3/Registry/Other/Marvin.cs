@@ -85,7 +85,6 @@ namespace Registry.Other
                     break;
 
                 default:
-                    Debug.Fail("Should not get here.");
                     break;
             }
 

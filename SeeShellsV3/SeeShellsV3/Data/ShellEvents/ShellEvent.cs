@@ -11,7 +11,7 @@ namespace SeeShellsV3.Data
     {
         public string TypeName { get; init; }
         public string Description { get; init; }
-        public DateTime TimeStamp { get; init; }
+        public DateTime TimeStamp { get; set; }
         public User User { get; init; }
         public Place Place { get; init; }
         public IEnumerable<IShellItem> Evidence { get; init; }

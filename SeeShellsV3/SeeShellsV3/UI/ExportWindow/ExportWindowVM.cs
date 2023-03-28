@@ -21,6 +21,9 @@ namespace SeeShellsV3.UI
 		[Dependency]
 		public PdfExporter Exporter { get; set; }
 
+		[Dependency] 
+		public ISelected Selected { get; set; }
+
 		public ObservableCollection<IPdfModule> moduleList { get; set; }
 
 		public ObservableCollection<string> moduleSelector { get; set; }

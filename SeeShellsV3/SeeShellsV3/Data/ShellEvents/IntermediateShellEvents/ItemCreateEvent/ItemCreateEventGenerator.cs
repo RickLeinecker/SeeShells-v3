@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,7 @@ namespace SeeShellsV3.Data
                 TimeStamp = create.CreationDate,
                 User = create.RegistryHive.User,
                 Place = create.Place,
-                Evidence = new List<IShellItem>() { create }
+                Evidence = new ObservableCollection<IShellItem>() { create }
             };
         }
     }

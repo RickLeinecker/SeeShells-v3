@@ -75,6 +75,8 @@ namespace SeeShellsV3.UI
             if (e.NewValue == null)
                 return;
 
+            ViewModel.Selected.regView = true;
+
             ViewModel.Selected.CurrentInspector = e.NewValue;
 
             if (ViewModel.Selected.CurrentInspector is IShellItem)

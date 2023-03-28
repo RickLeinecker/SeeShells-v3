@@ -103,8 +103,13 @@
                       AutoGenerateColumns="False"
                       CanUserAddRows="False" IsReadOnly="True"
                       SelectionMode="Single">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{Binding ReportStatus}" Click="DataGrid_Report_Click"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.RowStyle>
-                    <Style TargetType="{x:Type DataGridRow}"  BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
+                    <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
                         <Setter Property="IsEnabled">
                             <Setter.Value>
                                 <MultiBinding Converter="{StaticResource EventSelector}">

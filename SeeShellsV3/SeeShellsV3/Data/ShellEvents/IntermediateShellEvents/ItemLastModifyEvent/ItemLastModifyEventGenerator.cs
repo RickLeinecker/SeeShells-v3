@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +20,7 @@ namespace SeeShellsV3.Data
             if (!CanGenerate(item))
                 yield break;
 
+
             IModifiedTimestamp modified = item as IModifiedTimestamp;
 
             yield return new ItemLastModifyEvent()
@@ -27,7 +30,7 @@ namespace SeeShellsV3.Data
                 TimeStamp = modified.ModifiedDate,
                 User = modified.RegistryHive.User,
                 Place = modified.Place,
-                Evidence = new List<IShellItem>() { modified }
+                Evidence = new ObservableCollection<IShellItem>() { modified }
             };
         }
     }

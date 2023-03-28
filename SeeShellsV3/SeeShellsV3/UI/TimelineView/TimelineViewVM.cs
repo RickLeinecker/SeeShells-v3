@@ -29,6 +29,8 @@ namespace SeeShellsV3.UI
         public ICollectionView ShellEvents => _shellEventsView.View;
         public ICollectionView FilteredShellEvents => _shellEvents.FilteredView;
 
+        public IShellEventCollection events => _shellEvents;
+
         public string ColorProperty { get => _colorProperty; set { _colorProperty = value; NotifyPropertyChanged(); } }
 
         public DateTime? DateSelectionBegin { get => _selectionBegin; set { _selectionBegin = value; UpdateSelection(); } }
@@ -43,6 +45,16 @@ namespace SeeShellsV3.UI
 
         private IShellEventCollection _shellEvents;
         private readonly CollectionViewSource _shellEventsView = new CollectionViewSource();
+
+        [Dependency] public IReportEventCollection ReportEvents { get; set; }
+
+        private static readonly Dictionary<string, string> _reportStatus = new()
+        {
+            {"add", "Add Selected to Report" },
+            {"remove", "Remove Selected from Report"}
+        };
+
+        public string ReportStatus { get; set; } = _reportStatus["add"];
 
         public TimelineViewVM([Dependency] ISelected selected, [Dependency] IShellEventCollection shellEvents)
         {
@@ -86,6 +98,23 @@ namespace SeeShellsV3.UI
             return DateSelectionBegin == null || DateSelectionEnd == null ||
             (o is IShellEvent se && se.TimeStamp >= DateSelectionBegin && se.TimeStamp <= DateSelectionEnd);
         }
+
+        public void UpdateReportStatus()
+        {
+            bool isInCollection = ReportEvents.Contains(Selected.CurrentInspector as IShellEvent);
+            ReportStatus = isInCollection ? _reportStatus["remove"] : _reportStatus["add"];
+
+            NotifyPropertyChanged(nameof(ReportStatus));
+        }
+
+        public void ManageCollection()
+        {
+            // If for whatever reason, the shell event can't be added nor removed from the report selection, then something is wrong.
+            if (!ReportEvents.Decide(Selected.CurrentInspector as IShellEvent))
+            {
+                throw new InvalidOperationException();
+            }
+        }
     }
 
     internal class RadioButtonSelector : IValueConverter
@@ -109,7 +138,9 @@ namespace SeeShellsV3.UI
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values.Length >= 3 && values[0] is object o && values[1] is string prop && values[2] is IEnumerable selected)
+            {
                 return !selected.OfType<object>().Any() || selected.OfType<object>().Contains(o.GetDeepPropertyValue(prop));
+            }
 
             return true;
         }

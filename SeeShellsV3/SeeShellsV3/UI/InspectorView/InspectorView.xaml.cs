@@ -17,6 +17,8 @@ using Unity;
 using SeeShellsV3.Data;
 using SeeShellsV3.Repositories;
 using System.Globalization;
+using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace SeeShellsV3.UI
 {
@@ -31,7 +33,13 @@ namespace SeeShellsV3.UI
     public partial class InspectorView : UserControl
     {
         [Dependency]
-        public IInspectorViewVM ViewModel { set => DataContext = value; get => DataContext as IInspectorViewVM; }
+        public IInspectorViewVM ViewModel
+        {
+            set => DataContext = value;
+            get => DataContext as IInspectorViewVM;
+        }
+
+ 
 
         public InspectorView()
         {
@@ -49,7 +57,14 @@ namespace SeeShellsV3.UI
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values.Length >= 2 && values[0] is object o && values[1] is Selected s)
-                return o == s.CurrentData;
+            {
+                //ShellEvent temp = (ShellEvent)s.CurrentInspector;
+                //foreach (ShellItem item in temp.Evidence)
+                //    System.Diagnostics.Debug.WriteLine("Fields " + item.Fields["ModifiedDate"]);
+
+                //Debug.WriteLine("Converter " + temp.Description);
+                return false;
+            }
 
             return false;
         }

@@ -26,7 +26,8 @@ namespace SeeShellsV3.Data
                 byte type = BlockHelper.UnpackByte(value, 0x02);
                 return (type & 0x70) == 0x40 && KnownTypes.Contains(type);
             }
-            catch { return false; }
+            catch {
+                return false; }
         }
 
         public IShellItem Parse(RegistryHive hive, RegistryKeyWrapper keyWrapper, byte[] value, IShellItem parent = null)

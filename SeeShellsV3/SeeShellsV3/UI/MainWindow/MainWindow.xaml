@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeeShellsV3.UI"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:xcad="https://github.com/Dirkster99/AvalonDock"
-        mc:Ignorable="d"
+        xmlns:xcad="https://github.com/Dirkster99/AvalonDock" d:DataContext="{d:DesignInstance Type=local:MainWindowVM}"
+                 mc:Ignorable="d"
         Title="SeeShells" Icon="../Images/SeeShells.png"
         Height="800" Width="1400">
     <mah:MetroWindow.LeftWindowCommands>
@@ -19,6 +20,10 @@
                 </MenuItem>
                 <MenuItem Header="Export" Background="Transparent">
                     <MenuItem Header="As Report" Click="Export_Window_Click"/>
+                    <MenuItem Header="As CSV">
+                        <MenuItem Header="Export Selected" Click="Export_CSV_Click"></MenuItem>
+                        <MenuItem Header="Export Filtered" Click="Export_CSV_Click"></MenuItem>
+                    </MenuItem>
                 </MenuItem>
                 <MenuItem Header="Reset" Background="Transparent" Click="ResetMenuItem_Click"/>
             </Menu>
@@ -32,6 +37,20 @@
                 <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="{DynamicResource MahApps.Colors.ThemeBackground}" />
                 <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOnPointerOver" Color="{DynamicResource MahApps.Colors.Gray7}" />
             </mah:WindowCommands.Resources>
+            
+            <mah:SplitButton SelectedIndex="0"
+                             HorizontalAlignment="Right"
+                             SelectionChanged="SplitButton_OnSelectionChanged"
+                             >
+                <mah:SplitButton.ItemsSource>
+                    <x:Array Type="system:String">
+                        <system:String>Tol1</system:String>
+                        <system:String>Tol2</system:String>
+                        <system:String>Pastel</system:String>
+                    </x:Array>
+                </mah:SplitButton.ItemsSource>
+            </mah:SplitButton>
+                             
             <mah:ToggleSwitch OffContent="Light"
                               OnContent="Dark"
                               Toggled="ToggleSwitch_Toggled"
@@ -40,6 +59,15 @@
                               HorizontalContentAlignment="Right"
                               ContentDirection="LeftToRight"
                               Margin="5 0"/>
+            <Menu Background="Transparent">
+                <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Identifier}" Background="Transparent" ItemsSource="{Binding TimezoneManager.SupportedTimezones}" Width="39">
+                    <MenuItem.ItemTemplate>
+                        <DataTemplate>
+                            <MenuItem Header="{Binding Name}" Background="Transparent" Click="ChangeTimezone_Click"/>
+                        </DataTemplate>
+                    </MenuItem.ItemTemplate>
+                </MenuItem>
+            </Menu>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
     <Grid>
@@ -76,7 +104,7 @@
                     <xcad:LayoutDocumentPaneGroup >
                         <xcad:LayoutDocumentPane>
                             <xcad:LayoutDocument ContentId="timelineview" Title="Events" CanClose="False" ToolTip="A timeline of user activity">
-                                <local:TimelineView />
+                                <local:TimelineView x:Name="Timeline"/>
                             </xcad:LayoutDocument>
                             <xcad:LayoutDocument ContentId="tableview" Title="Shellbags" CanClose="False" ToolTip="A list of shellbags found in the loaded registry hives">
                                 <local:ShellItemTableView />

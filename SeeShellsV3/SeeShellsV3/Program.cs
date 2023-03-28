@@ -46,11 +46,13 @@ namespace SeeShellsV3
             container.RegisterSingleton<IShellItemCollection, ShellItemCollection>();
             container.RegisterSingleton<IShellEventCollection, ShellEventCollection>();
             container.RegisterSingleton<ISelected, Selected>();
+            container.RegisterSingleton<IReportEventCollection, ReportEventCollection>();
 
             // Register Service Types
             container.RegisterType<IPdfExporter, PdfExporter>();
             container.RegisterType<IRegistryImporter, RegistryImporter>();
             container.RegisterType<IShellEventManager, ShellEventManager>();
+            container.RegisterType<ITimezoneManager, TimezoneManager>();
 
             // Register Window Types
             container.RegisterType<IWindow, MainWindow>("main");

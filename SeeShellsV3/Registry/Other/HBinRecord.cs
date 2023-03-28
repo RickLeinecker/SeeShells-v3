@@ -318,17 +318,11 @@ namespace Registry.Other
         {
             var records = new List<IRecordBase>();
 
-//            if (remainingData.Length == 4064 && _registryHive.HivePath.Contains("DeletedBags"))
-//            {
-//                Debug.WriteLine(1);
-//            }
 
             var offsetList2 = new List<int>();
 
             byte[] raw = null;
 
-         //   _registryHive.Logger.Trace("Looking for cell signatures at absolute offset 0x{0:X}",
-      //          relativeoffset + 0x1000);
 
             for (var i = 0; i < remainingData.Length; i++)
             {

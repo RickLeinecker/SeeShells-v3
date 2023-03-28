@@ -31,12 +31,15 @@ namespace SeeShellsV3.Factories
         /// <returns>a new Window</returns>
         public IWindow Create(string name)
         {
+           
             IWindow window = container.Resolve<IWindow>(name);
 
             // iterate over the window's logical tree and resolve the dependencies of the UI views.
             // services, repositories, and viewmodels are constructed here.
             foreach (var child in (window.Content as DependencyObject).GetChildren())
+            {
                 container.BuildUp(child.GetType(), child);
+            }
 
             return window;
         }

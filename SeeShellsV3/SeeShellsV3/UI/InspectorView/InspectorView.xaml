@@ -226,12 +226,12 @@
 
         <!-- ShellItem -->
         <DataTemplate DataType="{x:Type data:ShellItem}">
-            <StackPanel Margin="10" Grid.IsSharedSizeScope="True">
-                <StackPanel.Resources>
+            <VirtualizingStackPanel Margin="10" Grid.IsSharedSizeScope="True">
+                <VirtualizingStackPanel.Resources>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="TextWrapping" Value="Wrap"/>
                     </Style>
-                </StackPanel.Resources>
+                </VirtualizingStackPanel.Resources>
                 <TextBlock FontWeight="Black" FontSize="14">
                     SHELLBAG INFORMATION
                 </TextBlock>
@@ -314,7 +314,7 @@
                 <TextBlock FontWeight="Bold">
                     SHELLBAG FIELDS
                 </TextBlock>
-                <ItemsControl ItemsSource="{Binding Fields}">
+                <ItemsControl x:Name="Fields" ItemsSource="{Binding ActualFields}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="4">
@@ -323,13 +323,13 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock TextWrapping="Wrap" FontWeight="Bold" Text="{Binding Key, Converter={StaticResource CamelCaseConverter}}" Grid.Column="0" HorizontalAlignment="Right"/>
-                                <TextBlock TextWrapping="Wrap" Text="{Binding Value}" Grid.Column="1" Margin="6 0 0 0"/>
+                                <TextBlock TextWrapping="Wrap" FontWeight="Bold" Text="{Binding Name, Converter={StaticResource CamelCaseConverter}}" Grid.Column="0" HorizontalAlignment="Right"/>
+                                <TextBlock TextWrapping="Wrap"  Text="{Binding Value}" Grid.Column="1" Margin="6 0 0 0"/>
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-            </StackPanel>
+            </VirtualizingStackPanel>
         </DataTemplate>
 
         <!-- ShellEvent -->
@@ -430,7 +430,7 @@
                         <ItemsPanelTemplate>
                             <VirtualizingStackPanel
                                 VirtualizingPanel.IsVirtualizing="True"
-                                VirtualizingPanel.VirtualizationMode="Recycling"/>
+                                VirtualizingPanel.VirtualizationMode="Standard"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>

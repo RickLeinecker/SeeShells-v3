@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-
+using CsvHelper;
 using Unity;
 
 using SeeShellsV3.Data;
+using SeeShellsV3.Events;
 using SeeShellsV3.Repositories;
 using SeeShellsV3.Services;
 
@@ -18,7 +23,10 @@ namespace SeeShellsV3.UI
     {
         [Dependency] public IRegistryImporter RegImporter { get; set; }
         [Dependency] public IShellEventManager ShellEventManager { get; set; }
+        [Dependency] public IShellEventCollection ShellEvents { get; set; }
+        [Dependency] public ITimezoneManager TimezoneManager { get; set; }
         [Dependency] public ISelected Selected { get; set; }
+        [Dependency] public IReportEventCollection ReportEvents { get; set; }
 
         public string WebsiteUrl => @"https://rickleinecker.github.io/SeeShells-V3";
         public string GithubUrl => @"https://github.com/RickLeinecker/SeeShells-V3";
@@ -89,6 +97,48 @@ namespace SeeShellsV3.UI
 
             await Task.Run(() => Thread.Sleep(3000));
             Status = string.Empty;
+        }
+
+        public void ExportToCSV(string filePath, string source)
+        {
+            StreamWriter writer = new StreamWriter(filePath);
+            CsvWriter csv = new CsvWriter(writer, CultureInfo.CurrentCulture);
+
+            // Determine whether the events added to the report should be exported or the filtered view
+            // should be exported based on user input
+            ICollectionView eventSource = ShellEvents.FilteredView;
+            if (source == "Export Selected")
+            {
+                eventSource = ReportEvents.SelectedEvents.FilteredView;
+            }
+
+            foreach (ShellEvent shellEvent in eventSource)
+            {
+                csv.WriteField(shellEvent.TimeStamp);
+                csv.WriteField(shellEvent.Description);
+                csv.WriteField(shellEvent.TypeName);
+                csv.WriteField(shellEvent.User.Name);
+                csv.WriteField(shellEvent.Place.Name);
+                csv.WriteField(shellEvent.Place.PathName);
+
+                csv.NextRecord();
+            }
+
+            csv.Flush();
+            writer.Close();
+        }
+
+        // TODO: Handle errors
+        public void AddToReportCollection()
+        {
+            IShellEvent shell = Selected.CurrentInspector as IShellEvent;
+            ReportEvents.Add(shell);
+        }
+        public void ChangeTimezone(string timezone)
+        {
+            Debug.WriteLine("ChangeTime");
+            TimezoneManager.TimezoneChangeHandler(timezone);
+            NotifyPropertyChanged(nameof(TimezoneManager));
         }
     }
 }

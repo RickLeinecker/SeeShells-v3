@@ -29,6 +29,9 @@ namespace SeeShellsV3.UI
     {
         ICollectionView ShellEvents { get; }
         ISelected Selected { get; }
+        void UpdateReportStatus();
+        void ManageCollection();
+        IShellEventCollection events { get; }
     }
 
     /// <summary>
@@ -61,13 +64,25 @@ namespace SeeShellsV3.UI
 
         private void DataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-            if (e.AddedCells.Count == 0)
+            if (e.AddedCells.Count == 0 || ViewModel.events.updating)
                 return;
 
+            ViewModel.Selected.regView = false;
             ViewModel.Selected.CurrentInspector = e.AddedCells[0].Item;
+    
 
             if (ViewModel.Selected.CurrentInspector is IShellEvent shellEvent && shellEvent.Evidence.Any())
+            {
+                
                 ViewModel.Selected.CurrentData = shellEvent.Evidence.First();
+
+                ViewModel.UpdateReportStatus();
+            }
+        }
+        private void DataGrid_Report_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ManageCollection();
+            
         }
     }
 }
