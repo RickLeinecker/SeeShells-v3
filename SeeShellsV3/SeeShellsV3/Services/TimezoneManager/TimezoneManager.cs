@@ -173,19 +173,27 @@ namespace SeeShellsV3.Services
             throw new TimezoneNotSupportedException();
         }
 
+        /// <summary>
+        /// Populates a collection of supported timezones which are loaded from Timezones.csv
+        /// </summary>
+        /// <returns>A collection of timezone objects.</returns>
         public Collection<Timezone> LoadSupportedTimezones()
         {
+            // Create a new collection to return
             Collection<Timezone> supportedTimezones = new Collection<Timezone>();
 
+            // Load the CSV file
             Assembly assembly = Assembly.GetExecutingAssembly();
             string internalResourcePath = assembly.GetManifestResourceNames().Single(str => str.EndsWith("Timezones.csv"));
             StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(internalResourcePath));
-            CsvReader csv = new CsvReader(reader, CultureInfo.CurrentCulture);
 
+            // Create and setup a CSV Reader
+            CsvReader csv = new CsvReader(reader, CultureInfo.CurrentCulture);
             csv.Read();
             csv.ReadHeader();
             csv.Context.TypeConverterOptionsCache.GetOptions<string>().NullValues.Add("null");
 
+            // Loop through the CSV file, reading each entry and creating a timezone object from the information
             while (csv.Read())
             {
                 string registry = csv.GetField<string>("RegistryName");
