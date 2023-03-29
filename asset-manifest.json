@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/SeeShells-v3/static/css/main.610cfc1c.css",
-    "main.js": "/SeeShells-v3/static/js/main.89ebd308.js",
+    "main.js": "/SeeShells-v3/static/js/main.2fae6e71.js",
     "static/js/787.cda612ba.chunk.js": "/SeeShells-v3/static/js/787.cda612ba.chunk.js",
     "static/media/seeshellsLogo-flipped.png": "/SeeShells-v3/static/media/seeshellsLogo-flipped.5912a69642572a25f90c.png",
     "index.html": "/SeeShells-v3/index.html",
     "main.610cfc1c.css.map": "/SeeShells-v3/static/css/main.610cfc1c.css.map",
-    "main.89ebd308.js.map": "/SeeShells-v3/static/js/main.89ebd308.js.map",
+    "main.2fae6e71.js.map": "/SeeShells-v3/static/js/main.2fae6e71.js.map",
     "787.cda612ba.chunk.js.map": "/SeeShells-v3/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.610cfc1c.css",
-    "static/js/main.89ebd308.js"
+    "static/js/main.2fae6e71.js"
   ]
 }
