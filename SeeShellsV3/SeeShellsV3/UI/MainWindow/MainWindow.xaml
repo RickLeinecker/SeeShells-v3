@@ -38,6 +38,15 @@
                 <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOnPointerOver" Color="{DynamicResource MahApps.Colors.Gray7}" />
             </mah:WindowCommands.Resources>
 
+          <mah:ToggleSwitch OffContent="Light"
+                            OnContent="Dark"
+                            Toggled="ToggleSwitch_Toggled"
+                            IsOn="True"
+                            HorizontalAlignment="Right"
+                            HorizontalContentAlignment="Right"
+                            ContentDirection="LeftToRight"
+                            Margin="5 0"/>
+
             <Menu Background="Transparent">
                 <MenuItem  Header="{Binding PaletteManager.CurrentPalette.Name}" Background="Transparent" ItemsSource="{Binding PaletteManager.PaletteNames}">
                     <MenuItem.ItemTemplate>
@@ -47,15 +56,6 @@
                     </MenuItem.ItemTemplate>
                 </MenuItem>
             </Menu>
-
-            <mah:ToggleSwitch OffContent="Light"
-                              OnContent="Dark"
-                              Toggled="ToggleSwitch_Toggled"
-                              IsOn="True"
-                              HorizontalAlignment="Right"
-                              HorizontalContentAlignment="Right"
-                              ContentDirection="LeftToRight"
-                              Margin="5 0"/>
             
             <Menu Background="Transparent">
                 <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Identifier}" Background="Transparent" ItemsSource="{Binding TimezoneManager.SupportedTimezones}" Width="39">
