@@ -1,5 +1,5 @@
 import React from "react";
-import {Routes, Route, BrowserRouter} from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 import {useState, useEffect} from 'react';
 import About from "./About";
 import Devs from "./Devs";
@@ -27,14 +27,12 @@ export default function Nav()
 
     return(
       <StyledEngineProvider injectFirst>
-        <BrowserRouter>
             <Routes>
                 <Route path="/" element={<About size ={windowSize}/>} />
                 <Route path="/Developers" element={<Devs size ={windowSize}/>} />
                 <Route path="/HowToUse" element={<HowToUse size={windowSize} />} />
                 <Route path="/CaseStudies" element={<CaseStudies size={windowSize} />} />
            </Routes>
-        </BrowserRouter>
       </StyledEngineProvider>
     )
 }

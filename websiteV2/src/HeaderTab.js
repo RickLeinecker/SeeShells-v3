@@ -16,7 +16,7 @@ export default function Header(props)
     &:hover {cursor: pointer}
   `
   return (
-    <HeaderTab onClick={() => {navigation(`/${(props.tab == "About") ? "" : props.tab.replaceAll(" ", "")}`)}}>
+    <HeaderTab onClick={() => {navigation(`/${(props.tab === "About") ? "" : props.tab.replaceAll(" ", "")}`)}}>
         {props.tab}
     </HeaderTab>
   );
