@@ -58,12 +58,10 @@
                               Margin="5 0"/>
             
             <Menu Background="Transparent">
-                <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Name}" Background="Transparent" ItemsSource="{Binding TimezoneManager.SupportedTimezones}">
-                    <MenuItem.ItemTemplate>
-                        <DataTemplate>
-                            <MenuItem Header="{Binding Name}" Background="Transparent" Click="ChangeTimezone_Click"/>
-                        </DataTemplate>
-                    </MenuItem.ItemTemplate>
+                <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Name}" Background="Transparent">
+                    <MenuItem Header="Change Timezone" Click="TimezoneWindow_Click"/>
+                    <MenuItem Header="Reset to UTC"/>
+                    <MenuItem Header="Reset to Local Time"/>
                 </MenuItem>
             </Menu>
         </mah:WindowCommands>

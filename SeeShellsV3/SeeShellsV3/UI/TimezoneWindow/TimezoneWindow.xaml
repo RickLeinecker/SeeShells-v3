@@ -1,0 +1,56 @@
+﻿<Window x:Class="SeeShellsV3.UI.TimezoneWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SeeShellsV3.UI"
+        d:DataContext="{d:DesignInstance Type=local:TimezoneWindowVM}"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Height="600" Width="800">
+    <Window.Resources>
+        <local:EventTableSelector x:Key="EventSelector" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontWeight="Bold" Text="Keyword" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Keyword}" mah:TextBoxHelper.ClearTextButton="True" Grid.Column="1"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Border BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Gray8}">
+                <DataGrid Name="TimezoneTable"
+                          ItemsSource="{Binding supportedTimezones}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False" IsReadOnly="True"
+                          SelectionMode="Single">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
+
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Offset" Binding="{Binding Offset}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button>
+                <TextBlock Text="Test"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

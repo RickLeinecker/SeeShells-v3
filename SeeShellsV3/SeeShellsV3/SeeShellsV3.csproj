@@ -50,7 +50,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Registry\Registry.csproj" />
     <EmbeddedResource Include="Config.json" />
-    <EmbeddedResource Include="Timezones.csv"/>
+    <EmbeddedResource Include="Timezones.csv" />
     <Resource Include="UI\Images\beach2.png" />
     <Resource Include="UI\Images\SeeShells.png" />
   </ItemGroup>

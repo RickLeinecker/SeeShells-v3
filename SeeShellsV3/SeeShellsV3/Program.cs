@@ -58,10 +58,12 @@ namespace SeeShellsV3
             // Register Window Types
             container.RegisterType<IWindow, MainWindow>("main");
             container.RegisterType<IWindow, ExportWindow>("export");
+            container.RegisterType<IWindow, TimezoneWindow>("timezones");
 
             // Register ViewModel Types
             container.RegisterType<IMainWindowVM, MainWindowVM>();
             container.RegisterType<IExportWindowVM, ExportWindowVM>();
+            container.RegisterType<ITimezoneWindowVM, TimezoneWindowVM>();
             container.RegisterType<IShellItemTableViewVM, ShellItemTableViewVM>();
             container.RegisterType<IInspectorViewVM, InspectorViewVM>();
             container.RegisterType<ITimelineViewVM, TimelineViewVM>();

@@ -125,5 +125,11 @@ namespace SeeShellsV3.UI
         {
             ViewModel.ChangeTimezone((sender as MenuItem).Header as string);
         }
+
+        private void TimezoneWindow_Click(object sender, RoutedEventArgs e)
+        {
+            IWindow win = WindowFactory.Create("timezones");
+            win.Show();
+        }
     }
 }
