@@ -50,18 +50,14 @@ namespace SeeShellsV3.Services
             SupportedTimezones = LoadSupportedTimezones();
         }
 
-
-        /// <summary>
-        /// Handles the changing of timestamps throughout the application.
-        /// </summary>
-        public void TimezoneChangeHandler(string timezone)
+        public void TimezoneChangeHandler(Timezone timezone)
         {
             // Store the timezone that we are switching from for conversion purposes
             Timezone oldTimezone = CurrentTimezone;
 
             
             // Update CurrentTimezone to the new timezone
-            CurrentTimezone = GetTimezone(timezone);
+            CurrentTimezone = timezone;
 
             if (oldTimezone.Equals(CurrentTimezone))
             {
@@ -117,8 +113,11 @@ namespace SeeShellsV3.Services
 
             ShellEvents.FilteredView.Refresh();
             ShellItems.FilteredView.Refresh();
+        }
 
-
+        public void TimezoneChangeHandler(string timezone)
+        {
+            TimezoneChangeHandler(GetTimezone(timezone));
         }
 
         /// <summary>

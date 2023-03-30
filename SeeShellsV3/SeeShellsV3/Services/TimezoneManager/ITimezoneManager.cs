@@ -22,6 +22,16 @@ namespace SeeShellsV3.Services
 
         public Timezone GetTimezone(string input);
 
+        /// <summary>
+        ///  Handles the changing of timestamps throughout the application.
+        /// </summary>
+        /// <param name="timezone">Name of the timezone that will be changed to.</param>
         public void TimezoneChangeHandler(string timezone);
+
+        /// <summary>
+        /// Handles the changing of timestamps throughout the application.
+        /// </summary>
+        /// <param name="timezone">Timezone object representing the timezone that will be changed to.</param>
+        public void TimezoneChangeHandler(Timezone timezone);
     }
 }
