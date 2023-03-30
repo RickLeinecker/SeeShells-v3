@@ -23,6 +23,7 @@ namespace SeeShellsV3.Data
         private string DisplayName { get; init; }
 
         public string Registry { get; init; }
+        public string Offset { get; init; }
         public TimeZoneInfo Information { get; init; }
 
         /// <summary>
@@ -30,13 +31,16 @@ namespace SeeShellsV3.Data
         /// </summary>
         /// <param name="registryName">The name of the timezone as it appears in the registry.</param>
         /// <param name="displayName">Optional parameter to display the name differently than the registry name.</param>
-        public Timezone(string registryName, string displayName = null)
+        /// <param name="offset">The offset of the timezone in the format "+/-XX:XX"</param>
+        public Timezone(string registryName, string displayName = null, string offset = "")
         {
             Registry = registryName;
             Information = TimeZoneInfo.FindSystemTimeZoneById(registryName);
 
             DisplayName = displayName ?? registryName;
             DaylightName = Information.SupportsDaylightSavingTime ? Information.DaylightName : null;
+
+            Offset = $"(UTC {offset})";
         }
 
         public bool Identify(string input)

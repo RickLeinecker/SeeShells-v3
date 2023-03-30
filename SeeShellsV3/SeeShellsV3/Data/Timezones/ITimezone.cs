@@ -24,6 +24,11 @@ namespace SeeShellsV3.Data
         string Registry { get; init; }
 
         /// <summary>
+        /// The offset of the timezone in the format (UTC +/-XX:XX)
+        /// </summary>
+        string Offset { get; init; }
+
+        /// <summary>
         /// A TimeZoneInfo object that represents the timezone.
         /// </summary>
         TimeZoneInfo Information { get; init; }
