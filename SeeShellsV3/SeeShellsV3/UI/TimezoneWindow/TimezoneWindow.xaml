@@ -15,29 +15,28 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontWeight="Bold" Text="Keyword" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock FontWeight="Bold" Text="Search" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <TextBox Text="{Binding Keyword}" mah:TextBoxHelper.ClearTextButton="True" Grid.Column="1"/>
         </Grid>
 
         <Grid Grid.Row="1" Margin="10">
             <Border BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Gray8}">
                 <DataGrid Name="TimezoneTable"
-                          ItemsSource="{Binding supportedTimezones}"
+                          ItemsSource="{Binding TimezoneManager.SupportedTimezones}"
+                          SelectedCellsChanged="DataGrid_SelectedSellsChanged"
                           AutoGenerateColumns="False"
                           CanUserAddRows="False" IsReadOnly="True"
                           SelectionMode="Single">
                     <DataGrid.RowStyle>
-                        <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
-
-                        </Style>
+                        <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MahApps.Styles.DataGridRow}"/>
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
@@ -47,10 +46,10 @@
             </Border>
         </Grid>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button>
-                <TextBlock Text="Test"/>
+        <Grid Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+            <Button Click="UpdateTimezone_Click">
+                <TextBlock Text="{Binding Status}"/>
             </Button>
-        </StackPanel>
+        </Grid>
     </Grid>
 </Window>

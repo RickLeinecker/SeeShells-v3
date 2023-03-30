@@ -20,9 +20,10 @@ namespace SeeShellsV3.UI
 {
     public interface ITimezoneWindowVM : IViewModel
     {
-        TimezoneManager TimezoneManager { get; }
-        public Collection<Timezone> supportedTimezones { get; }
-        string Keyword { get; set; }
+        ITimezoneManager TimezoneManager { get; }
+        Timezone SelectedTimeZone { get; }
+        void SelectTimezone(Timezone zone);
+        bool UpdateTimezone();
     }
 
     /// <summary>
@@ -36,6 +37,23 @@ namespace SeeShellsV3.UI
         public TimezoneWindow()
         {
             InitializeComponent();
+        }
+
+        private void DataGrid_SelectedSellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Timezone selected = (sender as DataGrid).CurrentCell.Item as Timezone;
+
+            ViewModel.SelectTimezone(selected);
+        }
+
+        private void UpdateTimezone_Click(object sender, RoutedEventArgs e)
+        {
+            bool successful = ViewModel.UpdateTimezone();
+
+            if (successful)
+            {
+                this.Close();
+            }
         }
     }
 }
