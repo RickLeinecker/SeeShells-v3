@@ -144,10 +144,16 @@ namespace SeeShellsV3.UI
             NotifyPropertyChanged(nameof(PaletteManager));
         }
 
-        public void ChangeTimezone(string timezone)
+        public void ResetToUtc()
         {
-            Debug.WriteLine("ChangeTime");
-            TimezoneManager.TimezoneChangeHandler(timezone);
+            TimezoneManager.TimezoneChangeHandler("UTC");
+            NotifyPropertyChanged(nameof(TimezoneManager));
+        }
+
+        public void ResetToLocal()
+        {
+            string local = TimeZoneInfo.Local.StandardName;
+            TimezoneManager.TimezoneChangeHandler(local);
             NotifyPropertyChanged(nameof(TimezoneManager));
         }
     }

@@ -60,8 +60,8 @@
             <Menu Background="Transparent">
                 <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Name}" Background="Transparent">
                     <MenuItem Header="Change Timezone" Click="TimezoneWindow_Click"/>
-                    <MenuItem Header="Reset to UTC"/>
-                    <MenuItem Header="Reset to Local Time"/>
+                    <MenuItem Header="Reset to UTC" Click="ResetUTC_Click"/>
+                    <MenuItem Header="Reset to Local Time" Click="ResetLocal_Click"/>
                 </MenuItem>
             </Menu>
         </mah:WindowCommands>
