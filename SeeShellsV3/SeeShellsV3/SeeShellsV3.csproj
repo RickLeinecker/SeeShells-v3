@@ -13,6 +13,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>SeeShells.ico</ApplicationIcon>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Title>SeeShells</Title>
   </PropertyGroup>
 
   <ItemGroup>
