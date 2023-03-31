@@ -6,7 +6,6 @@ import { MainContent, Title,  Contain } from "./customStyles";
 import { useState} from "react";
 
 
-
 const howToInfo = require("./HowToInfoArray.json")
 
 

@@ -171,7 +171,11 @@ export default function Header(props)
             </ExitButton>
             {tabs.tabs.map((tab) =>{
                 return(
+<<<<<<< HEAD
                     <MobileTab key={`Mobile Header ${tab}`} onClick={() => {navigation(`/${(tab == "About") ? "" : tab.replaceAll(" ", "")}`)}}>
+=======
+                    <MobileTab onClick={() => {navigation(`/${(tab == "About") ? "" : tab.replaceAll(" ", "")}`)}}>
+>>>>>>> 0bb12f40cb7eaff82c3d77ce8880469d33656ba0
                         {tab}
                     </MobileTab>
                 )
