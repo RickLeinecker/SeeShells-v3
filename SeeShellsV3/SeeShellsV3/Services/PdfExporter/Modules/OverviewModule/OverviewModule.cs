@@ -114,10 +114,8 @@ namespace SeeShellsV3.Services
 
 			Grid g = new Grid();
 			ColumnDefinition iCol = new ColumnDefinition();
-			iCol.Width = new GridLength(350);
+			iCol.Width = new GridLength(400);
 			g.ColumnDefinitions.Add(iCol);
-			g.ColumnDefinitions.Add(new ColumnDefinition());
-			g.ColumnDefinitions.Add(new ColumnDefinition());
 			g.ColumnDefinitions.Add(new ColumnDefinition());
 			RowDefinition iRow = new RowDefinition();
 			iRow.Height = new GridLength(325);
@@ -149,29 +147,26 @@ namespace SeeShellsV3.Services
 				<Grid Background=""White"">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="" 400 ""/>
-						<ColumnDefinition Width="" 250 ""/>
+						<ColumnDefinition Width="" * ""/>
 					</Grid.ColumnDefinitions >
 					<Grid.RowDefinitions >
 						<RowDefinition Height = ""300""/>
 					</Grid.RowDefinitions >
 						<oxy:PlotView Grid.Column=""0"" Name=""PieSeries"" Height=""300"" Width=""400"" Model=""{Binding PieModel}""/>
-						<StackPanel Name=""ShellbagCount"" Grid.Column=""1""  HorizontalAlignment=""Center"" VerticalAlignment=""Top"">
-							<TextBlock HorizontalAlignment=""Center"" VerticalAlignment=""Center"" FontSize=""36""/>
+						<StackPanel Name=""ShellbagCount"" Grid.Column=""1""  Orientation=""Vertical"" HorizontalAlignment=""Right"" VerticalAlignment=""Center"">
+							
+						</StackPanel>
+						<StackPanel Name=""ShellEventCount"" Grid.Column=""1"" Orientation=""Vertical"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"">
 							<TextBlock Text=""Number of ShellBags"" HorizontalAlignment=""Center"" VerticalAlignment=""Center""
 											FontSize=""18"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
 							<TextBlock Text=""{Binding ShellbagsCount}"" HorizontalAlignment=""Center"" VerticalAlignment=""Center""
 											FontSize=""16"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
-						</StackPanel>
-						<StackPanel Name=""ShellEventCount"" Grid.Column=""1""  HorizontalAlignment=""Center"" VerticalAlignment=""Top"">
-							<TextBlock HorizontalAlignment=""Center"" VerticalAlignment=""Center"" FontSize=""65""/>
 							<TextBlock HorizontalAlignment=""Center"" VerticalAlignment=""Center""/>
 							<TextBlock Text=""Number of ShellEvents"" HorizontalAlignment=""Center"" VerticalAlignment=""Center""
 											FontSize=""18"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
 							<TextBlock Text=""{Binding EventsCount}"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"" 
 											FontSize=""16"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
-						</StackPanel>
-						<StackPanel Name=""EventSpan"" Grid.Column=""1""  HorizontalAlignment=""Center"" VerticalAlignment=""Center"">
-							<TextBlock HorizontalAlignment=""Center"" VerticalAlignment=""Center"" FontSize=""75""/>
+							<TextBlock HorizontalAlignment=""Center"" VerticalAlignment=""Center""/>
 							<TextBlock Text=""Event Span"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"" 
 											FontSize=""18"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
 							<TextBlock Text=""{Binding BeginDate}"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"" 
@@ -180,6 +175,9 @@ namespace SeeShellsV3.Services
 											FontSize=""16"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
 							<TextBlock Text=""{Binding EndDate}"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"" 
 											FontSize=""16"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
+						</StackPanel>
+						<StackPanel Name=""EventSpan"" Grid.Column=""1""  HorizontalAlignment=""Center"" VerticalAlignment=""Bottom"">
+							
 						</StackPanel>
 				</Grid>";
 
