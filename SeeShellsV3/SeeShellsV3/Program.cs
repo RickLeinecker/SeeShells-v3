@@ -45,6 +45,7 @@ namespace SeeShellsV3
             container.RegisterSingleton<IRegistryHiveCollection, RegistryHiveCollection>();
             container.RegisterSingleton<IShellItemCollection, ShellItemCollection>();
             container.RegisterSingleton<IShellEventCollection, ShellEventCollection>();
+            container.RegisterSingleton<ITimezoneCollection, TimezoneCollection>();
             container.RegisterSingleton<ISelected, Selected>();
             container.RegisterSingleton<IReportEventCollection, ReportEventCollection>();
 

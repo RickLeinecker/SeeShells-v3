@@ -2,7 +2,7 @@
 
 namespace SeeShellsV3.Data
 {
-    public interface ITimezone
+    public interface ITimezone: IComparable<ITimezone>
     {
         /// <summary>
         /// The display name of the timezone. Reflects daylight savings. Access this for any display.
@@ -32,5 +32,8 @@ namespace SeeShellsV3.Data
         /// A TimeZoneInfo object that represents the timezone.
         /// </summary>
         TimeZoneInfo Information { get; init; }
+
+        bool Identify(string input);
+        bool Identify(TimeZoneInfo input);
     }
 }

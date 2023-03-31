@@ -53,6 +53,9 @@ namespace SeeShellsV3.Data
             return input.Equals(Information);
         }
 
-
+        public int CompareTo(ITimezone other)
+        {
+            return (Offset, Name).CompareTo((other.Offset, other.Name));
+        }
     }
 }

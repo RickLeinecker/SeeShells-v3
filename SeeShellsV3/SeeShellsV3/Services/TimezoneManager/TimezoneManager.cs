@@ -25,8 +25,7 @@ namespace SeeShellsV3.Services
     {
         public Timezone CurrentTimezone { get; set; } = new Timezone("UTC", displayName: "Coordinated Universal Time");
 
-        public Collection<Timezone> SupportedTimezones { get; init; } = new Collection<Timezone>();
-
+         public ITimezoneCollection SupportedTimezones { get; set; }
         private IShellEventCollection ShellEvents { get; set; }
         private IShellItemCollection ShellItems { get; set; }
         private ISelected Selected { get; set; }
@@ -38,16 +37,14 @@ namespace SeeShellsV3.Services
         public TimezoneManager(
             [Dependency] IShellEventCollection shellEvents,
             [Dependency] IShellItemCollection shellItems,
-            [Dependency] ISelected selected
+            [Dependency] ISelected selected,
+            [Dependency] ITimezoneCollection timezones
         )
         {
             ShellItems = shellItems;
             ShellEvents = shellEvents;
             Selected = selected;
-
-
-            // Populates SupportedTimezones with all the timezones currently available in SeeShells
-            SupportedTimezones = LoadSupportedTimezones();
+            SupportedTimezones = timezones;
         }
 
         public void TimezoneChangeHandler(Timezone timezone)
@@ -166,26 +163,14 @@ namespace SeeShellsV3.Services
             foreach (var timezone in SupportedTimezones)
             {
                 if (timezone.Identify(input))
-                    return timezone;
+                    return timezone as Timezone;
             }
 
             throw new TimezoneNotSupportedException();
         }
 
-        /// <summary>
-        /// Populates a collection of supported timezones which are loaded from Timezones.csv
-        /// </summary>
-        /// <returns>A collection of timezone objects.</returns>
-        public Collection<Timezone> LoadSupportedTimezones()
+        public void LoadSupportedTimezones(StreamReader reader)
         {
-            // Create a new collection to return
-            Collection<Timezone> supportedTimezones = new Collection<Timezone>();
-
-            // Load the CSV file
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string internalResourcePath = assembly.GetManifestResourceNames().Single(str => str.EndsWith("Timezones.csv"));
-            StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(internalResourcePath));
-
             // Create and setup a CSV Reader
             CsvReader csv = new CsvReader(reader, CultureInfo.CurrentCulture);
             csv.Read();
@@ -200,10 +185,8 @@ namespace SeeShellsV3.Services
                 string offset = csv.GetField<string>("Offset");
 
                 Timezone current = display != null ? new Timezone(registry, displayName: display, offset: offset) : new Timezone(registry, offset: offset);
-                supportedTimezones.Add(current);
+                SupportedTimezones.Add(current);
             }
-
-            return supportedTimezones;
         }
     }
 

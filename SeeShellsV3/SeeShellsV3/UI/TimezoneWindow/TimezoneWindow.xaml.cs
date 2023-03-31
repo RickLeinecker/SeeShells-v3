@@ -22,6 +22,7 @@ namespace SeeShellsV3.UI
     {
         ITimezoneManager TimezoneManager { get; }
         Timezone SelectedTimeZone { get; }
+        string Keyword { get; set; }
         void SelectTimezone(Timezone zone);
         bool UpdateTimezone();
     }
@@ -52,8 +53,17 @@ namespace SeeShellsV3.UI
 
             if (successful)
             {
-                this.Close();
+                Close();
             }
+        }
+
+        private void TextBox_KeyEnterUpdate(object sender, KeyEventArgs e)
+        {
+            TextBox tBox = (TextBox)sender;
+            DependencyProperty prop = TextBox.TextProperty;
+
+            BindingExpression binding = BindingOperations.GetBindingExpression(tBox, prop);
+            if (binding != null) { binding.UpdateSource(); }
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using SeeShellsV3.Data;
 using SeeShellsV3.Events;
+using SeeShellsV3.Repositories;
 
 namespace SeeShellsV3.Services
 {
@@ -18,7 +20,7 @@ namespace SeeShellsV3.Services
         /// <summary>
         /// A list of timezones that are currently supported.
         /// </summary>
-        public Collection<Timezone> SupportedTimezones { get; init; }
+        public ITimezoneCollection SupportedTimezones { get; set; }
 
         public Timezone GetTimezone(string input);
 
@@ -33,5 +35,10 @@ namespace SeeShellsV3.Services
         /// </summary>
         /// <param name="timezone">Timezone object representing the timezone that will be changed to.</param>
         public void TimezoneChangeHandler(Timezone timezone);
+
+        /// <summary>
+        /// Populates a collection of supported timezones which are loaded from Timezones.csv
+        /// </summary>
+        public void LoadSupportedTimezones(StreamReader reader);
     }
 }

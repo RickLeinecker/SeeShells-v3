@@ -8,9 +8,6 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Height="600" Width="800">
-    <Window.Resources>
-        <local:EventTableSelector x:Key="EventSelector" />
-    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -20,17 +17,17 @@
 
         <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock FontWeight="Bold" Text="Search" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding Keyword}" mah:TextBoxHelper.ClearTextButton="True" Grid.Column="1"/>
+            <TextBox Text="{Binding Keyword}" KeyUp="TextBox_KeyEnterUpdate" mah:TextBoxHelper.ClearTextButton="True" Grid.Column="1"/>
         </Grid>
 
         <Grid Grid.Row="1" Margin="10">
             <Border BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Gray8}">
                 <DataGrid Name="TimezoneTable"
-                          ItemsSource="{Binding TimezoneManager.SupportedTimezones}"
+                          ItemsSource="{Binding TimezoneManager.SupportedTimezones.FilteredView}"
                           SelectedCellsChanged="DataGrid_SelectedSellsChanged"
                           AutoGenerateColumns="False"
                           CanUserAddRows="False" IsReadOnly="True"

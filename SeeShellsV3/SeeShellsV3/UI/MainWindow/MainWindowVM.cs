@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using SeeShellsV3.Data;
 using SeeShellsV3.Events;
 using SeeShellsV3.Repositories;
 using SeeShellsV3.Services;
+using System.Reflection;
 
 namespace SeeShellsV3.UI
 {
@@ -93,11 +95,22 @@ namespace SeeShellsV3.UI
 
                 Status = "Generating User Action Events...";
                 await Task.Run(() => ShellEventManager.GenerateEvents(parsedItems));
+                LoadSupportedTimezones();
                 Status = "Done.";
             }
 
             await Task.Run(() => Thread.Sleep(3000));
             Status = string.Empty;
+        }
+
+        private async void LoadSupportedTimezones()
+        {
+            // Load the CSV file
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string internalResourcePath = assembly.GetManifestResourceNames().Single(str => str.EndsWith("Timezones.csv"));
+            StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(internalResourcePath));
+
+            await Task.Run(() => TimezoneManager.LoadSupportedTimezones(reader));
         }
 
         public void ExportToCSV(string filePath, string source)

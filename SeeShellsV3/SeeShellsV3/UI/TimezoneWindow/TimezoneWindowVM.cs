@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Data;
+using System.Windows.Input;
 using SeeShellsV3.Data;
 using SeeShellsV3.Services;
 using Unity;
@@ -9,10 +11,24 @@ namespace SeeShellsV3.UI;
 
 public class TimezoneWindowVM: ViewModel, ITimezoneWindowVM
 {
-    [Dependency] public ITimezoneManager TimezoneManager { get; set; }
+    public ITimezoneManager TimezoneManager { get; set; }
     public Timezone SelectedTimeZone { get; set; }
 
-    public string Keyword { get; set; }
+    public string Keyword
+    {
+        get => keyword;
+        set
+        {
+            string old = keyword;
+            keyword = value;
+
+            if (old != keyword)
+                TimezoneManager.SupportedTimezones.FilteredView.Refresh();
+
+            NotifyPropertyChanged();
+        }
+    }
+    private string keyword = null;
 
     public string Status
     {
@@ -21,13 +37,22 @@ public class TimezoneWindowVM: ViewModel, ITimezoneWindowVM
     }
     private string _status = string.Empty;
 
-    public TimezoneWindowVM()
+    public TimezoneWindowVM([Dependency] ITimezoneManager timeMan)
     {
+        TimezoneManager = timeMan;
+        TimezoneManager.SupportedTimezones.Filter += new FilterEventHandler(FilterKeyword);
+
         Status = "Select Timezone";
     }
 
     public void SelectTimezone(Timezone zone)
     {
+        if (zone == null)
+        {
+            Status = "Select Timezone";
+            return;
+        }
+
         SelectedTimeZone = zone;
         Status = $"Change to {zone.Name}";
     }
@@ -38,6 +63,23 @@ public class TimezoneWindowVM: ViewModel, ITimezoneWindowVM
 
         TimezoneManager.TimezoneChangeHandler(SelectedTimeZone);
         NotifyPropertyChanged(nameof(TimezoneManager));
+        Keyword = null;
+
         return true;
+    }
+
+    void FilterKeyword(object o, FilterEventArgs e)
+    {
+        if (Keyword == null)
+            e.Accepted = true;
+        else if(e.Item is ITimezone)
+        {
+            ITimezone tz = e.Item as ITimezone;
+            bool containsName = tz.Name.ToLower().Contains(Keyword.ToLower());
+            bool containsOffset = tz.Offset.ToLower().Contains(Keyword.ToLower());
+            e.Accepted = containsName || containsOffset;
+        }
+        else
+            e.Accepted = false;
     }
 }
