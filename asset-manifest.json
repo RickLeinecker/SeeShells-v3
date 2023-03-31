@@ -1,16 +1,28 @@
 {
   "files": {
     "main.css": "/SeeShells-v3/static/css/main.610cfc1c.css",
-    "main.js": "/SeeShells-v3/static/js/main.2fae6e71.js",
+    "main.js": "/SeeShells-v3/static/js/main.266c5caf.js",
     "static/js/787.cda612ba.chunk.js": "/SeeShells-v3/static/js/787.cda612ba.chunk.js",
+    "static/media/theme.png": "/SeeShells-v3/static/media/theme.9b5558130ff7120c0bee.png",
+    "static/media/startupScreen.png": "/SeeShells-v3/static/media/startupScreen.934ea72b3f9e61283213.png",
     "static/media/seeshellsLogo-flipped.png": "/SeeShells-v3/static/media/seeshellsLogo-flipped.5912a69642572a25f90c.png",
+    "static/media/eventTable.png": "/SeeShells-v3/static/media/eventTable.90ac339f87fc9d25ef22.png",
+    "static/media/table.png": "/SeeShells-v3/static/media/table.dfc360dcc389e71cf697.png",
+    "static/media/exportPdf.png": "/SeeShells-v3/static/media/exportPdf.1749f5f5ebf47aa93d1c.png",
+    "static/media/filter.png": "/SeeShells-v3/static/media/filter.8d06071d490d78689ad8.png",
+    "static/media/hexView.png": "/SeeShells-v3/static/media/hexView.b6e72bd271f495be341e.png",
+    "static/media/inspector.png": "/SeeShells-v3/static/media/inspector.9ac5bb0f06da637add88.png",
+    "static/media/heatmap.png": "/SeeShells-v3/static/media/heatmap.d7b6906ee6d63d960965.png",
+    "static/media/filteredHist.png": "/SeeShells-v3/static/media/filteredHist.f569b34e96425d332ed6.png",
+    "static/media/regView.png": "/SeeShells-v3/static/media/regView.d337757fcc986b651660.png",
+    "static/media/logo.svg": "/SeeShells-v3/static/media/logo.6ce24c58023cc2f8fd88.svg",
     "index.html": "/SeeShells-v3/index.html",
     "main.610cfc1c.css.map": "/SeeShells-v3/static/css/main.610cfc1c.css.map",
-    "main.2fae6e71.js.map": "/SeeShells-v3/static/js/main.2fae6e71.js.map",
+    "main.266c5caf.js.map": "/SeeShells-v3/static/js/main.266c5caf.js.map",
     "787.cda612ba.chunk.js.map": "/SeeShells-v3/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.610cfc1c.css",
-    "static/js/main.2fae6e71.js"
+    "static/js/main.266c5caf.js"
   ]
 }
