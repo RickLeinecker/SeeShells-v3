@@ -1,17 +1,12 @@
-﻿using System;
+﻿using ControlzEx.Standard;
+using System;
 
 namespace SeeShellsV3.Data
 {
     public class Timezone : ITimezone
     {
-        public string Name
-        {
-            get
-            {
-                bool isInDaylight = Information.SupportsDaylightSavingTime && Information.IsDaylightSavingTime(DateTime.Now);
-                return isInDaylight ? DaylightName : DisplayName;
-            }
-        }
+        public string Name => isDaylightSavings ? DaylightName : DisplayName;
+
         /// <summary>
         /// The timezone name in daylight savings.
         /// </summary>
@@ -24,6 +19,10 @@ namespace SeeShellsV3.Data
 
         public string Registry { get; init; }
         public string Offset { get; init; }
+        public string Locale { get; init; }
+        public string DaylightStatus { get; init; }
+        private bool isDaylightSavings { get; init; }
+        private bool hasDaylightSavings { get; init; }
         public TimeZoneInfo Information { get; init; }
 
         /// <summary>
@@ -32,7 +31,7 @@ namespace SeeShellsV3.Data
         /// <param name="registryName">The name of the timezone as it appears in the registry.</param>
         /// <param name="displayName">Optional parameter to display the name differently than the registry name.</param>
         /// <param name="offset">The offset of the timezone in the format "+/-XX:XX"</param>
-        public Timezone(string registryName, string displayName = null, string offset = "")
+        public Timezone(string registryName, string displayName = null)
         {
             Registry = registryName;
             Information = TimeZoneInfo.FindSystemTimeZoneById(registryName);
@@ -40,8 +39,35 @@ namespace SeeShellsV3.Data
             DisplayName = displayName ?? registryName;
             DaylightName = Information.SupportsDaylightSavingTime ? Information.DaylightName : null;
 
-            Offset = $"(UTC {offset})";
+            hasDaylightSavings = Information.SupportsDaylightSavingTime;
+            isDaylightSavings =  Information.IsDaylightSavingTime(DateTime.Now);
+            if (hasDaylightSavings)
+                DaylightStatus = isDaylightSavings ? "Yes" : "No";
+            else
+                DaylightStatus = "N/A";
+
+            Offset = CalculateOffset();
+
+            Locale = CalculateLocale();
         }
+
+        private string CalculateOffset()
+        {
+            string info = Information.DisplayName;
+
+            int start = info.IndexOf("(", StringComparison.Ordinal);
+            int end = info.IndexOf(")", StringComparison.Ordinal) + 1;
+
+            return info.Substring(start, end-start);
+        }
+
+        private string CalculateLocale()
+        {
+            string info = Information.DisplayName;
+
+            return info.Substring(info.IndexOf(")", StringComparison.Ordinal) + 2);
+        }
+
 
         public bool Identify(string input)
         {

@@ -192,9 +192,8 @@ namespace SeeShellsV3.Services
             {
                 string registry = csv.GetField<string>("RegistryName");
                 string display = csv.GetField<string>("DisplayName");
-                string offset = csv.GetField<string>("Offset");
 
-                Timezone current = display != null ? new Timezone(registry, displayName: display, offset: offset) : new Timezone(registry, offset: offset);
+                Timezone current = display != null ? new Timezone(registry, displayName: display) : new Timezone(registry);
                 SupportedTimezones.Add(current);
             }
         }

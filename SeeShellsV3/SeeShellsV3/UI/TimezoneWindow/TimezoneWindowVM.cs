@@ -77,7 +77,13 @@ public class TimezoneWindowVM: ViewModel, ITimezoneWindowVM
             ITimezone tz = e.Item as ITimezone;
             bool containsName = tz.Name.ToLower().Contains(Keyword.ToLower());
             bool containsOffset = tz.Offset.ToLower().Contains(Keyword.ToLower());
-            e.Accepted = containsName || containsOffset;
+            bool containsLocale = tz.Locale.ToLower().Contains(Keyword.ToLower());
+            bool containsDaylight = tz.DaylightStatus.ToLower().Contains(Keyword.ToLower()) ||
+                                    (Keyword.ToLower() is "daylight" && (tz.DaylightStatus is "Yes" || tz.DaylightStatus is "No")) ||
+                                    (Keyword.ToLower() is "no daylight" && tz.DaylightStatus is "N/A");
+
+
+            e.Accepted = containsName || containsOffset || containsLocale || containsDaylight;
         }
         else
             e.Accepted = false;

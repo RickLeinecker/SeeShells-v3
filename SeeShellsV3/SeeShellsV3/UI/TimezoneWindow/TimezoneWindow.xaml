@@ -36,8 +36,10 @@
                         <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MahApps.Styles.DataGridRow}"/>
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                         <DataGridTextColumn Header="Offset" Binding="{Binding Offset}"/>
+                        <DataGridTextColumn Header="Locale" Binding="{Binding Locale}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Daylight Savings" Binding="{Binding DaylightStatus}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

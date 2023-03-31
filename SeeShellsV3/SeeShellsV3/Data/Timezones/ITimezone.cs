@@ -29,6 +29,18 @@ namespace SeeShellsV3.Data
         string Offset { get; init; }
 
         /// <summary>
+        /// The locale of the timezone.
+        /// </summary>
+        /// <example>Central America Standard Time has the locale Central America.</example>
+        string Locale { get; init; }
+
+        /// <summary>
+        /// The status of daylight savings in this timezone, which indicates whether the zone has daylight
+        /// savings, and if so, if it is in daylight savings.
+        /// </summary>
+        string DaylightStatus { get; init; }
+
+        /// <summary>
         /// A TimeZoneInfo object that represents the timezone.
         /// </summary>
         TimeZoneInfo Information { get; init; }

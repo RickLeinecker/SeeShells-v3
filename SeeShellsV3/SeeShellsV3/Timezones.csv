@@ -1,142 +1,142 @@
-RegistryName,DisplayName,Offset
-UTC,Coordinated Universal Time,+00:00
-GMT Standard Time,null,+00:00
-Greenwich Standard Time,null,+00:00
-Sao Tome Standard Time,null,+00:00
-W. Europe Standard Time,null,+01:00
-Central Europe Standard Time,null,+01:00
-Romance Standard Time,null,+01:00
-Morocco Standard Time,null,+01:00
-Central European Standard Time,null,+01:00
-W. Central Africa Standard Time,West Central Africa Standard Time,+01:00
-GTB Standard Time,null,+02:00
-Middle East Standard Time,null,+02:00
-Egypt Standard Time,null,+02:00
-E. Europe Standard Time,East Europe Standard Time,+02:00
-Syria Standard Time,null,+02:00
-West Bank Standard Time,West Bank Gaza Standard Time,+02:00
-South Africa Standard Time,null,+02:00
-FLE Standard Time,null,+02:00
-Israel Standard Time,Jerusalem Standard Time,+02:00
-South Sudan Standard Time,null,+02:00
-Kaliningrad Standard Time,null,+02:00
-Sudan Standard Time,null,+02:00
-Libya Standard Time,null,+02:00
-Namibia Standard Time,null,+02:00
-Jordan Standard Time,null,+03:00
-Arabic Standard Time,null,+03:00
-Turkey Standard Time,null,+03:00
-Arab Standard Time,null,+03:00
-Belarus Standard Time,null,+03:00
-Russian Standard Time,null,+03:00
-E. Africa Standard Time,East Africa Standard Time,+03:00
-Volgograd Standard Time,null,+03:00
-Iran Standard Time,null,+03:30
-Arabian Standard Time,null,+04:00
-Astrakhan Standard Time,null,+04:00
-Azerbaijan Standard Time,null,+04:00
-Russia Time Zone 3,null,+04:00
-Mauritius Standard Time,null,+04:00
-Saratov Standard Time,null,+04:00
-Georgian Standard Time,null,+04:00
-Caucasus Standard Time,null,+04:00
-Afghanistan Standard Time,null,+04:30
-West Asia Standard Time,null,+05:00
-Ekaterinburg Standard Time,null,+05:00
-Pakistan Standard Time,null,+05:00
-Qyzylorda Standard Time,null,+05:00
-India Standard Time,null,+05:30
-Sri Lanka Standard Time,null,+05:30
-Nepal Standard Time,null,+05:45
-Central Asia Standard Time,null,+06:00
-Bangladesh Standard Time,null,+06:00
-Omsk Standard Time,null,+06:00
-Myanmar Standard Time,null,+06:30
-SE Asia Standard Time,South East Asia Standard Time,+07:00
-Altai Standard Time,null,+07:00
-W. Mongolia Standard Time,West Mongolia Standard Time,+07:00
-North Asia Standard Time,null,+07:00
-N. Central Asia Standard Time,North Central Asia Standard Time,+07:00
-Tomsk Standard Time,null,+07:00
-China Standard Time,null,+08:00
-North Asia East Standard Time,null,+08:00
-Singapore Standard Time,Malay Peninsula Standard Time,+08:00
-W. Australia Standard Time,West Australia Standard Time,+08:00
-Taipei Standard Time,null,+08:00
-Ulaanbaatar Standard Time,null,+08:00
-Aus Central W. Standard Time,Aus Central West Standard Time,+08:45
-Transbaikal Standard Time,null,+09:00
-Tokyo Standard Time,null,+09:00
-North Korea Standard Time,null,+09:00
-Korea Standard Time,null,+09:00
-Yakutsk Standard Time,null,+09:00
-Cen. Australia Standard Time,Central Australia Standard Time,+09:30
-AUS Central Standard Time,null,+09:30
-E. Australia Standard Time,East Australia Standard Time,+10:00
-AUS Eastern Standard Time,null,+10:00
-West Pacific Standard Time,null,+10:00
-Tasmania Standard Time,null,+10:00
-Vladivostok Standard Time,null,+10:00
-Lord Howe Standard Time,null,+10:30
-Bougainville Standard Time,null,+11:00
-Russia Time Zone 10,Russia TZ 10 Standard Time,+11:00
-Magadan Standard Time,null,+11:00
-Norfolk Standard Time,null,+11:00
-Sakhalin Standard Time,null,+11:00
-Central Pacific Standard Time,null,+11:00
-Russia Time Zone 11,Russia TZ 11 Standard Time,+12:00
-New Zealand Standard Time,null,+12:00
-UTC+12,Coordinated Universal Time + 12:00,+12:00
-Fiji Standard Time,null,+12:00
-Kamchatka Standard Time,null,+12:00
-Chatham Islands Standard Time,null,+12:45
-UTC+13,Coordinated Universal Time + 13:00,+13:00
-Tonga Standard Time,null,+13:00
-Samoa Standard Time,null,+13:00
-Line Islands Standard Time,null,+14:00
-Azores Standard Time,null,-01:00
-Cape Verde Standard Time,Cabo Verde Standard Time,-01:00
-UTC-02,Coordinated Universal Time - 02:00,-02:00
-Mid-Atlantic Standard Time,null,-02:00
-Tocantins Standard Time,null,-03:00
-E. South America Standard Time,East South America Standard Time,-03:00
-SA Eastern Standard Time,null,-03:00
-Argentina Standard Time,null,-03:00
-Greenland Standard Time,null,-03:00
-Montevideo Standard Time,null,-03:00
-Magallanes Standard Time,null,-03:00
-Saint Pierre Standard Time,null,-03:00
-Bahia Standard Time,null,-03:00
-Newfoundland Standard Time,null,-03:30
-Paraguay Standard Time,null,-04:00
-Atlantic Standard Time,null,-04:00
-Venezuela Standard Time,null,-04:00
-Central Brazilian Standard Time,null,-04:00
-SA Western Standard Time,null,-04:00
-Pacific SA Standard Time,null,-04:00
-SA Pacific Standard Time,null,-04:00
-Eastern Standard Time (Mexico),null,-05:00
-Eastern Standard Time,null,-05:00
-Haiti Standard Time,null,-05:00
-Cuba Standard Time,null,-05:00
-US Eastern Standard Time,null,-05:00
-Turks And Caicos Standard Time,null,-05:00
-Central America Standard Time,null,-06:00
-Central Standard Time,null,-06:00
-Easter Island Standard Time,null,-06:00
-Central Standard Time (Mexico),null,-06:00
-Canada Central Standard Time,null,-06:00
-US Mountain Standard Time,null,-07:00
-Mountain Standard Time (Mexico),null,-07:00
-Mountain Standard Time,null,-07:00
-Yukon Standard Time,null,-07:00
-Pacific Standard Time (Mexico),null,-08:00
-UTC-08,Coordinated Universal Time - 08:00,-08:00
-Pacific Standard Time,null,-08:00
-Alaskan Standard Time,null,-09:00
-UTC-09,Coordinated Universal Time - 09:00,-09:00
-Marquesas Standard Time,null,-09:30
-Aleutian Standard Time,null,-10:00
-Hawaiian Standard Time,null,-10:00
-UTC-11,Coordinated Universal Time - 11:00,-11:00
-Dateline Standard Time,null,-12:00
+RegistryName,DisplayName
+UTC,Coordinated Universal Time
+GMT Standard Time,null
+Greenwich Standard Time,null
+Sao Tome Standard Time,null
+W. Europe Standard Time,null
+Central Europe Standard Time,null
+Romance Standard Time,null
+Morocco Standard Time,null
+Central European Standard Time,null
+W. Central Africa Standard Time,West Central Africa Standard Time
+GTB Standard Time,null
+Middle East Standard Time,null
+Egypt Standard Time,null
+E. Europe Standard Time,East Europe Standard Time
+Syria Standard Time,null
+West Bank Standard Time,West Bank Gaza Standard Time
+South Africa Standard Time,null
+FLE Standard Time,null
+Israel Standard Time,Jerusalem Standard Time
+South Sudan Standard Time,null
+Kaliningrad Standard Time,null
+Sudan Standard Time,null
+Libya Standard Time,null
+Namibia Standard Time,null
+Jordan Standard Time,null
+Arabic Standard Time,null
+Turkey Standard Time,null
+Arab Standard Time,null
+Belarus Standard Time,null
+Russian Standard Time,null
+E. Africa Standard Time,East Africa Standard Time
+Volgograd Standard Time,null
+Iran Standard Time,null
+Arabian Standard Time,null
+Astrakhan Standard Time,null
+Azerbaijan Standard Time,null
+Russia Time Zone 3,null
+Mauritius Standard Time,null
+Saratov Standard Time,null
+Georgian Standard Time,null
+Caucasus Standard Time,null
+Afghanistan Standard Time,null
+West Asia Standard Time,null
+Ekaterinburg Standard Time,null
+Pakistan Standard Time,null
+Qyzylorda Standard Time,null
+India Standard Time,null
+Sri Lanka Standard Time,null
+Nepal Standard Time,null
+Central Asia Standard Time,null
+Bangladesh Standard Time,null
+Omsk Standard Time,null
+Myanmar Standard Time,null
+SE Asia Standard Time,South East Asia Standard Time
+Altai Standard Time,null
+W. Mongolia Standard Time,West Mongolia Standard Time
+North Asia Standard Time,null
+N. Central Asia Standard Time,North Central Asia Standard Time
+Tomsk Standard Time,null
+China Standard Time,null
+North Asia East Standard Time,null
+Singapore Standard Time,Malay Peninsula Standard Time
+W. Australia Standard Time,West Australia Standard Time
+Taipei Standard Time,null
+Ulaanbaatar Standard Time,null
+Aus Central W. Standard Time,Aus Central West Standard Time
+Transbaikal Standard Time,null
+Tokyo Standard Time,null
+North Korea Standard Time,null
+Korea Standard Time,null
+Yakutsk Standard Time,null
+Cen. Australia Standard Time,Central Australia Standard Time
+AUS Central Standard Time,null
+E. Australia Standard Time,East Australia Standard Time
+AUS Eastern Standard Time,null
+West Pacific Standard Time,null
+Tasmania Standard Time,null
+Vladivostok Standard Time,null
+Lord Howe Standard Time,null
+Bougainville Standard Time,null
+Russia Time Zone 10,Russia TZ 10 Standard Time
+Magadan Standard Time,null
+Norfolk Standard Time,null
+Sakhalin Standard Time,null
+Central Pacific Standard Time,null
+Russia Time Zone 11,Russia TZ 11 Standard Time
+New Zealand Standard Time,null
+UTC+12,Coordinated Universal Time + 12:00
+Fiji Standard Time,null
+Kamchatka Standard Time,null
+Chatham Islands Standard Time,null
+UTC+13,Coordinated Universal Time + 13:00
+Tonga Standard Time,null
+Samoa Standard Time,null
+Line Islands Standard Time,null
+Azores Standard Time,null
+Cape Verde Standard Time,Cabo Verde Standard Time
+UTC-02,Coordinated Universal Time - 02:00
+Mid-Atlantic Standard Time,null
+Tocantins Standard Time,null
+E. South America Standard Time,East South America Standard Time
+SA Eastern Standard Time,null
+Argentina Standard Time,null
+Greenland Standard Time,null
+Montevideo Standard Time,null
+Magallanes Standard Time,null
+Saint Pierre Standard Time,null
+Bahia Standard Time,null
+Newfoundland Standard Time,null
+Paraguay Standard Time,null
+Atlantic Standard Time,null
+Venezuela Standard Time,null
+Central Brazilian Standard Time,null
+SA Western Standard Time,null
+Pacific SA Standard Time,null
+SA Pacific Standard Time,null
+Eastern Standard Time (Mexico),null
+Eastern Standard Time,null
+Haiti Standard Time,null
+Cuba Standard Time,null
+US Eastern Standard Time,null
+Turks And Caicos Standard Time,null
+Central America Standard Time,null
+Central Standard Time,null
+Easter Island Standard Time,null
+Central Standard Time (Mexico),null
+Canada Central Standard Time,null
+US Mountain Standard Time,null
+Mountain Standard Time (Mexico),null
+Mountain Standard Time,null
+Yukon Standard Time,null
+Pacific Standard Time (Mexico),null
+UTC-08,Coordinated Universal Time - 08:00
+Pacific Standard Time,null
+Alaskan Standard Time,null
+UTC-09,Coordinated Universal Time - 09:00
+Marquesas Standard Time,null
+Aleutian Standard Time,null
+Hawaiian Standard Time,null
+UTC-11,Coordinated Universal Time - 11:00
+Dateline Standard Time,null
