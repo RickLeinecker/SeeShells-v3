@@ -53,7 +53,7 @@ namespace SeeShellsV3
             container.RegisterType<IPdfExporter, PdfExporter>();
             container.RegisterType<IRegistryImporter, RegistryImporter>();
             container.RegisterType<IShellEventManager, ShellEventManager>();
-            container.RegisterType<ITimezoneManager, TimezoneManager>();
+            container.RegisterSingleton<ITimezoneManager, TimezoneManager>();
             container.RegisterSingleton<IPaletteManager, PaletteManager>();
 
             // Register Window Types

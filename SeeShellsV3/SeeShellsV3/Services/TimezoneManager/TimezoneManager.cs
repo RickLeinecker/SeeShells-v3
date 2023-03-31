@@ -46,8 +46,7 @@ namespace SeeShellsV3.Services
             Selected = selected;
             SupportedTimezones = timezones;
 
-            if(!SupportedTimezones.Any())
-                LoadSupportedTimezones();
+            LoadSupportedTimezones();
         }
 
         public void TimezoneChangeHandler(Timezone timezone)
