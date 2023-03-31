@@ -45,6 +45,9 @@ namespace SeeShellsV3.Services
             ShellEvents = shellEvents;
             Selected = selected;
             SupportedTimezones = timezones;
+
+            if(!SupportedTimezones.Any())
+                LoadSupportedTimezones();
         }
 
         public void TimezoneChangeHandler(Timezone timezone)
@@ -169,8 +172,16 @@ namespace SeeShellsV3.Services
             throw new TimezoneNotSupportedException();
         }
 
-        public void LoadSupportedTimezones(StreamReader reader)
+        /// <summary>
+        /// Populates a collection of supported timezones which are loaded from Timezones.csv
+        /// </summary>
+        private void LoadSupportedTimezones()
         {
+            // Load the CSV file
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string internalResourcePath = assembly.GetManifestResourceNames().Single(str => str.EndsWith("Timezones.csv"));
+            StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(internalResourcePath));
+
             // Create and setup a CSV Reader
             CsvReader csv = new CsvReader(reader, CultureInfo.CurrentCulture);
             csv.Read();

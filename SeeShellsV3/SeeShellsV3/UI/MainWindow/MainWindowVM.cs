@@ -95,22 +95,11 @@ namespace SeeShellsV3.UI
 
                 Status = "Generating User Action Events...";
                 await Task.Run(() => ShellEventManager.GenerateEvents(parsedItems));
-                LoadSupportedTimezones();
                 Status = "Done.";
             }
 
             await Task.Run(() => Thread.Sleep(3000));
             Status = string.Empty;
-        }
-
-        private async void LoadSupportedTimezones()
-        {
-            // Load the CSV file
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string internalResourcePath = assembly.GetManifestResourceNames().Single(str => str.EndsWith("Timezones.csv"));
-            StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(internalResourcePath));
-
-            await Task.Run(() => TimezoneManager.LoadSupportedTimezones(reader));
         }
 
         public void ExportToCSV(string filePath, string source)

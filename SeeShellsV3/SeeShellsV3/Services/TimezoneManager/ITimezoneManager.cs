@@ -35,10 +35,5 @@ namespace SeeShellsV3.Services
         /// </summary>
         /// <param name="timezone">Timezone object representing the timezone that will be changed to.</param>
         public void TimezoneChangeHandler(Timezone timezone);
-
-        /// <summary>
-        /// Populates a collection of supported timezones which are loaded from Timezones.csv
-        /// </summary>
-        public void LoadSupportedTimezones(StreamReader reader);
     }
 }
