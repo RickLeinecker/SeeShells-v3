@@ -73,6 +73,7 @@ namespace SeeShellsV3.Services
             ShellbagsCount = shellItems.Count;
 			EventsCount = shellEvents.FilteredView.OfType<IShellEvent>().Count();
 
+			// Allows the PieSeries and slices to be rendered in the legend.
 			LegendPieSeries.SetSeries(seriesP1, PieModel);
 			PieModel.Legends.Add(PieLegend);
 		}
@@ -110,7 +111,6 @@ namespace SeeShellsV3.Services
 			XmlReader readeres = XmlTextReader.Create(esp, new XmlReaderSettings());
 			FrameworkElement evespan = (FrameworkElement)XamlReader.Load(readeres);
 			StackPanel es = evespan.FindName("EventSpan") as StackPanel;
-
 
 			Grid g = new Grid();
 			ColumnDefinition iCol = new ColumnDefinition();
@@ -153,8 +153,7 @@ namespace SeeShellsV3.Services
 						<RowDefinition Height = ""300""/>
 					</Grid.RowDefinitions >
 						<oxy:PlotView Grid.Column=""0"" Name=""PieSeries"" Height=""300"" Width=""400"" Model=""{Binding PieModel}""/>
-						<StackPanel Name=""ShellbagCount"" Grid.Column=""1""  Orientation=""Vertical"" HorizontalAlignment=""Right"" VerticalAlignment=""Center"">
-							
+						<StackPanel Name=""ShellbagCount"" Grid.Column=""1"" Orientation=""Vertical"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"">
 						</StackPanel>
 						<StackPanel Name=""ShellEventCount"" Grid.Column=""1"" Orientation=""Vertical"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"">
 							<TextBlock Text=""Number of ShellBags"" HorizontalAlignment=""Center"" VerticalAlignment=""Center""
@@ -176,11 +175,9 @@ namespace SeeShellsV3.Services
 							<TextBlock Text=""{Binding EndDate}"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"" 
 											FontSize=""16"" FontFamily=""Segoe UI"" FontWeight=""Bold""/>
 						</StackPanel>
-						<StackPanel Name=""EventSpan"" Grid.Column=""1""  HorizontalAlignment=""Center"" VerticalAlignment=""Bottom"">
-							
+						<StackPanel Name=""EventSpan"" Grid.Column=""1"" Orientation=""Vertical"" HorizontalAlignment=""Center"" VerticalAlignment=""Center"">
 						</StackPanel>
 				</Grid>";
-
 
 			// add WPF namespaces to a parser context so we can parse WPF tags like StackPanel
 			ParserContext context = new ParserContext();

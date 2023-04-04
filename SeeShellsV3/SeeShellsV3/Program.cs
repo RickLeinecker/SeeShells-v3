@@ -62,7 +62,6 @@ namespace SeeShellsV3
             // Register ViewModel Types
             container.RegisterType<IMainWindowVM, MainWindowVM>();
             container.RegisterType<IExportWindowVM, ExportWindowVM>();
-            container.RegisterType<IShellItemTableViewVM, ShellItemTableViewVM>();
             container.RegisterType<IInspectorViewVM, InspectorViewVM>();
             container.RegisterType<ITimelineViewVM, TimelineViewVM>();
             container.RegisterType<IRegistryViewVM, RegistryViewVM>();
