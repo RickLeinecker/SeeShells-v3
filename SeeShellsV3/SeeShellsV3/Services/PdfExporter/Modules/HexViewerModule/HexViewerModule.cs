@@ -51,7 +51,6 @@ namespace SeeShellsV3.Services
         {
             string test = "";
             string tempView = "";
-            Selected.Items = new ObservableCollection<ShellItem>();
             Items = new ObservableCollection<ShellItem>();
 
             int index = 0;
@@ -60,7 +59,6 @@ namespace SeeShellsV3.Services
             {
                 foreach (ShellItem item in ev.Evidence)
                 {
-                    Selected.Items.Add(item);
                     Items.Add(item);
 
                     test = @"<hex:HexEditor Name = " + "\"HexEditor" + index + "\"" + @" Stream=""{Binding Items[" + index + "]" + @", Converter={StaticResource StreamConverter}}"" 

@@ -103,10 +103,10 @@
 
                     <xcad:LayoutDocumentPaneGroup >
                         <xcad:LayoutDocumentPane>
-                            <xcad:LayoutDocument ContentId="timelineview" Title="Events" CanClose="False" ToolTip="A timeline of user activity">
+                            <xcad:LayoutDocument ContentId="timelineview" Title="Events" CanClose="False">
                                 <local:TimelineView x:Name="Timeline"/>
                             </xcad:LayoutDocument>
-                            <xcad:LayoutDocument ContentId="tableview" Title="Shellbags" CanClose="False" ToolTip="A list of shellbags found in the loaded registry hives">
+                            <xcad:LayoutDocument ContentId="tableview" Title="Shellbags" CanClose="False">
                                 <local:ShellItemTableView />
                             </xcad:LayoutDocument>
                         </xcad:LayoutDocumentPane>

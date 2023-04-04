@@ -9,7 +9,6 @@
     <Window.Resources>
         <local:ModuleViewConverter x:Key="ModuleViewConverter"/>
     </Window.Resources>
-
     <UserControl>
         <ScrollViewer>
             <Grid>
@@ -46,7 +45,7 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <ContentPresenter Grid.Column="0" Content="{Binding Converter={StaticResource ModuleViewConverter}}"/>
+                                        <ContentPresenter Grid.Column="0" Content="{Binding Converter={StaticResource ModuleViewConverter}}" Loaded="LoadHandler"/>
                                         <Grid Grid.Column="1">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>

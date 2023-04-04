@@ -31,6 +31,7 @@ namespace SeeShellsV3.Repositories
 
         private object _currentInspector;
 
+
         public object CurrentData
         {
             get => _currentData;
