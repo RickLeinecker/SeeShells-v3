@@ -2,36 +2,31 @@ export const v3devs =
 [
   {
     name: `Alisa \n Alarcon-Commetta`,
-    role: "Role tbd",
-    resume: "Tbd",
+    role: "Website UX, Case Studies",
     picture: null  
   },
 
   {
     name: `Alexander\nDesmond`,
-    role: "Role tbd",
-    resume: "Tbd",
+    role: "Accessibility Lead",
     picture: null  
   },
 
   {
     name: "Jake Norris",
-    role: "Role tbd",
-    resume: "Tbd",
+    role: "Time Zone Functionality",
     picture: null  
   },
 
   {
     name: "Nathan Kofoed",
-    role: "Role tbd",
-    resume: "Tbd",
+    role: "Project Manager, Website Functionality",
     picture: null  
   },
 
   {
     name: "Wesley Newcomb",
-    role: "Role tbd",
-    resume: "Tbd",
+    role: "Graphing Functionality",
     picture: null  
   },
 

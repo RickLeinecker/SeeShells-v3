@@ -15,8 +15,24 @@ export default function Header(props)
     border-bottom: ${(props.selected) ? "2px #FFFBF0 solid" : ""};
     &:hover {cursor: pointer}
   `
+
+  function handleClick()
+  {
+    if (props.tab == "GitHub")
+    {
+        const button = document.createElement('a')
+        button.href = "https://github.com/RickLeinecker/SeeShells-v3"
+        button.setAttribute("target", "_blank")
+        button.click()
+        button.remove()
+    }
+    else
+    {
+      navigation(`/${(props.tab === "About") ? "" : props.tab.replaceAll(" ", "")}`)
+    }
+  }
   return (
-    <HeaderTab onClick={() => {navigation(`/${(props.tab === "About") ? "" : props.tab.replaceAll(" ", "")}`)}}>
+    <HeaderTab onClick={() => handleClick()}>
         {props.tab}
     </HeaderTab>
   );

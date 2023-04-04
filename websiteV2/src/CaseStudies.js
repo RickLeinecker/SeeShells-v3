@@ -125,7 +125,7 @@ export default function CaseStudies({size}) {
                 <SectionHeader>
                     External Threats
                 </SectionHeader>
-                <Grid container style={{justifyContent:"center", marginBottom:"25px"}} columns={14}>
+                <Grid container style={{justifyContent:"center", paddingBottom:"25px"}} columns={14}>
                 {caseStudies.outside.map((Case) => {
                         return(
                             <Grid  item align="center" xs={7} xl={5}>

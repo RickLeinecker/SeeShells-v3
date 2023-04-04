@@ -102,7 +102,7 @@ export default function Devs({size})
                         })}
                     </Grid>
                 </Developers>
-                <Developers>
+                <Developers style={{paddingBottom: "20px"}}>
                     <Line>
                         <Subtitle>
                             SeeShells V1
