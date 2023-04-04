@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState} from 'react';
 import styled from 'styled-components';
 import logo from "./seeshellsLogo-flipped.png";
 
@@ -7,16 +7,23 @@ const howToInfo = require("./HowToInfoArray.json")
 
 export default function Foldery ({InfoSection, currTab, testCallback, size, mobile})
 {
+    if (!currTab)
+    {
+        currTab = "default"
+    }
+    
+
     let currButton = null;
 
     const [selected, setSelected] = useState(currTab);
     const [thisSize, setThisSize] = useState();
 
+
     
 
     let obsOptions = {
         root: document.querySelector("#PageInfo"),
-        threshold: 1
+        threshold: .5
     }
 
     let shouldBold = true;
@@ -72,8 +79,6 @@ export default function Foldery ({InfoSection, currTab, testCallback, size, mobi
     const Type = styled.div`
         background: #2C313D;
         border-radius: 20px 20px 0 0;
-        height:${mobile ?"60px" :"50px"};
-        width:${mobile ? "100px" : "200px"};
         margin-right: 5px;
         display: flex;
         justify-content: center;
@@ -97,6 +102,19 @@ export default function Foldery ({InfoSection, currTab, testCallback, size, mobi
         setSelected(Tab);
     }
 
+    function checkImage(step)
+    {
+        if (step.image)
+        {
+            const image = require(`${step.image}`)
+            return (
+                <div style={{display:"flex", justifyContent:"center", marginTop:"10px", marginBottom:"10px", maxHeight:"85vh", maxWidth:"85vw"}}>
+                    <img src={image} style={step?.imageStyles} />
+                </div>
+            )
+        }
+    }
+
     useEffect(() => {
         let test =  new IntersectionObserver((entries) => testCallback(InfoSection.title, entries), obsOptions)
         let element = document.getElementById(InfoSection.title)
@@ -115,7 +133,8 @@ export default function Foldery ({InfoSection, currTab, testCallback, size, mobi
             <Tabs>
                 {InfoSection.tabNames.map((Tab) => {
                     return(
-                        <Type style={{background: (InfoSection.tabs[selected].title == Tab) ? "" : "#474E60"}} onClick={() => update(Tab)}>
+                        <Type key={Tab} style={{background: (InfoSection.tabs[selected].title == Tab || currTab == "default") ? "" : "#474E60", 
+                        width: InfoSection.normalWidth, height: InfoSection.normalHeight}} onClick={() => update(Tab)}>
                             {Tab}
                         </Type>
                     )
@@ -135,8 +154,9 @@ export default function Foldery ({InfoSection, currTab, testCallback, size, mobi
                     
                     {InfoSection.tabs[selected].steps.map((Step, Index) => {
                         return (
-                            <StepDiv>
-                                Step {Index + 1}: {Step}
+                            <StepDiv key={`${currTab} + ${Index}`}>
+                                {Step.message}
+                                {checkImage(Step)}
                             </StepDiv>
                             )
                     })} 
