@@ -58,7 +58,7 @@ namespace SeeShellsV3.Services
             // Update CurrentTimezone to the new timezone
             CurrentTimezone = timezone;
 
-            if (oldTimezone.Equals(CurrentTimezone))
+            if (oldTimezone.Equals(CurrentTimezone) || oldTimezone.Registry == CurrentTimezone.Registry)
             {
                 return;
             }
