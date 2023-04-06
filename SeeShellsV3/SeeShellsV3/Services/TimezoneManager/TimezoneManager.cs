@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text.Json;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
+using CsvHelper;
 using SeeShellsV3.Data;
 using SeeShellsV3.Events;
 using SeeShellsV3.Repositories;
@@ -15,10 +23,9 @@ namespace SeeShellsV3.Services
 {
     public class TimezoneManager: ITimezoneManager
     {
-        public Timezone CurrentTimezone { get; set; } = new Timezone("Coordinated Universal Time", "UTC");
+        public Timezone CurrentTimezone { get; set; } = new Timezone("UTC", displayName: "Coordinated Universal Time");
 
-        public Collection<Timezone> SupportedTimezones { get; init; } = new Collection<Timezone>();
-
+         public ITimezoneCollection SupportedTimezones { get; set; }
         private IShellEventCollection ShellEvents { get; set; }
         private IShellItemCollection ShellItems { get; set; }
         private ISelected Selected { get; set; }
@@ -30,36 +37,29 @@ namespace SeeShellsV3.Services
         public TimezoneManager(
             [Dependency] IShellEventCollection shellEvents,
             [Dependency] IShellItemCollection shellItems,
-            [Dependency] ISelected selected
+            [Dependency] ISelected selected,
+            [Dependency] ITimezoneCollection timezones
         )
         {
             ShellItems = shellItems;
             ShellEvents = shellEvents;
             Selected = selected;
+            SupportedTimezones = timezones;
 
-
-            // Populates SupportedTimezones with all the timezones currently available in SeeShells
-            SupportedTimezones.Add(new Timezone("Coordinated Universal Time", "UTC"));
-            SupportedTimezones.Add(new Timezone("Eastern Standard Time", "EST"));
-            SupportedTimezones.Add(new Timezone("Central Standard Time", "CST"));
-            SupportedTimezones.Add(new Timezone("Mountain Standard Time", "MST"));
-            SupportedTimezones.Add(new Timezone("Pacific Standard Time", "PST"));
+            LoadSupportedTimezones();
         }
 
-
-        /// <summary>
-        /// Handles the changing of timestamps throughout the application.
-        /// </summary>
-        public void TimezoneChangeHandler(string timezone)
+        public void TimezoneChangeHandler(Timezone timezone, bool reload = false)
         {
             // Store the timezone that we are switching from for conversion purposes
             Timezone oldTimezone = CurrentTimezone;
 
             
             // Update CurrentTimezone to the new timezone
-            CurrentTimezone = GetTimezone(timezone);
+            CurrentTimezone = timezone;
 
-            if (oldTimezone.Equals(CurrentTimezone))
+            bool utcToUtc = (oldTimezone.Registry == "UTC") && (CurrentTimezone.Registry == "UTC");
+            if (utcToUtc || (oldTimezone.Equals(CurrentTimezone) && !reload))
             {
                 return;
             }
@@ -113,8 +113,16 @@ namespace SeeShellsV3.Services
 
             ShellEvents.FilteredView.Refresh();
             ShellItems.FilteredView.Refresh();
+        }
 
+        public void TimezoneChangeHandler(string timezone, bool reload = false)
+        {
+            TimezoneChangeHandler(GetTimezone(timezone), reload);
+        }
 
+        public void ReloadTimezones()
+        {
+            TimezoneChangeHandler(CurrentTimezone, reload:true);
         }
 
         /// <summary>
@@ -126,7 +134,7 @@ namespace SeeShellsV3.Services
         /// <returns>A DateTime object representing the same time <see cref="input"/> does, in the timezone of <see cref="CurrentTimezone"/></returns>
         private DateTime ConvertTimezone(DateTime dateTime, Timezone oldTimezone)
         {
-            if (CurrentTimezone.Identifier == "UTC")
+            if (CurrentTimezone.Registry == "UTC")
             {
                 return TimeZoneInfo.ConvertTimeToUtc(dateTime, oldTimezone.Information);
             }
@@ -155,24 +163,7 @@ namespace SeeShellsV3.Services
 
             DateTime dateTime = Convert.ToDateTime(input);
 
-            if (CurrentTimezone.Identifier == "UTC")
-            {
-                return TimeZoneInfo.ConvertTimeToUtc(dateTime, oldTimezone.Information);
-            }
-            if (dateTime.Kind == DateTimeKind.Utc)
-            {
-                return TimeZoneInfo.ConvertTimeFromUtc(dateTime, CurrentTimezone.Information);
-            }
-            if (dateTime.Kind == DateTimeKind.Unspecified)
-            {
-                return TimeZoneInfo.ConvertTime(dateTime, oldTimezone.Information, CurrentTimezone.Information);
-            }
-            if (dateTime.Kind == DateTimeKind.Local)
-            {
-                return TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo.Local, CurrentTimezone.Information);
-            }
-
-            throw new TimezoneNotSupportedException();
+            return ConvertTimezone(dateTime, oldTimezone);
         }
 
         public Timezone GetTimezone(string input)
@@ -180,10 +171,37 @@ namespace SeeShellsV3.Services
             foreach (var timezone in SupportedTimezones)
             {
                 if (timezone.Identify(input))
-                    return timezone;
+                    return timezone as Timezone;
             }
 
             throw new TimezoneNotSupportedException();
+        }
+
+        /// <summary>
+        /// Populates a collection of supported timezones which are loaded from Timezones.csv
+        /// </summary>
+        private void LoadSupportedTimezones()
+        {
+            // Load the CSV file
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            string internalResourcePath = assembly.GetManifestResourceNames().Single(str => str.EndsWith("Timezones.csv"));
+            StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(internalResourcePath));
+
+            // Create and setup a CSV Reader
+            CsvReader csv = new CsvReader(reader, CultureInfo.CurrentCulture);
+            csv.Read();
+            csv.ReadHeader();
+            csv.Context.TypeConverterOptionsCache.GetOptions<string>().NullValues.Add("null");
+
+            // Loop through the CSV file, reading each entry and creating a timezone object from the information
+            while (csv.Read())
+            {
+                string registry = csv.GetField<string>("RegistryName");
+                string display = csv.GetField<string>("DisplayName");
+
+                Timezone current = display != null ? new Timezone(registry, displayName: display) : new Timezone(registry);
+                SupportedTimezones.Add(current);
+            }
         }
     }
 
