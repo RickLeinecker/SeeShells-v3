@@ -47,14 +47,11 @@ export default function DevCard({dev})
 
     return(
             <div style={{textAlign:"center", width:210, marginTop:"20px", marginRight:"15px"}}>
-                <div style={{whiteSpace: "pre",height:75, justifyContent:"center", alignItems:"center", display:"flex", textAlign:"center"}}>    
+                <div style={{whiteSpace: "pre",height:75, justifyContent:"center", alignItems:"center", display:"flex", textAlign:"center", borderBottom:"solid white 2px"}}>    
                     <MainText style={{fontSize:25}}>
                         {dev.name}
                     </MainText>
                 </div>
-                <ImageDiv>
-                    {displayImageOrDefault(dev.picture)}
-                </ImageDiv>
                 <div style={{marginTop:20}}>
                     <MainText style={{fontSize: 20}}>
                         {dev.role}

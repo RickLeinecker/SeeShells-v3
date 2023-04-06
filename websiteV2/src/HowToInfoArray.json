@@ -302,5 +302,39 @@
                 ]
             }
         }
+    },
+    "TimeZones" :
+    {
+        "title":"Timezone Conversion",
+        "tabNames": [""],
+        "normalWidth" : "200px",
+        "normalHeight" : "50px",
+        "tabs": 
+        {
+            "default" : 
+            {
+                "title":"Change time zones",
+                "toStatement": "To change timezones: ",
+                "steps": 
+                [
+                    {
+                        "message" : "Click on the dropdown menu at the top right, and select 'Change Time Zone'. Default time zone is UTC.",
+                        "image" : "./images/timeZone.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    },
+                    {
+                        "message" : "Next, select the desired time zone through either scrolling, or searching",
+                        "image" : "./images/changeTime.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    }
+                ]
+            }
+        }
     }
 }

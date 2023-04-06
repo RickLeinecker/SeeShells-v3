@@ -107,6 +107,7 @@ export default function HowToUse({size})
                     <Foldery InfoSection={howToInfo.Exporting} testCallback={testCallback} size={size} mobile={mobile} />
                     <Foldery InfoSection={howToInfo.Filter} testCallback={testCallback} size={size} mobile={mobile} />
                     <Foldery InfoSection={howToInfo.Themes} testCallback={testCallback} size={size} mobile={mobile} />
+                    <Foldery InfoSection={howToInfo.TimeZones} testCallback={testCallback} size={size} mobile={mobile} />
                 </PageInfo>
             )
         }

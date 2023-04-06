@@ -85,6 +85,20 @@ export default function CaseStudies({size}) {
         }
     }
 
+    function openPdf(path)
+    {
+        if (path == null)
+        {
+            return;
+        }
+        else
+        {
+            const pdf = require(`${path}`)
+
+            window.open(pdf);
+        }
+    }
+
     return (
         <Contain>    
             <Header tab="Case Studies" size = {size}/>
@@ -112,7 +126,7 @@ export default function CaseStudies({size}) {
                                 </Caption>
                                 <div style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
                                     <Grid item align="center" xs={7} sm={5} lg={3} >
-                                        <StudiesButtons>
+                                        <StudiesButtons onClick={() => openPdf(Case.pdfFile)}>
                                             PDF
                                         </StudiesButtons>
                                     </Grid>
