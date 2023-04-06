@@ -95,6 +95,7 @@ namespace SeeShellsV3.UI
 
                 Status = "Generating User Action Events...";
                 await Task.Run(() => ShellEventManager.GenerateEvents(parsedItems));
+                TimezoneManager.ReloadTimezones();
                 Status = "Done.";
             }
 

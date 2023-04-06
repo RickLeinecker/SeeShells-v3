@@ -49,7 +49,7 @@ namespace SeeShellsV3.Services
             LoadSupportedTimezones();
         }
 
-        public void TimezoneChangeHandler(Timezone timezone)
+        public void TimezoneChangeHandler(Timezone timezone, bool reload = false)
         {
             // Store the timezone that we are switching from for conversion purposes
             Timezone oldTimezone = CurrentTimezone;
@@ -58,7 +58,8 @@ namespace SeeShellsV3.Services
             // Update CurrentTimezone to the new timezone
             CurrentTimezone = timezone;
 
-            if (oldTimezone.Equals(CurrentTimezone) || oldTimezone.Registry == CurrentTimezone.Registry)
+            bool utcToUtc = (oldTimezone.Registry == "UTC") && (CurrentTimezone.Registry == "UTC");
+            if (utcToUtc || (oldTimezone.Equals(CurrentTimezone) && !reload))
             {
                 return;
             }
@@ -114,9 +115,14 @@ namespace SeeShellsV3.Services
             ShellItems.FilteredView.Refresh();
         }
 
-        public void TimezoneChangeHandler(string timezone)
+        public void TimezoneChangeHandler(string timezone, bool reload = false)
         {
-            TimezoneChangeHandler(GetTimezone(timezone));
+            TimezoneChangeHandler(GetTimezone(timezone), reload);
+        }
+
+        public void ReloadTimezones()
+        {
+            TimezoneChangeHandler(CurrentTimezone, reload:true);
         }
 
         /// <summary>

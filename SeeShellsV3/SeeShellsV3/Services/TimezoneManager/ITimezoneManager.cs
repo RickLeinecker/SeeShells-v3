@@ -28,12 +28,18 @@ namespace SeeShellsV3.Services
         ///  Handles the changing of timestamps throughout the application.
         /// </summary>
         /// <param name="timezone">Name of the timezone that will be changed to.</param>
-        public void TimezoneChangeHandler(string timezone);
+        public void TimezoneChangeHandler(string timezone, bool reload = false);
 
         /// <summary>
         /// Handles the changing of timestamps throughout the application.
         /// </summary>
         /// <param name="timezone">Timezone object representing the timezone that will be changed to.</param>
-        public void TimezoneChangeHandler(Timezone timezone);
+        public void TimezoneChangeHandler(Timezone timezone, bool reload = false);
+
+        /// <summary>
+        /// Refreshes all timestamps to the current timezone. Used in situations where more data is pulled in after
+        /// the timezone was switched.
+        /// </summary>
+        public void ReloadTimezones();
     }
 }
