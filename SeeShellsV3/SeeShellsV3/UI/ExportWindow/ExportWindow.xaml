@@ -22,7 +22,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Margin="5,5,5,5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Text="Insert Module: "/>
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{Binding Theme}" Text="Insert Module: "/>
                     <ComboBox Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="moduleSelector" SelectedIndex="0" ItemsSource="{Binding moduleSelector}" IsEditable="False"/>
                     <Button VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="Add_Module" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" Click="Add_Module_Click"/>
                 </StackPanel>
