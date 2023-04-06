@@ -29,13 +29,16 @@ namespace SeeShellsV3.UI
 
 		public ObservableCollection<string> moduleSelector { get; set; }
 
-		public string Status
+
+        public string Status
 		{
 			get => _status;
 			set { _status = value; NotifyPropertyChanged(); }
 		}
 
-		private string _status = string.Empty;
+
+
+        private string _status = string.Empty;
 
         public string Theme
         {

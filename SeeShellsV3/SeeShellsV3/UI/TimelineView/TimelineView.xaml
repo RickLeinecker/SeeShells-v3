@@ -64,10 +64,6 @@
                     </RadioButton>
                 </StackPanel>
 
-                <TextBlock Text="?" Grid.Row="1" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource MahApps.Brushes.Gray6}"
-                           ToolTip="Use left click to select a category in the legend."
-                           HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10 0"/>
-
                 <local:TimeSeriesHistogram x:Name="Histogram"
                                            Grid.Row="0"
                                            ColorProperty="{Binding ColorProperty}"

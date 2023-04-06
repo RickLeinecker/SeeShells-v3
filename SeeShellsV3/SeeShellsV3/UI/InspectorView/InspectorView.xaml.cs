@@ -58,11 +58,6 @@ namespace SeeShellsV3.UI
         {
             if (values.Length >= 2 && values[0] is object o && values[1] is Selected s)
             {
-                //ShellEvent temp = (ShellEvent)s.CurrentInspector;
-                //foreach (ShellItem item in temp.Evidence)
-                //    System.Diagnostics.Debug.WriteLine("Fields " + item.Fields["ModifiedDate"]);
-
-                //Debug.WriteLine("Converter " + temp.Description);
                 return false;
             }
 
