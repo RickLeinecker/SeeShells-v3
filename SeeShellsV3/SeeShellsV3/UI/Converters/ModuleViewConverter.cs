@@ -1,4 +1,5 @@
-﻿using SeeShellsV3.Services;
+﻿using SeeShellsV3.Data;
+using SeeShellsV3.Services;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -14,6 +15,7 @@ namespace SeeShellsV3.UI
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
+			System.Diagnostics.Debug.WriteLine("Yo!");
 			return (value as IPdfModule)?.View() ?? null;
 		}
 

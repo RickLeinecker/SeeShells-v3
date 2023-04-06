@@ -6,6 +6,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,8 +22,10 @@ using System.Windows.Shapes;
 
 using OxyPlot;
 using OxyPlot.Axes;
+using OxyPlot.Legends;
 using OxyPlot.Series;
-using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using SeeShellsV3.Services;
+using Unity;
 
 namespace SeeShellsV3.UI
 {
@@ -52,27 +55,39 @@ namespace SeeShellsV3.UI
         private readonly PlotModel _histPlotModel = new PlotModel();
         private readonly DateTimeAxis _dateAxis = new DateTimeAxis { Position = AxisPosition.Bottom };
         private readonly LinearAxis _freqAxis = new LinearAxis { Position = AxisPosition.Left, IsZoomEnabled = false, IsPanEnabled = false };
-        private readonly PlotController _histPlotController = new OxyPlot.PlotController();
+        private readonly PlotController _histPlotController = new PlotController();
+        private readonly Legend _histLegend = new Legend();
 
         private readonly ObservableCollection<object> _selected = new ObservableCollection<object>();
-        private List<OxyColor> palette;
 
         public TimeSeriesHistogram()
         {
             InitializeComponent();
-
+            
             _histPlotModel.Axes.Add(_dateAxis);
             _histPlotModel.Axes.Add(_freqAxis);
-            _histPlotModel.LegendPlacement = LegendPlacement.Outside;
-            
-            _histPlotModel.MouseDown += _histPlotModel_MouseDown;
-            _histPlotModel.MouseMove += _histPlotModel_MouseMove;
+            _histPlotModel.Legends.Add(_histLegend);
 
-            palette = new List<OxyColor>();
-            histPlotModel_setColors();
+            _histPlotModel.MouseDown += _histLegend_MouseDown;
+            _histPlotModel.MouseMove += _histPlotModel_MouseMove;
 
             _histPlotController.UnbindMouseDown(OxyMouseButton.Right);
             _histPlotController.BindMouseDown(OxyMouseButton.Left, PlotCommands.PanAt);
+
+            List<Array> palettes = new List<Array>((IEnumerable<Array>)Application.Current.Resources["palettes"]);
+            List<OxyColor> oxyPalette = new();
+            List<Color> colors = new((IEnumerable<Color>)palettes[0]);
+            foreach (Color color in colors)
+            {
+                oxyPalette.Add(
+                    OxyColor.FromRgb(
+                        color.R,
+                        color.G,
+                        color.B
+                        )
+                    );
+            }
+            HistPlotModel_setColors(new OxyPalette(oxyPalette));
 
             HistogramPlot.Model = _histPlotModel;
             HistogramPlot.Controller = _histPlotController;
@@ -81,21 +96,9 @@ namespace SeeShellsV3.UI
             UpdateAxes();
         }
 
-        internal void histPlotModel_setColors(int index = 0)
+        internal void HistPlotModel_setColors(OxyPalette palette)
         {
-            palette = new List<OxyColor>();
-            List<Color> colors = new List<Color>((IEnumerable<Color>)Application.Current.Resources["Palette" + index.ToString()]);
-            foreach (Color color in colors)
-            {
-                palette.Add(
-                    OxyColor.FromRgb(
-                        color.R,
-                        color.G,
-                        color.B
-                        )
-                    );
-            }
-            _histPlotModel.DefaultColors = palette;
+            _histPlotModel.DefaultColors = palette.Colors;
             Update();
         }
 
@@ -124,35 +127,40 @@ namespace SeeShellsV3.UI
             HistogramPlot.HideTracker();
         }
 
-        private void _histPlotModel_MouseDown(object sender, OxyMouseDownEventArgs e)
+        private void _histLegend_MouseDown(object sender, OxyMouseDownEventArgs e)
         {
             if (e.ChangedButton != OxyMouseButton.Left)
                 return;
 
-            if (_histPlotModel.LegendArea.Contains(e.Position))
+            if (_histLegend.LegendArea.Contains(e.Position))
             {
-                int index = (int)((e.Position.Y - _histPlotModel.LegendArea.Top - _histPlotModel.LegendPadding) / (_histPlotModel.LegendSymbolLength));
 
-                try
+                if (_histPlotModel.Series.OfType<HistogramSeries>().Where(s => s.IsVisible == false).Any())
                 {
-                    var hst = _histPlotModel.Series.OfType<HistogramSeries>().Where(s => s.RenderInLegend).ElementAt(index);
+                    int count = _histPlotModel.Series.OfType<HistogramSeries>().Where(s => s.IsVisible == false).Count();
+                    HistogramSeries[] series = new HistogramSeries[count];
 
-                    if (hst.IsSelected())
+                    for ( int i = 0; i < count; i++)
                     {
-                        hst.Unselect();
-                        _selected.Remove((hst.Tag as (object, int)?)?.Item1);
+                        series[i] = _histPlotModel.Series.OfType<HistogramSeries>().Where(s => s.IsVisible == false).Distinct().ElementAt(i);
                     }
-                    else
+
+                    for ( int i = 0; i < series.Length; i++)
                     {
-                        hst.Select();
-                        _selected.Add((hst.Tag as (object, int)?)?.Item1);
+                        if (series[i].IsSelected())
+                        {
+                            series[i].Unselect();
+                            _selected.Remove((series[i].Tag as (object, int)?)?.Item1);
+                            series[i].IsVisible = true;
+                        }
+                        else
+                        {
+                            series[i].Select();
+                            _selected.Add((series[i].Tag as (object, int)?)?.Item1);
+                            series[i].IsVisible = true; 
+                        }
                     }
                 }
-                catch (ArgumentOutOfRangeException)
-                {
-                    return;
-                }
-
                 UpdateColors();
                 HistogramPlot.InvalidatePlot();
             }
@@ -195,27 +203,32 @@ namespace SeeShellsV3.UI
             HistogramPlot.InvalidatePlot();
 
             if (!_histPlotModel.Series.OfType<HistogramSeries>().Where(s => s.IsSelected()).Any())
+            {
+
                 _histPlotModel.Series.OfType<HistogramSeries>().ForEach(s => s.FillColor = OxyColor.FromAColor((byte)255, s.ActualFillColor));
+            }
             else
                 _histPlotModel.Series.OfType<HistogramSeries>().ForEach(s =>
                  {
-                     if (!s.RenderInLegend)
-                     {
-                         s.FillColor = OxyColor.FromAColor((byte)(0), s.ActualFillColor);
+                 if (!s.RenderInLegend)
+                 {
+                     s.FillColor = OxyColor.FromAColor((byte)(0), s.ActualFillColor);
 
-                     }
-                     else
-                        s.FillColor = OxyColor.FromAColor((byte)(s.IsSelected() ? 255 : 20), s.ActualFillColor);
+                 }
+                 else
+                     s.FillColor = OxyColor.FromAColor((byte)(s.IsSelected() ? 255 : 20), s.ActualFillColor);
                  });   
         }
 
         protected void UpdateAxes()
         {
             _histPlotModel.IsLegendVisible = true;
-            _histPlotModel.LegendTextColor = OxyColor.FromArgb(TextColor.A, TextColor.R, TextColor.G, TextColor.B);
-            _histPlotModel.LegendTitleColor = OxyColor.FromArgb(TextColor.A, TextColor.R, TextColor.G, TextColor.B);
-            _histPlotModel.LegendPosition = LegendPosition.LeftMiddle;
-            _histPlotModel.LegendSymbolLength = 15.0;
+            _histLegend.LegendTextColor = OxyColor.FromArgb(TextColor.A, TextColor.R, TextColor.G, TextColor.B);
+            _histLegend.LegendTitleColor = OxyColor.FromArgb(TextColor.A, TextColor.R, TextColor.G, TextColor.B);
+            _histLegend.LegendPlacement = LegendPlacement.Outside;
+            _histLegend.LegendPosition = LegendPosition.TopCenter;
+            _histLegend.LegendOrientation = LegendOrientation.Horizontal;
+            _histLegend.LegendSymbolLength = 15.0;
             _histPlotModel.PlotAreaBorderColor = OxyColor.FromArgb(PlotAreaBorderColor.A, PlotAreaBorderColor.R, PlotAreaBorderColor.G, PlotAreaBorderColor.B);
 
             _dateAxis.TextColor = OxyColor.FromArgb(TextColor.A, TextColor.R, TextColor.G, TextColor.B);
@@ -269,10 +282,11 @@ namespace SeeShellsV3.UI
             PriorityQueue<HistogramItem, int> bins = new PriorityQueue<HistogramItem, int>();
             Dictionary<string, OxyColor> colors = new Dictionary<string, OxyColor>();
             Dictionary<string, OxyColor> binColors = new Dictionary<string, OxyColor>();
+            Dictionary<string, string> titles = new Dictionary<string, string>();
+            Dictionary<string, string> binTitles = new Dictionary<string, string>();
+
 
             int count = 0;
-
-     
 
             foreach (var group in groups)
             {
@@ -280,11 +294,9 @@ namespace SeeShellsV3.UI
                 colors[group.Key?.ToString()] = color;
                 HistogramSeries s = new HistogramSeries();
 
-
                 var dates = group
                 .Select(x => x.date)
                 .OrderBy(x => x);
-
 
                 s.ItemsSource = HistogramHelpers.Collect(
                     dates.Select(x => DateTimeAxis.ToDouble(x)),
@@ -300,6 +312,8 @@ namespace SeeShellsV3.UI
                 s.ToolTip = s.Title;
                 s.Tag = (group.Key, dates.Count());
                 s.FillColor = color;
+
+                titles[group.Key?.ToString()] = s.Title;
 
                 if (_selected.Contains(group.Key))
                     s.Select();
@@ -320,6 +334,7 @@ namespace SeeShellsV3.UI
                 );
 
                 OxyColor color = colors[group.Key?.ToString()];
+                string title = titles[group.Key?.ToString()];
 
                 foreach (HistogramItem bin in realBins)
                 {
@@ -330,6 +345,7 @@ namespace SeeShellsV3.UI
                     bin.Area = bin.Area * dates.Count() / items.Count();
 
                     binColors[bin.ToString()] = color;
+                    binTitles[bin.ToString()] = title;
 
                     bins.Enqueue(bin, -bin.Count);
 
@@ -337,9 +353,7 @@ namespace SeeShellsV3.UI
 
             }
 
-
             int size = bins.Count;
-
 
             for (int i = 0; i < size; i++)
             {
@@ -348,11 +362,11 @@ namespace SeeShellsV3.UI
                 HistogramItem curr = bins.Dequeue();
                 newBin.Add(curr);
                 s.ItemsSource = newBin;
-                s.RenderInLegend = false;
+                s.Title = binTitles[curr.ToString()];
                 s.FillColor = binColors[curr.ToString()];
+                s.RenderInLegend = false;
                 _histPlotModel.Series.Add(s);
             }
-
         }
 
         public static readonly DependencyProperty ItemsSourceProp =

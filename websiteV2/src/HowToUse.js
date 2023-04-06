@@ -81,19 +81,6 @@ export default function HowToUse({size})
         
     `
 
-    const MenuButton = styled.div`
-
-    `
-    const MenuBox = styled.div`
-        width: 40vw`
-        
-    const HowToTitle = styled.div`
-        font-family: "IBM Plex Sans Condensed";
-        font-size: 30pt;
-        font-weight: bold;
-        margin: 2px;
-    `
-
     const pageContent = () => {
         if (finished)
         {

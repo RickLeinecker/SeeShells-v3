@@ -26,15 +26,15 @@
                 <Button Margin="15 0" Click="Left_Button_Click">&lt;</Button>
                 <TextBlock Name="HeatMapTitle"
                                VerticalAlignment="Center"
-                               FontSize="{Binding ElementName=HeatMapPlot, Path=TitleFontSize}"
-                               FontWeight="{Binding ElementName=HeatMapPlot, Path=TitleFontWeight}"/>
+                               FontSize="{Binding ElementName=HeatMapPlot, Path=Model.TitleFontSize}"
+                               FontWeight="{Binding ElementName=HeatMapPlot, Path=Model.TitleFontWeight}"/>
                 <Button Margin="15 0" Click="Right_Button_Click">&gt;</Button>
             </StackPanel>
-            <oxy:Plot Name="HeatMapPlot" Grid.Row="1" Background="Transparent"
+            <oxy:PlotView Name="HeatMapPlot" Grid.Row="1" Background="Transparent"
                       PreviewMouseMove="OnMouseMove"
                       PreviewMouseLeftButtonDown="OnMouseLeftButtonDown"
                       PreviewMouseRightButtonDown="OnMouseRightButtonDown">
-                <oxy:Plot.DefaultTrackerTemplate>
+                <oxy:PlotView.DefaultTrackerTemplate>
                     <ControlTemplate>
                         <Canvas>
                             <Border Canvas.Left="{Binding Position.X}" Canvas.Top="{Binding Position.Y}"
@@ -53,32 +53,8 @@
                             </Border>
                         </Canvas>
                     </ControlTemplate>
-                </oxy:Plot.DefaultTrackerTemplate>
-                <oxy:Plot.Series>
-                    <oxy:HeatMapSeries Name="HeatMapSeries" ColorAxisKey="z" />
-                </oxy:Plot.Series>
-                <oxy:Plot.Axes>
-                    <oxy:LinearColorAxis Key="z"
-                                         Name="ColorAxis"
-                                         AxisDistance="10"
-                                         Position="Right"
-                                         TicklineColor="Transparent"
-                                         LowColor="{DynamicResource MahApps.Colors.Accent5}"
-                                         HighColor="{DynamicResource MahApps.Colors.AccentBase}"
-                                         PaletteSize="100"
-                                         Minimum="0">
-                        <GradientStop Color="{DynamicResource MahApps.Colors.Accent5}" Offset="0" />
-                        <GradientStop Color="{DynamicResource MahApps.Colors.Accent3}" Offset="0.1" />
-                        <GradientStop Color="{DynamicResource MahApps.Colors.AccentBase}" Offset="1.0" />
-                    </oxy:LinearColorAxis>
-                    <oxy:LinearAxis Name="WeekAxis" IsAxisVisible="False"
-                                    IsZoomEnabled="False" IsPanEnabled="False"/>
-                    <oxy:CategoryAxis Name="DayAxis"
-                                      IsZoomEnabled="False" IsPanEnabled="False"/>
-                    <oxy:CategoryAxis Name="MonthAxis"
-                                      IsZoomEnabled="False" IsPanEnabled="False"/>
-                </oxy:Plot.Axes>
-            </oxy:Plot>
+                </oxy:PlotView.DefaultTrackerTemplate>
+            </oxy:PlotView>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal"
                         HorizontalAlignment="Center" VerticalAlignment="Center">

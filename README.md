@@ -13,8 +13,7 @@ The goal of SeeShell is to assist digital forensics investigators in their cours
 
 In addition to the timeline, SeeShells provides exporting:
  - CSV of all ShelBag information parsed.
- - HTML representation of the timeline
- - PDF for formal forensics reporting
+ - PDF for formal forensics reporting.
  
  SeeShells operates on both running machines (live) and registry hive files (offline).
 

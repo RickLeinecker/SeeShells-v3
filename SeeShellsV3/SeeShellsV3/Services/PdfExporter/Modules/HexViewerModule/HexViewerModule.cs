@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SeeShellsV3.Data;
 using SeeShellsV3.Repositories;
 using SeeShellsV3.UI;
 using Unity;
@@ -18,6 +20,12 @@ namespace SeeShellsV3.Services
         [Unity.Dependency]
         public ISelected Selected { get; set; }
         private UserControl HexViewer { get; set; }
+
+        public ObservableCollection<ReportEditor> Editors { get; set; }
+        public ObservableCollection<ShellItem> Items { get; set; }
+
+        [Unity.Dependency]
+        public IReportEventCollection ReportEvents { get; set; }
         public UIElement Render()
         {
             RenderTargetBitmap bm = new RenderTargetBitmap((int)HexViewer.ActualWidth,
@@ -39,6 +47,7 @@ namespace SeeShellsV3.Services
 
         public FrameworkElement View()
         {
+            System.Diagnostics.Debug.WriteLine(typeof(FrameworkElement).IsAssignableFrom(typeof(HexEditor)));
             string view = @"
             <UserControl  Name=""HexViewer"">
                 <UserControl.Resources>
@@ -46,10 +55,17 @@ namespace SeeShellsV3.Services
                         <Setter Property=""BytePerLine"" Value=""8"" />
                         <Setter Property=""StatusBarVisibility"" Value=""Hidden"" />
                     </Style>
-                    <local:StreamConverter x:Key=""StreamConverter"" />
+                    <local:HexConverter x:Key=""HexConverter"" />
+                    <local:StreamConverter x:Key=""StreamConverter""/>
                 </UserControl.Resources>
-                <hex:HexEditor Stream=""{Binding Selected.CurrentData, Converter={StaticResource StreamConverter}}""
-                       ReadOnlyMode=""True"" BorderThickness=""0"" Focusable=""False"" MaxHeight=""300""/>
+                <ItemsControl ItemsSource=""{Binding Items}"">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <hex:HexEditor Name=""HexEditor"" Stream=""{Binding Converter={StaticResource StreamConverter}}""
+                                    ReadOnlyMode=""True"" BorderThickness=""0"" Focusable=""False"" MaxHeight=""400""/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 			</UserControl>";
 
             ParserContext context = new ParserContext();
@@ -86,6 +102,33 @@ namespace SeeShellsV3.Services
 
             HexViewer = hex;
 
+            Editors = new ObservableCollection<ReportEditor>();
+            Items = new ObservableCollection<ShellItem>();
+
+            foreach (IShellEvent ev in ReportEvents.SelectedEvents)
+            {
+                foreach (ShellItem item in ev.Evidence)
+                {
+                    ReportEditor editor = new ReportEditor();
+
+                    Items.Add(item);
+
+                    editor.name = item.Description;
+                    editor.hexEditor = new HexEditor();
+
+                    StreamConverter conv = new StreamConverter();
+
+                    editor.hexEditor.Stream = (System.IO.Stream)conv.Convert(item, null, null, System.Globalization.CultureInfo.CurrentCulture);
+                    editor.hexEditor.ReadOnlyMode = true;
+                    editor.hexEditor.BorderThickness = new Thickness(0);
+                    editor.hexEditor.Focusable = false;
+                    editor.hexEditor.MaxHeight = 500;
+
+                    Editors.Add(editor);
+                }
+            }
+
+            System.Diagnostics.Debug.WriteLine("Getting here at this time");
 
             return e;
         }

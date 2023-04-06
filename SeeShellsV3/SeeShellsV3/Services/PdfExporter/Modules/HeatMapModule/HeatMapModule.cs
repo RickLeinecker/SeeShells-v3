@@ -43,8 +43,8 @@ namespace SeeShellsV3.Services
 			StackPanel sp = new StackPanel();
 			TextBlock t = new TextBlock();
 			t.Text = (HeatMap as CalendarHeatMap).Year.ToString();
-			t.FontSize = plot.TitleFontSize;
-			t.FontWeight = plot.TitleFontWeight;
+			t.FontSize = plot.Model.TitleFontSize;
+			t.FontWeight = FontWeights.Bold;
 			t.FontFamily = plot.FontFamily;
 			t.HorizontalAlignment = HorizontalAlignment.Center;
 			sp.Children.Add(t);

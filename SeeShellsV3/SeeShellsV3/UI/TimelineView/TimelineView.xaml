@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:oxy="http://oxyplot.org/wpf"
-             xmlns:local="clr-namespace:SeeShellsV3.UI"
+             xmlns:local="clr-namespace:SeeShellsV3.UI" 
+             d:DataContext="{d:DesignInstance Type=local:TimelineViewVM}"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" Margin="5">
     <UserControl.Resources>
-        <Style TargetType="oxy:Plot">
+        <Style TargetType="oxy:PlotView">
             <Setter Property="Margin" Value="10" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
