@@ -17,10 +17,10 @@
 
         <Grid Grid.Row="0" Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontWeight="Bold" Text="Search" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock FontWeight="Bold" Text="Search" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Theme}"/>
             <TextBox Text="{Binding Keyword}" KeyUp="TextBox_KeyEnterUpdate" mah:TextBoxHelper.ClearTextButton="True" Grid.Column="1"/>
         </Grid>
 

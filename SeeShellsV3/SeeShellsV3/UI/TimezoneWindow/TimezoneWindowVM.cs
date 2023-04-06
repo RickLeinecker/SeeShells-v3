@@ -14,6 +14,11 @@ public class TimezoneWindowVM: ViewModel, ITimezoneWindowVM
     public ITimezoneManager TimezoneManager { get; set; }
     public Timezone SelectedTimeZone { get; set; }
 
+    public string Theme
+    {
+        get => (Application.Current as App).currentTheme == "Dark" ? "White" : "Black";
+    }
+
     public string Keyword
     {
         get => keyword;
