@@ -41,6 +41,14 @@ namespace SeeShellsV3.Data
         string DaylightStatus { get; init; }
 
         /// <summary>
+        /// String to be displayed in the header of the application when this timezone is the current timezone.
+        /// </summary>
+        /// <example>
+        /// Eastern standard time shows up as "(UTC-5:00) Eastern Daylight Time"
+        /// </example>
+        string Header { get; }
+
+        /// <summary>
         /// A TimeZoneInfo object that represents the timezone.
         /// </summary>
         TimeZoneInfo Information { get; init; }

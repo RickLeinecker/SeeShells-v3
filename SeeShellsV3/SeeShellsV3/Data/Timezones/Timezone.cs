@@ -6,6 +6,7 @@ namespace SeeShellsV3.Data
     public class Timezone : ITimezone
     {
         public string Name => isDaylightSavings ? DaylightName : DisplayName;
+        public string Header => $"{Offset} {Name}";
 
         /// <summary>
         /// The timezone name in daylight savings.
