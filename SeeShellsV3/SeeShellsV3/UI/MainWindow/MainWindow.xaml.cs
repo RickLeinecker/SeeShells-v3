@@ -27,7 +27,9 @@ namespace SeeShellsV3.UI
         void ExportToCSV(string filePath, string source);
         void AddToReportCollection();
         void ChangePalette(string palette);
-        void ChangeTimezone(string timezone);
+        void ResetToUtc();
+        void ResetToLocal();
+        void UpdateTimezoneName();
         string WebsiteUrl { get; }
         string GithubUrl { get; }
 
@@ -121,9 +123,25 @@ namespace SeeShellsV3.UI
             ViewModel.ChangePalette((sender as MenuItem).Header as string);
         }
 
-        private void ChangeTimezone_Click(object sender, RoutedEventArgs e)
+        private void ResetUTC_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.ChangeTimezone((sender as MenuItem).Header as string);
+            ViewModel.ResetToUtc();
+        }
+
+        private void ResetLocal_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ResetToLocal();
+        }
+
+        private void TimezoneWindow_Click(object sender, RoutedEventArgs e)
+        {
+            IWindow win = WindowFactory.Create("timezones");
+            win.Show();
+
+            (win as Window).Closing += (s, e) =>
+            {
+                ViewModel.UpdateTimezoneName();
+            };
         }
     }
 }
