@@ -156,5 +156,10 @@ namespace SeeShellsV3.UI
             TimezoneManager.TimezoneChangeHandler(local);
             NotifyPropertyChanged(nameof(TimezoneManager));
         }
+
+        public void UpdateTimezoneName()
+        {
+            NotifyPropertyChanged(nameof(TimezoneManager));
+        }
     }
 }

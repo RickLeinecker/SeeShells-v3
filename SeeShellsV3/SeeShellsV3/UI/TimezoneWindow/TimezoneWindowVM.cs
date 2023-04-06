@@ -67,7 +67,6 @@ public class TimezoneWindowVM: ViewModel, ITimezoneWindowVM
         if (Status is "Select Timezone") return false;
 
         TimezoneManager.TimezoneChangeHandler(SelectedTimeZone);
-        NotifyPropertyChanged(nameof(TimezoneManager));
         Keyword = null;
 
         return true;

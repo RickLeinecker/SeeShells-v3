@@ -29,6 +29,7 @@ namespace SeeShellsV3.UI
         void ChangePalette(string palette);
         void ResetToUtc();
         void ResetToLocal();
+        void UpdateTimezoneName();
         string WebsiteUrl { get; }
         string GithubUrl { get; }
 
@@ -136,6 +137,11 @@ namespace SeeShellsV3.UI
         {
             IWindow win = WindowFactory.Create("timezones");
             win.Show();
+
+            (win as Window).Closing += (s, e) =>
+            {
+                ViewModel.UpdateTimezoneName();
+            };
         }
     }
 }
