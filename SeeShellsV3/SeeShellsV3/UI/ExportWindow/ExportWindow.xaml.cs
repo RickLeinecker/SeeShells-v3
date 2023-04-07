@@ -96,7 +96,7 @@ namespace SeeShellsV3.UI
             }
 		}
 
-		public void LoadHandler(object sender, EventArgs args)
+        public void LoadHandler(object sender, EventArgs args)
 		{
 			Mouse.OverrideCursor = null;
 			SelectedEvents.Visibility = ViewModel.HasSelectedEvents() ? Visibility.Visible : Visibility.Collapsed;
