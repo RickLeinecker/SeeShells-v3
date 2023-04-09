@@ -10,6 +10,7 @@ using SeeShellsV3.Services;
 using System.Collections;
 using System.Threading;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Documents;
@@ -28,15 +29,23 @@ namespace SeeShellsV3.UI
 
 		public ObservableCollection<string> moduleSelector { get; set; }
 
-		public string Status
+
+        public string Status
 		{
 			get => _status;
 			set { _status = value; NotifyPropertyChanged(); }
 		}
 
-		private string _status = string.Empty;
 
-		public ExportWindowVM([Dependency] PdfExporter Export) 
+
+        private string _status = string.Empty;
+
+        public string Theme
+        {
+            get => (Application.Current as App).currentTheme == "Dark" ? "White" : "Black";
+        }
+
+        public ExportWindowVM([Dependency] PdfExporter Export) 
 		{
 			moduleList = new ObservableCollection<IPdfModule>();
 			moduleList.Add(Export.moduleNames["Header"].Clone());

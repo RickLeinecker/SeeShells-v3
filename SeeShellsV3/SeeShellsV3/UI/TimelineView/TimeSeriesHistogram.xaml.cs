@@ -24,6 +24,8 @@ using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Legends;
 using OxyPlot.Series;
+using SeeShellsV3.Services;
+using Unity;
 
 namespace SeeShellsV3.UI
 {
@@ -57,12 +59,11 @@ namespace SeeShellsV3.UI
         private readonly Legend _histLegend = new Legend();
 
         private readonly ObservableCollection<object> _selected = new ObservableCollection<object>();
-        private List<OxyColor> palette;
 
         public TimeSeriesHistogram()
         {
             InitializeComponent();
-
+            
             _histPlotModel.Axes.Add(_dateAxis);
             _histPlotModel.Axes.Add(_freqAxis);
             _histPlotModel.Legends.Add(_histLegend);
@@ -70,11 +71,23 @@ namespace SeeShellsV3.UI
             _histPlotModel.MouseDown += _histLegend_MouseDown;
             _histPlotModel.MouseMove += _histPlotModel_MouseMove;
 
-            palette = new List<OxyColor>();
-            histPlotModel_setColors();
-
             _histPlotController.UnbindMouseDown(OxyMouseButton.Right);
             _histPlotController.BindMouseDown(OxyMouseButton.Left, PlotCommands.PanAt);
+
+            List<Array> palettes = new List<Array>((IEnumerable<Array>)Application.Current.Resources["palettes"]);
+            List<OxyColor> oxyPalette = new();
+            List<Color> colors = new((IEnumerable<Color>)palettes[0]);
+            foreach (Color color in colors)
+            {
+                oxyPalette.Add(
+                    OxyColor.FromRgb(
+                        color.R,
+                        color.G,
+                        color.B
+                        )
+                    );
+            }
+            HistPlotModel_setColors(new OxyPalette(oxyPalette));
 
             HistogramPlot.Model = _histPlotModel;
             HistogramPlot.Controller = _histPlotController;
@@ -83,21 +96,9 @@ namespace SeeShellsV3.UI
             UpdateAxes();
         }
 
-        internal void histPlotModel_setColors(int index = 0)
+        internal void HistPlotModel_setColors(OxyPalette palette)
         {
-            palette = new List<OxyColor>();
-            List<Color> colors = new List<Color>((IEnumerable<Color>)Application.Current.Resources["Palette" + index.ToString()]);
-            foreach (Color color in colors)
-            {
-                palette.Add(
-                    OxyColor.FromRgb(
-                        color.R,
-                        color.G,
-                        color.B
-                        )
-                    );
-            }
-            _histPlotModel.DefaultColors = palette;
+            _histPlotModel.DefaultColors = palette.Colors;
             Update();
         }
 

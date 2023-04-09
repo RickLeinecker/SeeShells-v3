@@ -13,7 +13,7 @@
             "title": "Case Study #2",
             "vidLink": null,
             "caption": "this is a caption",
-            "pdfFile": null,
+            "pdfFile": "./caseStudies/Case_Study_2_Writeup.pdf",
             "regFiles": null
         }
     ],

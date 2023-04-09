@@ -36,10 +36,6 @@ namespace SeeShellsV3.Services
             if (ShellEvents.Count != 0)
             {
                 ShellEvents.updating = true;
-                foreach (ShellEvent e in ShellEvents.ToList())
-                {
-                    ShellEvents.Remove(e);
-                }
             }
             ShellEventGenerateBegin?.Invoke(this, EventArgs.Empty);
             IList<IIntermediateShellEvent> intermediateShellEvents = new List<IIntermediateShellEvent>();

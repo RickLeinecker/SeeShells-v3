@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Xml.Linq;
+using SeeShellsV3.Data;
 using SeeShellsV3.Repositories;
 using SeeShellsV3.UI;
 using Unity;
 using WpfHexaEditor;
+using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
 
 namespace SeeShellsV3.Services
 {
@@ -17,10 +22,15 @@ namespace SeeShellsV3.Services
         public string Name => "Hex View";
         [Unity.Dependency]
         public ISelected Selected { get; set; }
-        private UserControl HexViewer { get; set; }
+        private StackPanel HexViewer { get; set; }
+
+        public ObservableCollection<ShellItem> Items { get; set; }
+
+        [Unity.Dependency]
+        public IReportEventCollection ReportEvents { get; set; }
         public UIElement Render()
         {
-            RenderTargetBitmap bm = new RenderTargetBitmap((int)HexViewer.ActualWidth,
+            RenderTargetBitmap bm = new RenderTargetBitmap((int)HexViewer.ActualWidth - 10,
                                                            (int)HexViewer.ActualHeight,
                                                            96,
                                                            96,
@@ -39,18 +49,46 @@ namespace SeeShellsV3.Services
 
         public FrameworkElement View()
         {
-            string view = @"
-            <UserControl  Name=""HexViewer"">
-                <UserControl.Resources>
-                    <Style TargetType=""{x:Type hex:HexEditor}"">
-                        <Setter Property=""BytePerLine"" Value=""8"" />
-                        <Setter Property=""StatusBarVisibility"" Value=""Hidden"" />
-                    </Style>
-                    <local:StreamConverter x:Key=""StreamConverter"" />
-                </UserControl.Resources>
-                <hex:HexEditor Stream=""{Binding Selected.CurrentData, Converter={StaticResource StreamConverter}}""
-                       ReadOnlyMode=""True"" BorderThickness=""0"" Focusable=""False"" MaxHeight=""300""/>
-			</UserControl>";
+            string test = "";
+            string tempView = "";
+            Items = new ObservableCollection<ShellItem>();
+
+            int index = 0;
+
+            foreach (IShellEvent ev in ReportEvents.SelectedEvents)
+            {
+                foreach (ShellItem item in ev.Evidence)
+                {
+                    Items.Add(item);
+
+                    test = @"<hex:HexEditor Name = " + "\"HexEditor" + index + "\"" + @" Stream=""{Binding Items[" + index + "]" + @", Converter={StaticResource StreamConverter}}"" 
+                            ReadOnlyMode = ""True"" BorderThickness = ""0"" Focusable = ""False"" MaxHeight = ""400"" />";
+
+                    string temp = @"
+                    <TextBlock Background = ""Silver"" FontSize=""30"" FontWeight=""SemiBold"">
+                        Hex - " + ev.Description +@"
+                    </TextBlock>
+                    <UserControl>
+                        <UserControl.Resources>
+                            <Style TargetType=""{x:Type hex:HexEditor}"">
+                                <Setter Property=""BytePerLine"" Value=""12"" />
+                                <Setter Property=""StatusBarVisibility"" Value=""Hidden"" />
+                            </Style>
+                            <local:HexConverter x:Key=""HexConverter"" />
+                            <local:StreamConverter x:Key=""StreamConverter""/>
+                        </UserControl.Resources>
+                           " + test + @"
+                    </UserControl>";
+
+                    tempView += temp;
+                    index++;
+                }
+            }
+
+            string view = "<StackPanel Name =\"HexViewerMod\">" + tempView + "</StackPanel>"; 
+
+
+
 
             ParserContext context = new ParserContext();
             context.XmlnsDictionary.Add("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
@@ -73,18 +111,8 @@ namespace SeeShellsV3.Services
 
             e.DataContext = this;
 
-            var hex = e.FindName("HexViewer") as UserControl;
-
-            var converter = new StreamConverter();
-
-            var test2 = new HexView();
-
-            var test = new HexEditor();
-            test.Stream = (System.IO.Stream) converter.Convert(Selected.CurrentData, null, null, System.Globalization.CultureInfo.CurrentCulture);
-            test.ReadOnlyMode = true;
-            test.Focusable = false;
-
-            HexViewer = hex;
+            StackPanel testObj = e.FindName("HexViewerMod") as StackPanel;
+            HexViewer = testObj;
 
 
             return e;

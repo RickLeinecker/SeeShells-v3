@@ -37,35 +37,31 @@
                 <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="{DynamicResource MahApps.Colors.ThemeBackground}" />
                 <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOnPointerOver" Color="{DynamicResource MahApps.Colors.Gray7}" />
             </mah:WindowCommands.Resources>
-            
-            <mah:SplitButton SelectedIndex="0"
-                             HorizontalAlignment="Right"
-                             SelectionChanged="SplitButton_OnSelectionChanged"
-                             >
-                <mah:SplitButton.ItemsSource>
-                    <x:Array Type="system:String">
-                        <system:String>Tol1</system:String>
-                        <system:String>Tol2</system:String>
-                        <system:String>Pastel</system:String>
-                    </x:Array>
-                </mah:SplitButton.ItemsSource>
-            </mah:SplitButton>
-                             
-            <mah:ToggleSwitch OffContent="Light"
-                              OnContent="Dark"
-                              Toggled="ToggleSwitch_Toggled"
-                              IsOn="True"
-                              HorizontalAlignment="Right"
-                              HorizontalContentAlignment="Right"
-                              ContentDirection="LeftToRight"
-                              Margin="5 0"/>
+
+          <mah:ToggleSwitch OffContent="Light"
+                            OnContent="Dark"
+                            Toggled="ToggleSwitch_Toggled"
+                            IsOn="True"
+                            HorizontalAlignment="Right"
+                            HorizontalContentAlignment="Right"
+                            ContentDirection="LeftToRight"
+                            Margin="5 0"/>
+
             <Menu Background="Transparent">
-                <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Identifier}" Background="Transparent" ItemsSource="{Binding TimezoneManager.SupportedTimezones}" Width="39">
+                <MenuItem  Header="{Binding PaletteManager.CurrentPalette.Name}" Background="Transparent" ItemsSource="{Binding PaletteManager.PaletteNames}">
                     <MenuItem.ItemTemplate>
                         <DataTemplate>
-                            <MenuItem Header="{Binding Name}" Background="Transparent" Click="ChangeTimezone_Click"/>
+                            <MenuItem Header="{Binding}" Background="Transparent" Click="ChangePalette_Click"/>
                         </DataTemplate>
                     </MenuItem.ItemTemplate>
+                </MenuItem>
+            </Menu>
+            
+            <Menu Background="Transparent">
+                <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Header}" Background="Transparent">
+                    <MenuItem Header="Change Timezone" Click="TimezoneWindow_Click"/>
+                    <MenuItem Header="Reset to UTC" Click="ResetUTC_Click"/>
+                    <MenuItem Header="Reset to Local Time" Click="ResetLocal_Click"/>
                 </MenuItem>
             </Menu>
         </mah:WindowCommands>
@@ -103,11 +99,8 @@
 
                     <xcad:LayoutDocumentPaneGroup >
                         <xcad:LayoutDocumentPane>
-                            <xcad:LayoutDocument ContentId="timelineview" Title="Events" CanClose="False" ToolTip="A timeline of user activity">
+                            <xcad:LayoutDocument ContentId="timelineview" Title="Events" CanClose="False">
                                 <local:TimelineView x:Name="Timeline"/>
-                            </xcad:LayoutDocument>
-                            <xcad:LayoutDocument ContentId="tableview" Title="Shellbags" CanClose="False" ToolTip="A list of shellbags found in the loaded registry hives">
-                                <local:ShellItemTableView />
                             </xcad:LayoutDocument>
                         </xcad:LayoutDocumentPane>
                     </xcad:LayoutDocumentPaneGroup >

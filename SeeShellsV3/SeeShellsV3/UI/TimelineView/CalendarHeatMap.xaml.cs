@@ -114,8 +114,8 @@ namespace SeeShellsV3.UI
                                                                             Palette = OxyPalette.Interpolate(100, new OxyColor[] { OxyColor.Parse("#0063AEFF"),
                                                                             OxyColor.Parse("#63AEFF"), OxyColor.Parse("#0000FF") }), Minimum = 0 };
         private readonly LinearAxis _linearAxis = new LinearAxis { IsAxisVisible = false, IsZoomEnabled = false, IsPanEnabled = false };
-        private readonly CategoryAxis _dayCategoryAxis = new CategoryAxis { IsZoomEnabled = false, IsPanEnabled = false };
-        private readonly CategoryAxis _monthCategoryAxis = new CategoryAxis { IsZoomEnabled = false, IsPanEnabled = false };
+        private readonly CategoryLabels _dayCategoryAxis = new CategoryLabels { IsZoomEnabled = false, IsPanEnabled = false };
+        private readonly CategoryLabels _monthCategoryAxis = new CategoryLabels { IsZoomEnabled = false, IsPanEnabled = false };
 
         /// <summary>
         /// construct a new heat map
@@ -259,7 +259,7 @@ namespace SeeShellsV3.UI
         {
             HeatMapPlot.Model.Annotations.Clear();
 
-            HeatMapPlot.Model.PlotAreaBorderColor = OxyColor.FromArgb(TextColor.A, TextColor.R, TextColor.G, TextColor.B);
+            HeatMapPlot.Model.PlotAreaBorderColor = TextColor.ToOxyColor();
             HeatMapPlot.Model.PlotAreaBorderThickness = new OxyThickness(1);
 
             for (int i = 0; i < 6; i++)
@@ -400,6 +400,8 @@ namespace SeeShellsV3.UI
 
             _dayCategoryAxis.ItemsSource = (Orientation == Orientation.Horizontal) ?
                 weekdays.Reverse() : weekdays;
+
+            _dayCategoryAxis.update(weekdays.Length);
             
             _linearAxis.TitleColor = TextColor.ToOxyColor();
             _linearAxis.TextColor = TextColor.ToOxyColor();
@@ -420,6 +422,8 @@ namespace SeeShellsV3.UI
 
             _monthCategoryAxis.ItemsSource = (Orientation == Orientation.Horizontal) ?
                 months : months.Reverse();
+
+            _monthCategoryAxis.update(months.Length);
 
             _heatMapPlotModel.Series.OfType<HeatMapSeries>().ForEach(s => s.X0 = 0);
             _heatMapPlotModel.Series.OfType<HeatMapSeries>().ForEach(s => s.X1 = (Orientation == Orientation.Horizontal) ? 52 : 6);
@@ -495,7 +499,7 @@ namespace SeeShellsV3.UI
                     s.Interpolate = false;
                     s.ColorAxisKey = "z";
                     s.Data = data; 
-                    _heatMapPlotModel.Series.Add(s);  
+                    _heatMapPlotModel.Series.Add(s);
                 }
                 catch (InvalidOperationException)
                 {

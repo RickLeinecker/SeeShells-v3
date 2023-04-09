@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using SeeShellsV3.Data;
 using SeeShellsV3.Events;
 using SeeShellsV3.Repositories;
 using SeeShellsV3.Services;
+using System.Reflection;
 
 namespace SeeShellsV3.UI
 {
@@ -25,6 +27,7 @@ namespace SeeShellsV3.UI
         [Dependency] public IShellEventManager ShellEventManager { get; set; }
         [Dependency] public IShellEventCollection ShellEvents { get; set; }
         [Dependency] public ITimezoneManager TimezoneManager { get; set; }
+        [Dependency] public IPaletteManager PaletteManager { get; set; }
         [Dependency] public ISelected Selected { get; set; }
         [Dependency] public IReportEventCollection ReportEvents { get; set; }
 
@@ -82,6 +85,8 @@ namespace SeeShellsV3.UI
                 await Task.Run(() => RegImporter.ImportRegistry(true)) :
                 await Task.Run(() => RegImporter.ImportRegistry(false, true, hiveLocation));
 
+            System.Diagnostics.Debug.WriteLine("What about here?");
+
             if (root == null || parsedItems == null)
             {
                 Status = "No New Shellbags Found.";
@@ -92,8 +97,10 @@ namespace SeeShellsV3.UI
 
                 Status = "Generating User Action Events...";
                 await Task.Run(() => ShellEventManager.GenerateEvents(parsedItems));
+                TimezoneManager.ReloadTimezones();
                 Status = "Done.";
             }
+
 
             await Task.Run(() => Thread.Sleep(3000));
             Status = string.Empty;
@@ -134,10 +141,28 @@ namespace SeeShellsV3.UI
             IShellEvent shell = Selected.CurrentInspector as IShellEvent;
             ReportEvents.Add(shell);
         }
-        public void ChangeTimezone(string timezone)
+
+        public void ChangePalette(string palette)
         {
-            Debug.WriteLine("ChangeTime");
-            TimezoneManager.TimezoneChangeHandler(timezone);
+            PaletteManager.PaletteChangeHandler(palette);
+            NotifyPropertyChanged(nameof(PaletteManager));
+        }
+
+        public void ResetToUtc()
+        {
+            TimezoneManager.TimezoneChangeHandler("UTC");
+            NotifyPropertyChanged(nameof(TimezoneManager));
+        }
+
+        public void ResetToLocal()
+        {
+            string local = TimeZoneInfo.Local.StandardName;
+            TimezoneManager.TimezoneChangeHandler(local);
+            NotifyPropertyChanged(nameof(TimezoneManager));
+        }
+
+        public void UpdateTimezoneName()
+        {
             NotifyPropertyChanged(nameof(TimezoneManager));
         }
     }

@@ -45,7 +45,19 @@ export default function About({size})
         font-weight: bold;
         padding:5px;
         font-family: "IBM Plex Sans Condensed";
+        &:hover {
+          cursor: pointer;
+      };
     `
+
+    function downloadSeeShells()
+    {
+        const button = document.createElement('a')
+        button.href = "https://github.com/ShellBags/v2/releases/download/v2.0-beta.4/SeeShellsV2.zip"
+        button.setAttribute("download", "SeeShellsV2")
+        button.click()
+        button.remove()
+    }
 
     function checkSize()
     {
@@ -78,7 +90,7 @@ export default function About({size})
                   for analyzing Windows <br />
                   Registry Artifacts
                 </span>
-                <Download>
+                <Download onClick={downloadSeeShells}>
                     Download
                 </Download>
             </AboutHeaderContent>

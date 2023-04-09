@@ -32,6 +32,8 @@ namespace SeeShellsV3.Services
         private IShellItemCollection ShellItems { get; set; }
         private IShellItemFactory ShellFactory { get; set; }
 
+        HashSet<string> prevRegs = new HashSet<string>();
+
         public event EventHandler RegistryImportBegin;
         public event EventHandler RegistryImportEnd;
 
@@ -74,12 +76,20 @@ namespace SeeShellsV3.Services
 
                     if (user == null)
                     {
-                        user = Users.FirstOrDefault(
-                            u => u.Name == keyWrapper.RegistryUser && u.SID == keyWrapper.RegistrySID
-                        );
-
-                        if (user != null)
-                            return (null, null);
+                        if (useOfflineHive)
+                        {
+                            if (prevRegs.Contains(hiveLocation))
+                                return (null, null);
+                            else
+                                prevRegs.Add(hiveLocation);
+                        }
+                        else
+                        {
+                            if (prevRegs.Contains("Active Registry"))
+                                return (null, null);
+                            else
+                                prevRegs.Add("Active Registry");
+                        }
 
                         Users.SynchronizationContext?.Send((_) =>
                         {
@@ -93,12 +103,6 @@ namespace SeeShellsV3.Services
                         string name = useOfflineHive ? Path.GetFileName(hiveLocation) : "Live Registry";
                         string pathname = useOfflineHive ? hiveLocation : "N/A";
 
-                        hive = RegistryHives.FirstOrDefault(
-                             u => u.Name == name && u.Path == pathname && u.User == user
-                         );
-
-                        if (hive != null)
-                            return (null, null);
 
                         RegistryHives.SynchronizationContext?.Send((_) =>
                         {
@@ -165,7 +169,9 @@ namespace SeeShellsV3.Services
                 }
             }
 
+
             RegistryImportEnd?.Invoke(this, EventArgs.Empty);
+            System.Diagnostics.Debug.WriteLine("Getting here?");
             return (hive, parsedItems);
         }
 
@@ -235,6 +241,7 @@ namespace SeeShellsV3.Services
 
         private string FindOnlineUsername(OnlineRegistryKey userStore)
         {
+            System.Diagnostics.Debug.WriteLine(Environment.UserName);
             string sid = userStore.Name.Split('\\')[1];
             // "_classes" is actually just a user's usrclass.dat, not a seperate user.
             sid = sid.ToUpper().Replace("_CLASSES", "");

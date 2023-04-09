@@ -3,6 +3,8 @@
     {
         "title":"Parsing",
         "tabNames": ["Online", "Offline (Windows)"],
+        "normalWidth" : "200px",
+        "normalHeight" : "50px",
         "tabs": 
         {
             "Online" : 
@@ -10,38 +12,328 @@
                 "title":"Online",
                 "definition": "Online Parsing refers to parsing shellbag data directly from the machine presently in use.",
 					"toStatement": "To parse an active registry:",
-					"steps": ["From the start menu, select the option that says \"From Active Registry\" \n Alternatively, if SeeShells is already running, select Import > From Live Registry.', 'The shellbags from the live machine will populate the multiple views available in SeeShells and the user can explore the shellbags and the extrapolated shellbag events."]
+					"steps": [
+                        {
+                            "message" : "From the start menu, select the option that says \"From Active Registry\" \n ",
+                            "image" : "./images/startupScreen.png",
+                            "imageStyles" : {
+                                "maxHeight" : "85%",
+                                "maxWidth" : "85%"
+                            }
+                        },
+                        {
+                            "message" :  "Alternatively, if SeeShells is already running, select Import > 'From Live Registry.', 'The shellbags from the live machine will populate the multiple views available in SeeShells and the user can explore the shellbags and the extrapolated shellbag events. Users can also reset the application to the start state by clicking the 'Reset' button.",
+                            "image": "./images/import.png",
+                            "imageStyles" : {
+                                "maxHeight" : "85%",
+                                "maxWidth" : "85%"
+                            }
+                        }
+                    ]
             },
 
             "Offline (Windows)" :
             {
                 "title":"Offline (Windows)",
-                "definition": "Offline Parsing refers to parsing shellbag data from a Windows Registry hive, the UsrClass.dat file.",
-					"toStatement": "To get an offline hive for SeeShells from a Windows machine:",
-					"steps": ["Access the Windows File Explorer as an Admin user", "Navigate to USERHOME\\AppData\\Local\\Microsoft\\Windows", "Copy and Paste the UsrClass.dat file from the Windows folder to the destination folder"]
+                "definition": "Offline Parsing refers to parsing shellbag data from a given registry file.",
+					"toStatement": "To parse an offline registry:",
+					"steps": [
+                        {
+                            "message" : "From the start menu, select the option that says \"From Registry File\" \n ",
+                            "image" : "./images/startupScreen.png",
+                            "imageStyles" : {
+                                "maxHeight" : "85%",
+                                "maxWidth" : "85%"
+                            }
+                        },
+                        {
+                            "message" :  "Alternatively, if SeeShells is already running, select Import > 'From Offline Registry', then select the registry file to be imported. The shellbags from the registry file will populate the multiple views available in SeeShells and the user can explore the shellbags and the extrapolated shellbag events. Users can also reset the application to the start state by clicking the 'Reset' button.",
+                            "image": "./images/import.png",
+                            "imageStyles" : {
+                                "maxHeight" : "85%",
+                                "maxWidth" : "85%"
+                            }
+                        }
+                    ]
             }
         }
     },
     "ShellInspector":
     {
         "title":"Shell Inspector",
-        "tabNames": ["Online", "Offline (Windows)"],
+        "tabNames": [""],
+        "normalWidth" : "200px",
+        "normalHeight" : "50px",
         "tabs": 
         {
-            "Online" : 
+            "default" : 
             {
-                "title":"Online",
-                "definition": "Online Parsing refers to parsing shellbag data directly from the machine presently in use.",
-					"toStatement": "To parse an active registry:",
-					"steps": ["From the start menu, select the option that says \"From Active Registry\" \n Alternatively, if SeeShells is already running, select Import > From Live Registry.', 'The shellbags from the live machine will populate the multiple views available in SeeShells and the user can explore the shellbags and the extrapolated shellbag events."]
+                "title":"Viewing Shellbags",
+                "definition": "The Shell Inspector is where the information for the currently selected shellbag is displayed",
+                "toStatement": "To view a shellbag:",
+                "steps": 
+                [
+                    {
+                        "message" : "Select an event from the table in the Event Timeline panel, once selected the inspector will populate with relevant information:",
+                        "image" : "./images/inspector.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    },
+                    {
+                        "message" : "Note: some shellbags have multiple items under the 'Shellbag Evidence' section. Each of these can be clicked to populate the Hex View"
+                    }
+                ]
+            }
+        }
+    },
+    "EventTimeline" :
+    {
+        "title":"Event Timeline",
+        "tabNames" : ["Histogram", "Heatmap", "Event Table"],
+        "normalWidth" : "130px",
+        "normalHeight" : "50px",
+        "tabs":
+        {
+            "Histogram" :
+            {
+                "title" : "Histogram",
+                "definition" : "The histogram is a visual representation of the timeline of events extracted from the registry",
+                "toStatement": "To operate the histogram:",
+                "steps" : 
+                [
+                    {
+                        "message" : "To scroll left or right on the histogram, simply left-click, and drag in the desired direction"
+                    },
+                    {
+                        "message" : "For more information on a given column, right-click and hold"
+                    },
+                    {
+                        "message" : "The histogram can be filtered by clicking on the text for one of the categories at the top like so:",
+                        "image" : "./images/filteredHist.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    }
+                ]
             },
-
-            "Offline (Windows)" :
+            "Heatmap" :
             {
-                "title":"Offline (Windows)",
-                "definition": "Offline Parsing refers to parsing shellbag data from a Windows Registry hive, the UsrClass.dat file.",
-					"toStatement": "To get an offline hive for SeeShells from a Windows machine:",
-					"steps": ["Access the Windows File Explorer as an Admin user", "Navigate to USERHOME\\AppData\\Local\\Microsoft\\Windows", "Copy and Paste the UsrClass.dat file from the Windows folder to the destination folder"]
+                "title" : "Heatmap",
+                "definition" : "The heatmap allows for fitering shellbag events by date through a calendar visual",
+                "toStatement" : "To operate the heatmap:",
+                "steps" : 
+                [
+                    {
+                        "message" : "Users can change the year by pressing one of the arrows at the top, and select a given day by left-clicking a day on the heatmap"
+                    },
+                    {
+                        "message" : "It is also possible to set a multi-day range by clicking and holding to highlight the desired days",
+                        "image" : "./images/heatmap.png"
+
+                    }
+                ]
+            },
+            "Event Table" :
+            {
+                "title" : "Event Table",
+                "definition" : "The event table is the main way to access shellbag events, click an event to populate the Shell Inspector and Hex View",
+                "toStatement" : "Some features of the event table:",
+                "steps" : 
+                [
+                    {
+                        "message" : "Users can change the order to ascending or descending for each category by clicking the category title in the ribbon"
+                    },
+                    {
+                        "message" : "Categories can also be reordered by clicking and dragging a category to the selected position",
+                        "image" : "./images/table.png"
+
+                    }
+                ]
+            }
+        }
+    },
+    "HexView" : 
+    {
+        "title":"Hex Viewer",
+        "tabNames": [""],
+        "normalWidth" : "200px",
+        "normalHeight" : "50px",
+        "tabs": 
+        {
+            "default" : 
+            {
+                "title":"Hex Information",
+                "definition": "The Hex Viewer is where the raw hex data for the selected shellbag is displayed",
+                "toStatement": "To view a shellbag:",
+                "steps": 
+                [
+                    {
+                        "message" : "Select an event from the table in the Event Timeline panel, once selected the hex viewer will populate with raw hex data:",
+                        "image" : "./images/hexView.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    },
+                    {
+                        "message" : "All bytes in the hex viewer can be selected, and the viewer will highlight all other bytes with that code"
+                    }
+                ]
+            }
+        }
+    },
+    "RegistryView" : 
+    {
+        "title":"Registry View",
+        "tabNames": [""],
+        "normalWidth" : "200px",
+        "normalHeight" : "50px",
+        "tabs": 
+        {
+            "default" : 
+            {
+                "title":"Registry View",
+                "definition": "A recreation of the file structure of the given registry",
+                "toStatement": "To navigate the registry view:",
+                "steps": 
+                [
+                    {
+                        "message" : "Click the arrow to expand a directory, or click on it to filter given shellbags by that path",
+                        "image" : "./images/regView.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "Exporting" :
+    {
+        "title":"Exporting",
+        "tabNames": [""],
+        "normalWidth" : "200px",
+        "normalHeight" : "50px",
+        "tabs": 
+        {
+            "default" : 
+            {
+                "title":"Exporting shellbag information",
+                "definition": "Currently supports exporting to .pdf and .csv",
+                "toStatement": "To export selected shellbag information: ",
+                "steps": 
+                [
+                    {
+                        "message" : "To initiate the export, click the export button in the top left, and select the desired type",
+                        "image" : "./images/exportSelect.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    },
+                    {
+                        "message" : "When exporting to pdf, a new window will open where the user can customize what information to export and in what form. Specific shellbags can be selected for exporting by right clicking the event in the Event Table",
+                        "image" : "./images/exportPdf.png"
+                    },
+                    {
+                        "message" : "To add a new module, select the desired module, and click the plus sign in the top right corner. Then to print the report, scroll to the bottom and hit the print button in the bottom right corner. From there a user can choose to either directly print or save to pdf."
+                    }
+                ]
+            }
+        }
+    },
+    "Filter" :
+    {
+        "title":"Filters",
+        "tabNames": [""],
+        "normalWidth" : "200px",
+        "normalHeight" : "50px",
+        "tabs": 
+        {
+            "default" : 
+            {
+                "title":"Filter the currently displayed shellbag information",
+                "definition": "Allows for more efficient parsing of information",
+                "toStatement": "To filter shellbags: ",
+                "steps": 
+                [
+                    {
+                        "message" : "Navigate to the filters panel, and select the desired filter criteria. Some fields can be typed in directly such as the Keyword and Path fields, as well as the time fields. The remaining filters are all selectable by dropdown"
+                    },
+                    {
+                        "message" : "For easier time filtering, click the calendar icon on the right side of the begin and end time fields",
+                        "image" : "./images/filter.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "Themes" :
+    {
+        "title":"Themes",
+        "tabNames": [""],
+        "normalWidth" : "200px",
+        "normalHeight" : "50px",
+        "tabs": 
+        {
+            "default" : 
+            {
+                "title":"Change the current theme",
+                "definition": "Users can change the current color scheme for increased accessibility",
+                "toStatement": "To change the colors: ",
+                "steps": 
+                [
+                    {
+                        "message" : "Click on the dropdown to the left of the light/dark mode toggle to select the color scheme",
+                        "image" : "./images/theme.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "TimeZones" :
+    {
+        "title":"Timezone Conversion",
+        "tabNames": [""],
+        "normalWidth" : "200px",
+        "normalHeight" : "50px",
+        "tabs": 
+        {
+            "default" : 
+            {
+                "title":"Change time zones",
+                "toStatement": "To change timezones: ",
+                "steps": 
+                [
+                    {
+                        "message" : "Click on the dropdown menu at the top right, and select 'Change Time Zone'. Default time zone is UTC.",
+                        "image" : "./images/timeZone.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    },
+                    {
+                        "message" : "Next, select the desired time zone through either scrolling, or searching",
+                        "image" : "./images/changeTime.png",
+                        "imageStyles" : {
+                            "maxHeight" : "85%",
+                            "maxWidth" : "85%"
+                        }
+                    }
+                ]
             }
         }
     }
