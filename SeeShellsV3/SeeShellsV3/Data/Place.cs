@@ -37,6 +37,11 @@ namespace SeeShellsV3.Data
         {
             return (PathName, Name).CompareTo((other.PathName, other.Name));
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     public class UnknownPlace : Place { public override string Type => "Unknown"; }
