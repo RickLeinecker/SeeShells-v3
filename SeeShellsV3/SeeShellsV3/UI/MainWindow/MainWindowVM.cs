@@ -135,11 +135,9 @@ namespace SeeShellsV3.UI
             writer.Close();
         }
 
-        // TODO: Handle errors
-        public void AddToReportCollection()
+        public void ClearSelected()
         {
-            IShellEvent shell = Selected.CurrentInspector as IShellEvent;
-            ReportEvents.Add(shell);
+            ReportEvents.Clear();
         }
 
         public void ChangePalette(string palette)
