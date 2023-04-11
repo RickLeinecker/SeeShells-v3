@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 
 const caseStudies = require("./CaseStudiesArray.json");
 
+
 export default function CaseStudies({size}) {
 
     let mobile = (size.width <= 750)

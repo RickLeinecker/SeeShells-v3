@@ -6,7 +6,7 @@
             "vidLink": null,
             "caption": "this is a caption",
             "pdfFile": null,
-            "regFiles": null
+            "regFiles": "./caseStudies/CaseStudy1.dat"
         },
 
         {
@@ -14,7 +14,7 @@
             "vidLink": null,
             "caption": "this is a caption",
             "pdfFile": "./caseStudies/Case_Study_2_Writeup.pdf",
-            "regFiles": null
+            "regFiles": "./caseStudies/CaseStudy2.dat"
         }
     ],
 
@@ -25,7 +25,7 @@
             "vidLink": null,
             "caption": "this is a caption",
             "pdfFile": null,
-            "regFiles": null
+            "regFiles": "./caseStudies/CaseStudy3.dat"
         },
 
         {

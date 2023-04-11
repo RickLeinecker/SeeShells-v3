@@ -61,7 +61,7 @@
     "ShellInspector":
     {
         "title":"Shell Inspector",
-        "tabNames": [""],
+        "tabNames": ["Viewing Shellbags"],
         "normalWidth" : "200px",
         "normalHeight" : "50px",
         "tabs": 
@@ -158,7 +158,7 @@
     "HexView" : 
     {
         "title":"Hex Viewer",
-        "tabNames": [""],
+        "tabNames": ["Hex Viewer"],
         "normalWidth" : "200px",
         "normalHeight" : "50px",
         "tabs": 
@@ -188,7 +188,7 @@
     "RegistryView" : 
     {
         "title":"Registry View",
-        "tabNames": [""],
+        "tabNames": ["Registry View"],
         "normalWidth" : "200px",
         "normalHeight" : "50px",
         "tabs": 
@@ -215,7 +215,7 @@
     "Exporting" :
     {
         "title":"Exporting",
-        "tabNames": [""],
+        "tabNames": ["Exporting"],
         "normalWidth" : "200px",
         "normalHeight" : "50px",
         "tabs": 
@@ -249,7 +249,7 @@
     "Filter" :
     {
         "title":"Filters",
-        "tabNames": [""],
+        "tabNames": ["Filter"],
         "normalWidth" : "200px",
         "normalHeight" : "50px",
         "tabs": 
@@ -276,15 +276,16 @@
             }
         }
     },
-    "Themes" :
+
+    "Customization" :
     {
-        "title":"Themes",
-        "tabNames": [""],
+        "title":"Customization",
+        "tabNames": ["Themes", "Timezone"],
         "normalWidth" : "200px",
         "normalHeight" : "50px",
         "tabs": 
         {
-            "default" : 
+            "Themes" : 
             {
                 "title":"Change the current theme",
                 "definition": "Users can change the current color scheme for increased accessibility",
@@ -300,20 +301,11 @@
                         }
                     }
                 ]
-            }
-        }
-    },
-    "TimeZones" :
-    {
-        "title":"Timezone Conversion",
-        "tabNames": [""],
-        "normalWidth" : "200px",
-        "normalHeight" : "50px",
-        "tabs": 
-        {
-            "default" : 
+            },
+            "Timezone" : 
             {
                 "title":"Change time zones",
+                "definition": "Users can change the displayed time zone to help with their investigation",
                 "toStatement": "To change timezones: ",
                 "steps": 
                 [
@@ -337,4 +329,5 @@
             }
         }
     }
+
 }
