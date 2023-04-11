@@ -287,7 +287,7 @@
         {
             "Themes" : 
             {
-                "title":"Change the current theme",
+                "title":"Themes",
                 "definition": "Users can change the current color scheme for increased accessibility",
                 "toStatement": "To change the colors: ",
                 "steps": 
@@ -304,7 +304,7 @@
             },
             "Timezone" : 
             {
-                "title":"Change time zones",
+                "title":"Timezone",
                 "definition": "Users can change the displayed time zone to help with their investigation",
                 "toStatement": "To change timezones: ",
                 "steps": 
