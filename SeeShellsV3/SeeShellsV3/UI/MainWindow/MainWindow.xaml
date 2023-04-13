@@ -48,7 +48,7 @@
                             Margin="5 0"/>
 
             <Menu Background="Transparent">
-                <MenuItem  Header="{Binding PaletteManager.CurrentPalette.Name}" Background="Transparent" ItemsSource="{Binding PaletteManager.PaletteNames}">
+                <MenuItem  Header="{Binding PaletteManager.CurrentLabel}" Background="Transparent" ItemsSource="{Binding PaletteManager.PaletteNames}">
                     <MenuItem.ItemTemplate>
                         <DataTemplate>
                             <MenuItem Header="{Binding}" Background="Transparent" Click="ChangePalette_Click"/>

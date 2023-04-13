@@ -24,13 +24,15 @@ namespace SeeShellsV3.Services
         public Collection<IPaletteManager.OxyPaletteWrap> Palettes { get; init; }
         public Collection<string> PaletteNames { get; init; }
         private TimeSeriesHistogram Histo { get; set; }
+        public string CurrentLabel { get; set; }
 
         public PaletteManager()
         {
             PaletteNames = new Collection<string>((IList<string>)Application.Current.Resources["paletteNames"]);
             Palettes = new Collection<IPaletteManager.OxyPaletteWrap>();
             LoadPalettes();
-            CurrentPalette = Palettes[0];
+            CurrentLabel = "Palettes";
+            CurrentPalette = Palettes[1];
         }
 
         private void LoadPalettes()
@@ -72,6 +74,7 @@ namespace SeeShellsV3.Services
             }
             CurrentPalette = GetPalette(paletteName);
             Histo.HistPlotModel_setColors(CurrentPalette.Palette);
+            CurrentLabel = CurrentPalette.Name;
             Debug.WriteLine("Current Palette: " + CurrentPalette.Name);
         }
     }
