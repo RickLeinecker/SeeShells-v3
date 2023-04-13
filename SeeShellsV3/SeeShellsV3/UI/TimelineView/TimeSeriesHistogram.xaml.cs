@@ -76,7 +76,7 @@ namespace SeeShellsV3.UI
 
             List<Array> palettes = new List<Array>((IEnumerable<Array>)Application.Current.Resources["palettes"]);
             List<OxyColor> oxyPalette = new();
-            List<Color> colors = new((IEnumerable<Color>)palettes[0]);
+            List<Color> colors = new((IEnumerable<Color>)palettes[1]);
             foreach (Color color in colors)
             {
                 oxyPalette.Add(
