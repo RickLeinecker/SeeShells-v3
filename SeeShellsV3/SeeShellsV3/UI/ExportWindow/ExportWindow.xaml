@@ -4,12 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeeShellsV3.UI"
+        d:DataContext="{d:DesignInstance Type=local:ExportWindowVM}"
 		mc:Ignorable="d"
         Height="600" Width="800">
     <Window.Resources>
         <local:ModuleViewConverter x:Key="ModuleViewConverter"/>
     </Window.Resources>
-
     <UserControl>
         <ScrollViewer>
             <Grid>
@@ -20,13 +20,43 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Margin="5,5,5,5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Text="Insert Module: "/>
+
+                <Grid x:Name="SelectedEvents" Grid.Row="0" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock FontWeight="Bold" Text="Currently Selected ShellEvents" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="{Binding Theme}"/>
+                    <Border Grid.Column="0" Grid.Row="1" Width="7.5in" BorderThickness="1" BorderBrush="{DynamicResource MahApps.Brushes.Gray8}">
+                        <DataGrid Name="TimezoneTable"
+                                  ItemsSource="{Binding ReportEvents.SelectedEvents}"
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="False" IsReadOnly="True"
+                                  SelectionMode="Single">
+                            <DataGrid.RowStyle>
+                                <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MahApps.Styles.DataGridRow}"/>
+                            </DataGrid.RowStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Event Time" Binding="{Binding TimeStamp}"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+                                <DataGridTextColumn Header="Type" Binding="{Binding TypeName}"/>
+                                <DataGridTextColumn Header="User" Binding="{Binding User.Name}"/>
+                                <DataGridTextColumn Header="Location Name" Binding="{Binding Place.Name}"/>
+                                <DataGridTextColumn Header="Location Path" Binding="{Binding Place.PathName}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+
+                <StackPanel Grid.Row="1" Margin="5,5,5,5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{Binding Theme}" Text="Insert Module: "/>
                     <ComboBox Margin="2,2,2,2" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="moduleSelector" SelectedIndex="0" ItemsSource="{Binding moduleSelector}" IsEditable="False"/>
                     <Button VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="Add_Module" FontFamily="Segoe MDL2 Assets" Content="&#xE710;" Click="Add_Module_Click"/>
                 </StackPanel>
-                <ItemsControl Grid.Row="1" x:Name="Modules" DockPanel.Dock="Top" ItemsSource="{Binding moduleList}">
+
+                <ItemsControl Grid.Row="2" x:Name="Modules" DockPanel.Dock="Top" ItemsSource="{Binding moduleList}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="10,10,10,10" Width="7.5in" Height="Auto">
@@ -46,7 +76,7 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <ContentPresenter Grid.Column="0" Content="{Binding Converter={StaticResource ModuleViewConverter}}"/>
+                                        <ContentPresenter Grid.Column="0" Content="{Binding Converter={StaticResource ModuleViewConverter}}" Loaded="LoadHandler"/>
                                         <Grid Grid.Column="1">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*"/>
@@ -66,7 +96,8 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                     <Button Click="Export_Click">
                         <TextBlock Text="{Binding Status}"/>
                     </Button>

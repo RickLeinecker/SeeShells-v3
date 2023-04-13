@@ -120,7 +120,7 @@ export default function Header(props)
                     <div style={{display: "flex", flexDirection: "row"}}>
                         {tabs.tabs.map((tab) =>{
                         return(
-                            <HeaderTab selected = {(tab == props.tab)} tab = {tab}>
+                            <HeaderTab key={`Header ${tab}`} selected = {(tab == props.tab)} tab = {tab}>
                                 {tab}
                             </HeaderTab>
                         )
@@ -171,7 +171,7 @@ export default function Header(props)
             </ExitButton>
             {tabs.tabs.map((tab) =>{
                 return(
-                    <MobileTab onClick={() => {navigation(`/${(tab == "About") ? "" : tab.replaceAll(" ", "")}`)}}>
+                    <MobileTab key={`Mobile Header ${tab}`} onClick={() => {navigation(`/${(tab == "About") ? "" : tab.replaceAll(" ", "")}`)}}>
                         {tab}
                     </MobileTab>
                 )

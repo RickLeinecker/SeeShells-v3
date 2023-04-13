@@ -4,12 +4,9 @@ import Foldery from "./Foldery.js";
 import SideBar from "./SideBar.js"
 import { MainContent, Title,  Contain } from "./customStyles";
 import { useState} from "react";
-import {FaListUl} from "react-icons/fa";
-import {Menu} from '@mui/material';
 
 
 const howToInfo = require("./HowToInfoArray.json")
-const options = require("./HowToUseArray.json")
 
 
 
@@ -24,30 +21,16 @@ export default function HowToUse({size})
     const [finished, setFinished] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
-    const options = require("./HowToUseArray.json")
 
     const optionsScroll = (option) =>
     {
-
-      
-
-        document.getElementById(option).scrollIntoView({behavior:"smooth", alignToTop:"true"})
-        
-        
-        if (button != null)
-            button.style.fontWeight = ""
-        
-        button = document.getElementById(`${option + "button"}`)
-        button.style.fontWeight = "700"
-
-                        
+        document.getElementById(option).scrollIntoView({behavior:"smooth", alignToTop:"true"})                   
     }
 
     const testCallback =  (option, entries) => {
-        
         if (!mobile)
         {
-            if (entries[0].intersectionRatio < 1)
+            if (entries[0].intersectionRatio < .5)
             {
                 return
             }
@@ -62,7 +45,7 @@ export default function HowToUse({size})
         }
         else
         {
-            if (entries[0].intersectionRatio < 1)
+            if (entries[0].intersectionRatio < .5)
             {
                 return
             }
@@ -88,7 +71,7 @@ export default function HowToUse({size})
     const PageInfo = styled.div`
         flex-direction: column;
         display:flex;
-        width: ${mobile ? "100vw" : "80vw"};
+        width: ${mobile ? "100vw" : "95vw"};
         height: 100%;
         align-items: center;
         margin: 2%;
@@ -97,29 +80,6 @@ export default function HowToUse({size})
         overflow: auto;
         
     `
-    const InfoTabBox = styled.div`
-        
-        display:flex;
-        align: center;
-        justify-content:center;
-        width: 90%;
-        background: #2C313D;
-        border-radius: 10px;
-        height: fit-content;
-        flex-direction: column;
-    `
-    const HowToTitle = styled.div`
-        font-family: "IBM Plex Sans Condensed";
-        font-size: 30pt;
-        font-weight: bold;
-        margin: 2px;    `
-
-    const MenuButton = styled.div`
-
-    `
-    const MenuBox = styled.div`
-        width: 40vw
-    `
 
     const pageContent = () => {
         if (finished)
@@ -127,18 +87,18 @@ export default function HowToUse({size})
             return(
                 <PageInfo id={"PageInfo"}>
                     <Foldery InfoSection={howToInfo.parsing} testCallback={testCallback} currTab={"Online"} size ={size} mobile={mobile}/>
-                        <div style={{marginBottom:"500px"}} />
-                    <Foldery InfoSection={howToInfo.ShellInspector} testCallback={testCallback} currTab={"Online"} size={size} mobile={mobile} />
+                    <Foldery InfoSection={howToInfo.ShellInspector} testCallback={testCallback} size={size} mobile={mobile} />
+                    <Foldery InfoSection={howToInfo.EventTimeline} testCallback = {testCallback} currTab={"Histogram"} size={size} mobile={mobile} />
+                    <Foldery InfoSection={howToInfo.HexView} testCallback={testCallback} size={size} mobile={mobile} />
+                    <Foldery InfoSection={howToInfo.RegistryView} testCallback={testCallback} size={size} mobile={mobile} />
+                    <Foldery InfoSection={howToInfo.Exporting} testCallback={testCallback} size={size} mobile={mobile} />
+                    <Foldery InfoSection={howToInfo.Filter} testCallback={testCallback} size={size} mobile={mobile} />
+                    <Foldery InfoSection={howToInfo.Themes} testCallback={testCallback} size={size} mobile={mobile} />
+                    <Foldery InfoSection={howToInfo.TimeZones} testCallback={testCallback} size={size} mobile={mobile} />
                 </PageInfo>
             )
         }
     }
-    
-    function openMenu()
-    {
-        setMenuOpen(true);
-    }
-
 
     return (
             <Contain>

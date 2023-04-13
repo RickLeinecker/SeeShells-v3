@@ -45,6 +45,7 @@ namespace SeeShellsV3
             container.RegisterSingleton<IRegistryHiveCollection, RegistryHiveCollection>();
             container.RegisterSingleton<IShellItemCollection, ShellItemCollection>();
             container.RegisterSingleton<IShellEventCollection, ShellEventCollection>();
+            container.RegisterSingleton<ITimezoneCollection, TimezoneCollection>();
             container.RegisterSingleton<ISelected, Selected>();
             container.RegisterSingleton<IReportEventCollection, ReportEventCollection>();
 
@@ -52,17 +53,18 @@ namespace SeeShellsV3
             container.RegisterType<IPdfExporter, PdfExporter>();
             container.RegisterType<IRegistryImporter, RegistryImporter>();
             container.RegisterType<IShellEventManager, ShellEventManager>();
-            container.RegisterType<ITimezoneManager, TimezoneManager>();
+            container.RegisterSingleton<ITimezoneManager, TimezoneManager>();
             container.RegisterSingleton<IPaletteManager, PaletteManager>();
 
             // Register Window Types
             container.RegisterType<IWindow, MainWindow>("main");
             container.RegisterType<IWindow, ExportWindow>("export");
+            container.RegisterType<IWindow, TimezoneWindow>("timezones");
 
             // Register ViewModel Types
             container.RegisterType<IMainWindowVM, MainWindowVM>();
             container.RegisterType<IExportWindowVM, ExportWindowVM>();
-            container.RegisterType<IShellItemTableViewVM, ShellItemTableViewVM>();
+            container.RegisterType<ITimezoneWindowVM, TimezoneWindowVM>();
             container.RegisterType<IInspectorViewVM, InspectorViewVM>();
             container.RegisterType<ITimelineViewVM, TimelineViewVM>();
             container.RegisterType<IRegistryViewVM, RegistryViewVM>();

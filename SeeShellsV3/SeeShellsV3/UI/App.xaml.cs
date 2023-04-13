@@ -19,6 +19,7 @@ namespace SeeShellsV3.UI
     {
         [Dependency]
         public IWindowFactory WindowFactory { get; set; }
+        public string currentTheme { get; set; }
 
         public App()
         {
@@ -40,6 +41,13 @@ namespace SeeShellsV3.UI
 
             foreach (var dict in resourceDict.MergedDictionaries)
                 Resources.MergedDictionaries.Add(dict);
+
+            currentTheme = GetThemeName(uri);
+        }
+
+        private string GetThemeName(Uri uri)
+        {
+            return uri.OriginalString == @"UI/Themes/DarkTheme.xaml" ? "Dark" : "Light";
         }
     }
 }

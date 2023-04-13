@@ -24,6 +24,7 @@
                         <MenuItem Header="Export Selected" Click="Export_CSV_Click"></MenuItem>
                         <MenuItem Header="Export Filtered" Click="Export_CSV_Click"></MenuItem>
                     </MenuItem>
+                    <MenuItem Header="Clear Selected Events" Click="Clear_Selected_Click"/>
                 </MenuItem>
                 <MenuItem Header="Reset" Background="Transparent" Click="ResetMenuItem_Click"/>
             </Menu>
@@ -58,12 +59,10 @@
             </Menu>
             
             <Menu Background="Transparent">
-                <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Identifier}" Background="Transparent" ItemsSource="{Binding TimezoneManager.SupportedTimezones}" Width="39">
-                    <MenuItem.ItemTemplate>
-                        <DataTemplate>
-                            <MenuItem Header="{Binding Name}" Background="Transparent" Click="ChangeTimezone_Click"/>
-                        </DataTemplate>
-                    </MenuItem.ItemTemplate>
+                <MenuItem Header="{Binding TimezoneManager.CurrentTimezone.Header}" Background="Transparent">
+                    <MenuItem Header="Change Timezone" Click="TimezoneWindow_Click"/>
+                    <MenuItem Header="Reset to UTC" Click="ResetUTC_Click"/>
+                    <MenuItem Header="Reset to Local Time" Click="ResetLocal_Click"/>
                 </MenuItem>
             </Menu>
         </mah:WindowCommands>
@@ -101,11 +100,8 @@
 
                     <xcad:LayoutDocumentPaneGroup >
                         <xcad:LayoutDocumentPane>
-                            <xcad:LayoutDocument ContentId="timelineview" Title="Events" CanClose="False" ToolTip="A timeline of user activity">
+                            <xcad:LayoutDocument ContentId="timelineview" Title="Events" CanClose="False">
                                 <local:TimelineView x:Name="Timeline"/>
-                            </xcad:LayoutDocument>
-                            <xcad:LayoutDocument ContentId="tableview" Title="Shellbags" CanClose="False" ToolTip="A list of shellbags found in the loaded registry hives">
-                                <local:ShellItemTableView />
                             </xcad:LayoutDocument>
                         </xcad:LayoutDocumentPane>
                     </xcad:LayoutDocumentPaneGroup >
