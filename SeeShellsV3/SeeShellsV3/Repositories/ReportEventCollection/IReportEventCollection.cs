@@ -33,6 +33,11 @@ namespace SeeShellsV3.Repositories
         bool Remove(IShellEvent shellEvent);
 
         /// <summary>
+        /// Removes all events from the collection.
+        /// </summary>
+        void Clear();
+
+        /// <summary>
         /// Checks to see if a given Shell Event is already in the collection.
         /// </summary>
         /// <param name="shellEvent">Event to check if it is in the collection.</param>

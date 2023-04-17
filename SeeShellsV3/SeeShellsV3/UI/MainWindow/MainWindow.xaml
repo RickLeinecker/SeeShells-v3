@@ -24,6 +24,7 @@
                         <MenuItem Header="Export Selected" Click="Export_CSV_Click"></MenuItem>
                         <MenuItem Header="Export Filtered" Click="Export_CSV_Click"></MenuItem>
                     </MenuItem>
+                    <MenuItem Header="Clear Selected Events" Click="Clear_Selected_Click"/>
                 </MenuItem>
                 <MenuItem Header="Reset" Background="Transparent" Click="ResetMenuItem_Click"/>
             </Menu>
@@ -48,7 +49,7 @@
                             Margin="5 0"/>
 
             <Menu Background="Transparent">
-                <MenuItem  Header="{Binding PaletteManager.CurrentPalette.Name}" Background="Transparent" ItemsSource="{Binding PaletteManager.PaletteNames}">
+                <MenuItem  Header="{Binding PaletteManager.CurrentLabel}" Background="Transparent" ItemsSource="{Binding PaletteManager.PaletteNames}">
                     <MenuItem.ItemTemplate>
                         <DataTemplate>
                             <MenuItem Header="{Binding}" Background="Transparent" Click="ChangePalette_Click"/>

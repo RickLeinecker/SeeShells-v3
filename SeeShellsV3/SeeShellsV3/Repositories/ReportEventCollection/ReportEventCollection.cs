@@ -55,6 +55,12 @@ namespace SeeShellsV3.Repositories
             }
         }
 
+        public void Clear()
+        {
+            SelectedEvents.Clear();
+            HasEvents = false;
+        }
+
         public bool Contains(IShellEvent shellEvent)
         {
             return SelectedEvents.Contains(shellEvent);

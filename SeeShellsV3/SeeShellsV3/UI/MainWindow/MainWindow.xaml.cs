@@ -25,7 +25,7 @@ namespace SeeShellsV3.UI
         bool ImportFromRegistry(string hiveLocation = null);
         void RestartApplication(bool runAsAdmin = false);
         void ExportToCSV(string filePath, string source);
-        void AddToReportCollection();
+        void ClearSelected();
         void ChangePalette(string palette);
         void ResetToUtc();
         void ResetToLocal();
@@ -104,9 +104,9 @@ namespace SeeShellsV3.UI
                 ViewModel.RestartApplication(isElevated);
         }
 
-        private void AddReport_Click(object sender, RoutedEventArgs e)
+        private void Clear_Selected_Click(object sender, RoutedEventArgs e)
         {
-            ViewModel.AddToReportCollection();
+            ViewModel.ClearSelected();
         }
 
         private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
