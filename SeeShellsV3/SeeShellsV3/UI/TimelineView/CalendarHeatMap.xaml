@@ -61,14 +61,10 @@
                 <TextBlock Name="RangeDisplay" Margin="0 4"
                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Button Name="RangeClear" Margin="5 0" Padding="7 0" Click="Clear_MenuItem_Click"
-                        VerticalAlignment="Center" Visibility="Collapsed" ToolTip="Clear Selection">
+                        VerticalAlignment="Center" Visibility="Collapsed">
                     <TextBlock Text="X" />
                 </Button>
             </StackPanel>
-
-            <TextBlock Text="?" Grid.Row="2" FontWeight="Bold" FontSize="16" Foreground="{DynamicResource MahApps.Brushes.Gray6}"
-                       ToolTip="Hold right click to select a date range."
-                       HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10 0"/>
         </Grid>
     </Border>
 </UserControl>

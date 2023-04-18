@@ -15,7 +15,7 @@ namespace SeeShellsV3.UI
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			System.Diagnostics.Debug.WriteLine("Yo!");
+			
 			return (value as IPdfModule)?.View() ?? null;
 		}
 

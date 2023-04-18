@@ -28,10 +28,13 @@ namespace SeeShellsV3.UI
         ObservableCollection<IPdfModule> moduleList { get; }
         ObservableCollection<string> moduleSelector { get; }
         public void Export_PDF();
+        public bool HasSelectedEvents();
 		void Remove(IPdfModule sender);
 		void MoveDown(IPdfModule pdfModule);
 		void MoveUp(IPdfModule pdfModule);
 		void AddModule(string module);
+
+
 	}
 
     /// <summary>
@@ -44,6 +47,8 @@ namespace SeeShellsV3.UI
 
 		[Dependency]
 		public ISelected Selected { get; set; }
+		public string LoadStatus { get; set; }
+		public string StatusVisibility { get; set; }
         public ExportWindow()
         {
             InitializeComponent();
@@ -62,8 +67,9 @@ namespace SeeShellsV3.UI
 			//svg.DefaultExt = ".pdf";
 			//svg.FileName = "SeeShellsReport";
 			//if (svg.ShowDialog() == true)
-			ViewModel.Export_PDF();
+            ViewModel.Export_PDF();
 		}
+
 
 		private void Remove_Click(object sender, RoutedEventArgs e)
 		{
@@ -82,10 +88,18 @@ namespace SeeShellsV3.UI
 
 		private void Add_Module_Click(object sender, RoutedEventArgs e)
 		{
-			if (moduleSelector.SelectedIndex != 0)
+			Mouse.OverrideCursor = Cursors.Wait;
+
+            if (moduleSelector.SelectedIndex != 0)
 			{
-				ViewModel.AddModule(moduleSelector.SelectedItem as string);
-			}
+                ViewModel.AddModule(moduleSelector.SelectedItem as string);
+            }
 		}
-	}
+
+        public void LoadHandler(object sender, EventArgs args)
+		{
+			Mouse.OverrideCursor = null;
+			SelectedEvents.Visibility = ViewModel.HasSelectedEvents() ? Visibility.Visible : Visibility.Collapsed;
+        }
+    }
 }

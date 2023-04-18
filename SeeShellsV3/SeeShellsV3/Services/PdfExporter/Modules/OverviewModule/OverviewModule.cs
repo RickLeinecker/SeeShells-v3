@@ -14,6 +14,8 @@ using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml;
 using Unity;
+using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace SeeShellsV3.Services
 {
@@ -48,6 +50,20 @@ namespace SeeShellsV3.Services
 
 			PieLegend = new Legend { LegendPlacement = LegendPlacement.Outside, LegendOrientation = LegendOrientation.Horizontal, LegendPosition = LegendPosition.TopCenter, LegendPadding = 0, ShowInvisibleSeries = false };
 
+            List<Array> palettes = new List<Array>((IEnumerable<Array>)Application.Current.Resources["palettes"]);
+            List<OxyColor> oxyPalette = new();
+            List<Color> colors = new((IEnumerable<Color>)palettes[0]);
+            foreach (Color color in colors)
+            {
+                oxyPalette.Add(
+                    OxyColor.FromRgb(
+                        color.R,
+                        color.G,
+                        color.B
+                        )
+                    );
+            }
+			PieModel.DefaultColors = new OxyPalette(oxyPalette).Colors;
 			OxyPlot.Series.PieSeries seriesP1 = new OxyPlot.Series.PieSeries { LegendFormat = "{0}", InsideLabelFormat = "", OutsideLabelFormat = "{2:0}%", FontSize=12, StrokeThickness = 2.0, InsideLabelPosition = 0.6, AngleSpan = 360, StartAngle = 0};
 
 			int OtherCount = 0;

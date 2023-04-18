@@ -85,6 +85,8 @@ namespace SeeShellsV3.UI
                 await Task.Run(() => RegImporter.ImportRegistry(true)) :
                 await Task.Run(() => RegImporter.ImportRegistry(false, true, hiveLocation));
 
+            System.Diagnostics.Debug.WriteLine("What about here?");
+
             if (root == null || parsedItems == null)
             {
                 Status = "No New Shellbags Found.";
@@ -98,6 +100,7 @@ namespace SeeShellsV3.UI
                 TimezoneManager.ReloadTimezones();
                 Status = "Done.";
             }
+
 
             await Task.Run(() => Thread.Sleep(3000));
             Status = string.Empty;
@@ -132,11 +135,9 @@ namespace SeeShellsV3.UI
             writer.Close();
         }
 
-        // TODO: Handle errors
-        public void AddToReportCollection()
+        public void ClearSelected()
         {
-            IShellEvent shell = Selected.CurrentInspector as IShellEvent;
-            ReportEvents.Add(shell);
+            ReportEvents.Clear();
         }
 
         public void ChangePalette(string palette)

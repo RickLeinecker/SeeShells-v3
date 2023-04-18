@@ -25,17 +25,23 @@ namespace SeeShellsV3.UI
 		[Dependency] 
 		public ISelected Selected { get; set; }
 
-		public ObservableCollection<IPdfModule> moduleList { get; set; }
+		[Dependency] 
+        public IReportEventCollection ReportEvents { get; set; }
+
+        public ObservableCollection<IPdfModule> moduleList { get; set; }
 
 		public ObservableCollection<string> moduleSelector { get; set; }
 
-		public string Status
+
+        public string Status
 		{
 			get => _status;
 			set { _status = value; NotifyPropertyChanged(); }
 		}
 
-		private string _status = string.Empty;
+
+
+        private string _status = string.Empty;
 
         public string Theme
         {
@@ -51,7 +57,7 @@ namespace SeeShellsV3.UI
 			moduleSelector = new ObservableCollection<string>(Export.moduleNames.Keys);
 			moduleSelector.Insert(0, "Select Module");
 
-			Status = "Print";
+            Status = "Print";
 		}
 
 		public async void Export_PDF()
@@ -61,14 +67,19 @@ namespace SeeShellsV3.UI
 			Status = "Done.";
 			await Task.Run(() => Thread.Sleep(5000));
 			Status = "Print";
-		}
+        }
 
 		public void Remove(IPdfModule pdfModule)
 		{
 			moduleList.Remove(pdfModule);
 		}
 
-		public void MoveDown(IPdfModule pdfModule)
+        public bool HasSelectedEvents()
+        {
+			return ReportEvents.HasEvents;
+        }
+
+        public void MoveDown(IPdfModule pdfModule)
 		{
 			int pos = moduleList.IndexOf(pdfModule);
 			if (pos < moduleList.Count - 1)

@@ -4,11 +4,23 @@
                     xmlns:oxy="http://oxyplot.org/wpf"
                     xmlns:s="clr-namespace:System;assembly=mscorlib">
     <x:Array Type="s:String" x:Key="paletteNames">
-        <s:String>Tol1</s:String>
-        <s:String>Tol2</s:String>
+        <s:String>Tol</s:String>
+        <s:String>Tol Mixed</s:String>
+        <s:String>Okabe/Ito</s:String>
+        <s:String>Okabe/Ito White</s:String>
         <s:String>Pastel</s:String>
     </x:Array>
     <x:Array x:Key="palettes" Type="{x:Type s:Array}">
+        <x:Array Type="Color">
+            <Color>#332288</Color>
+            <Color>#117733</Color>
+            <Color>#44AA99</Color>
+            <Color>#88CCEE</Color>
+            <Color>#DDCC77</Color>
+            <Color>#CC6677</Color>
+            <Color>#AA4499</Color>
+            <Color>#882255</Color>
+        </x:Array>
         <x:Array Type="Color">
             <Color>#332288</Color>
             <Color>#DDCC77</Color>
@@ -20,14 +32,24 @@
             <Color>#882255</Color>
         </x:Array>
         <x:Array Type="Color">
-            <Color>#88CCEE</Color>
-            <Color>#44AA99</Color>
-            <Color>#117733</Color>
-            <Color>#999933</Color>
-            <Color>#DDCC77</Color>
-            <Color>#CC6677</Color>
-            <Color>#882255</Color>
-            <Color>#AA4499</Color>
+            <Color>#000000</Color>
+            <Color>#E69F00</Color>
+            <Color>#86B4E9</Color>
+            <Color>#009E73</Color>
+            <Color>#F0E442</Color>
+            <Color>#0072B2</Color>
+            <Color>#D55E00</Color>
+            <Color>#CC79A7</Color>
+        </x:Array>
+        <x:Array Type="Color">
+            <Color>#FFFFFF</Color>
+            <Color>#E69F00</Color>
+            <Color>#86B4E9</Color>
+            <Color>#009E73</Color>
+            <Color>#F0E442</Color>
+            <Color>#0072B2</Color>
+            <Color>#D55E00</Color>
+            <Color>#CC79A7</Color>
         </x:Array>
         <x:Array Type="Color">
             <Color>#FFADAD</Color>
