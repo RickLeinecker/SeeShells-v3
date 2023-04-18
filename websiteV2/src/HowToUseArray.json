@@ -1,3 +1,3 @@
 {
-  "options": [ "Parsing", "Shell Inspector", "Event Timeline",  "Hex Viewer", "Registry View", "Exporting", "Filters", "Themes", "Timezone Conversion"]
+  "options": [ "Parsing", "Shell Inspector", "Event Timeline",  "Hex Viewer", "Registry View", "Exporting", "Filters", "Customization"]
 }
