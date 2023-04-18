@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 const caseStudies = require("./CaseStudiesArray.json");
 
 
+
 export default function CaseStudies({size}) {
 
     let mobile = (size.width <= 750)
@@ -72,15 +73,17 @@ export default function CaseStudies({size}) {
         )
     }
 
-    function buttons()
+    function buttons(regFile)
     {
         if (!mobile)
         {
             return(
                 <Grid item align="center" xs={7} sm={4} lg={3} >
+                    <a href={regFile} download>
                     <StudiesButtons>
                         Reg File
                     </StudiesButtons>
+                    </a>
                 </Grid>
             )
         }
@@ -99,6 +102,7 @@ export default function CaseStudies({size}) {
             window.open(pdf);
         }
     }
+
 
     return (
         <Contain>    
@@ -131,7 +135,7 @@ export default function CaseStudies({size}) {
                                             PDF
                                         </StudiesButtons>
                                     </Grid>
-                                    {buttons()}
+                                    {buttons(Case.regFiles)}
                                 </div>
                             </Grid> 
                         )
@@ -159,7 +163,7 @@ export default function CaseStudies({size}) {
                                             PDF
                                         </StudiesButtons>
                                     </Grid>
-                                    {buttons()}
+                                    {buttons(Case.regFiles)}
                                 </div>
                             </Grid> 
                         )
