@@ -51,6 +51,9 @@ export default function CaseStudies({size}) {
         padding:15px;
         width: ${mobile ? "55px" : "75px"};
         border-radius: 5px;
+        &:hover {
+            cursor: pointer;
+        };
     `
     const Image = styled.img`
         height: ${mobile ? "125px" : "210px"};
