@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 
 const caseStudies = require("./CaseStudiesArray.json");
 
+
 export default function CaseStudies({size}) {
 
     let mobile = (size.width <= 750)
@@ -154,7 +155,7 @@ export default function CaseStudies({size}) {
                                 </Caption>
                                 <div style={{display:"flex", flexDirection:"row", justifyContent:"center"}}>
                                     <Grid item align="center" xs={7} sm={5} lg={3} >
-                                        <StudiesButtons>
+                                        <StudiesButtons onClick={() => openPdf(Case.pdfFile)}>
                                             PDF
                                         </StudiesButtons>
                                     </Grid>

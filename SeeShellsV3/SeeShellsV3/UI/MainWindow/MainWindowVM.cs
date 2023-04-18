@@ -31,7 +31,7 @@ namespace SeeShellsV3.UI
         [Dependency] public ISelected Selected { get; set; }
         [Dependency] public IReportEventCollection ReportEvents { get; set; }
 
-        public string WebsiteUrl => @"https://rickleinecker.github.io/SeeShells-V3";
+        public string WebsiteUrl => @"https://rickleinecker.github.io/SeeShells-v3";
         public string GithubUrl => @"https://github.com/RickLeinecker/SeeShells-V3";
 
         public Visibility StatusVisibility => Status != string.Empty ? Visibility.Visible : Visibility.Collapsed;

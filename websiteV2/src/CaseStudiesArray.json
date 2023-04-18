@@ -4,17 +4,17 @@
         {
             "title": "Case Study #1",
             "vidLink": null,
-            "caption": "this is a caption",
-            "pdfFile": null,
-            "regFiles": null
+            "caption": "Intellectual Property",
+            "pdfFile": "./caseStudies/Case_Study_1_Writeup.pdf",
+            "regFiles": "./caseStudies/CaseStudy1.dat"
         },
 
         {
             "title": "Case Study #2",
             "vidLink": null,
-            "caption": "this is a caption",
+            "caption": "Phishing Link",
             "pdfFile": "./caseStudies/Case_Study_2_Writeup.pdf",
-            "regFiles": null
+            "regFiles": "./caseStudies/CaseStudy2.dat"
         }
     ],
 
@@ -23,17 +23,9 @@
         {
             "title": "Case Study #3",
             "vidLink": null,
-            "caption": "this is a caption",
-            "pdfFile": null,
-            "regFiles": null
-        },
-
-        {
-            "title": "Case Study #4",
-            "vidLink": null,
-            "caption": "this is a caption",
-            "pdfFile": null,
-            "regFiles": null
+            "caption": "Compromise Assessment",
+            "pdfFile": "./caseStudies/Case_Study_3_Writeup.pdf",
+            "regFiles": "./caseStudies/CaseStudy3.dat"
         }
     ]
 }
