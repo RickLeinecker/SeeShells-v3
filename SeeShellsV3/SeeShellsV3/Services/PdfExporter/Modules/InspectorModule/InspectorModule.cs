@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -11,6 +12,7 @@ using System.Xml;
 using SeeShellsV3.Data;
 using SeeShellsV3.Repositories;
 using SeeShellsV3.UI;
+using SeeShellsV3.UI.Converters;
 using Unity;
 
 namespace SeeShellsV3.Services
@@ -147,7 +149,8 @@ namespace SeeShellsV3.Services
                 List fields = new List();
                 foreach (KeyValuePair<string, object> field in item.Fields)
                 {
-                    fields.ListItems.Add(new ListItem(new Paragraph(new Run($"{field.Key}: {field.Value}"))));
+                    FieldConverterWrapper converter = new FieldConverterWrapper();
+                    fields.ListItems.Add(new ListItem(new Paragraph(new Run($"{field.Key}: {converter.Convert(field.Value, typeof(string), null, CultureInfo.CurrentCulture)}"))));
                 }
                 fd.Blocks.Add(fields);
             }
