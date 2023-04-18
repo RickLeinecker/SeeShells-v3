@@ -8,14 +8,21 @@ using Unity;
 using System.Windows.Documents;
 using SeeShellsV3.Data;
 using Xceed.Wpf.Toolkit.PropertyGrid.Attributes;
+using SeeShellsV3.Repositories;
+using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Media.Imaging;
+using NLog.Filters;
 
 namespace SeeShellsV3.Services
 {
-	public class PdfExporter : IPdfExporter
-	{
+    public class PdfExporter : IPdfExporter
+    {
 		public IEnumerable<IPdfModule> modules;
 		public Dictionary<string, IPdfModule> moduleNames;
-		public PdfExporter([Dependency] IUnityContainer container)
+
+        [Dependency] 
+        IReportEventCollection ReportEvents { get; set; }
+        public PdfExporter([Dependency] IUnityContainer container)
 		{
 			// construct an instance of each implementation of IPdfModule.
 			// these instances will be used as blind templates for constructing
@@ -59,6 +66,9 @@ namespace SeeShellsV3.Services
                         case "ShellbagTableModule":
                             RenderShellbagTable(module, fd);
                             break;
+                        case "HexViewerModule":
+                            RenderHex(module, fd);
+                            break;
                         default:
                             bc.Child = module.Render();
                             fd.Blocks.Add(bc);
@@ -82,6 +92,50 @@ namespace SeeShellsV3.Services
             {
                 fd.Blocks.Add(block);
             }
+        }
+
+        public void RenderHex(IPdfModule module, FlowDocument fd)
+        {
+            int index = 0;
+
+            HexViewerModule mod = module as HexViewerModule;
+
+            foreach (IShellEvent ev in mod.ReportEvents.SelectedEvents)
+            {
+                int count = mod.ReportEvents.SelectedEvents.Count;
+                foreach (ShellItem item in ev.Evidence)
+                {
+
+                    BlockUIContainer bc = new BlockUIContainer();
+
+                    //System.Diagnostics.Debug.WriteLine(mod.Render(index));
+
+                    StackPanel panel = new StackPanel();
+
+                    TextBlock block = new TextBlock();
+
+                    block.Background = Brushes.Silver;
+                    block.FontSize= 18;
+                    block.FontWeight = FontWeights.SemiBold; 
+                    block.Text = "Hex - " + ev.Description;
+                    block.Margin = new Thickness(5);
+                    panel.Children.Add(block);
+                    panel.Children.Add(mod.Render(index));
+
+
+                    bc.Child = panel;
+
+                    fd.Blocks.Add(bc);
+
+
+                    index++;
+
+                }
+            }
+
+
+
+
         }
 
         /// <summary>
