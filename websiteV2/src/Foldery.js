@@ -142,9 +142,7 @@ export default function Foldery ({InfoSection, currTab, testCallback, size, mobi
             </Tabs>
             <InfoTabBox>
                 <div>
-                    <TabTitle>
-                        {InfoSection.tabs[selected].title}
-                    </TabTitle>
+          
                     <Definition>
                         {InfoSection.tabs[selected].definition }
                     </Definition>
