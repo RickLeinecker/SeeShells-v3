@@ -3,6 +3,7 @@
     [
         {
             "title": "Case Study #1",
+            "num" : 1,
             "vidLink": null,
             "caption": "this is a caption",
 
@@ -13,6 +14,7 @@
 
         {
             "title": "Case Study #2",
+            "num" : 2,
             "vidLink": null,
             "caption": "this is a caption",
             "pdfFile": "./caseStudies/Case_Study_2_Writeup.pdf",
@@ -24,6 +26,7 @@
     [
         {
             "title": "Case Study #3",
+            "num" : 3,
             "vidLink": null,
             "caption": "this is a caption",
 

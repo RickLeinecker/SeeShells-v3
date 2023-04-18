@@ -73,17 +73,24 @@ export default function CaseStudies({size}) {
         )
     }
 
-    function buttons(regFile)
+    function downloadFile(regFile, num)
+    {
+        const button = document.createElement('a')
+        button.href = require(`${regFile}`)
+        button.setAttribute("download", `CaseStudy${num}.dat`)
+        button.click()
+        button.remove()
+    }
+
+    function buttons(regFile, num)
     {
         if (!mobile)
         {
             return(
-                <Grid item align="center" xs={7} sm={4} lg={3} >
-                    <a href={regFile} download>
-                    <StudiesButtons>
+                <Grid item align="center" xs={7} sm={4} lg={3}>
+                    <StudiesButtons onClick={() => downloadFile(regFile, num)}>
                         Reg File
                     </StudiesButtons>
-                    </a>
                 </Grid>
             )
         }
@@ -135,7 +142,7 @@ export default function CaseStudies({size}) {
                                             PDF
                                         </StudiesButtons>
                                     </Grid>
-                                    {buttons(Case.regFiles)}
+                                    {buttons(Case.regFiles, Case.num)}
                                 </div>
                             </Grid> 
                         )
@@ -163,7 +170,7 @@ export default function CaseStudies({size}) {
                                             PDF
                                         </StudiesButtons>
                                     </Grid>
-                                    {buttons(Case.regFiles)}
+                                    {buttons(Case.regFiles, Case.num)}
                                 </div>
                             </Grid> 
                         )
