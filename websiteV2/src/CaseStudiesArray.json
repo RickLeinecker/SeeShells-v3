@@ -6,7 +6,7 @@
             "vidLink": null,
             "caption": "this is a caption",
 
-            "pdfFile": "./caseStudies/Case_Study_1_Writeup.pdf"
+            "pdfFile": "./caseStudies/Case_Study_1_Writeup.pdf",
             "regFiles": "./caseStudies/CaseStudy1.dat"
 
         },
@@ -30,14 +30,6 @@
             "pdfFile": "./caseStudies/Case_Study_3_Writeup.pdf",
             "regFiles": "./caseStudies/CaseStudy3.dat"
 
-        },
-
-        {
-            "title": "Case Study #4",
-            "vidLink": null,
-            "caption": "this is a caption",
-            "pdfFile": null,
-            "regFiles": null
         }
     ]
 }
