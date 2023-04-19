@@ -2,10 +2,11 @@
     "inside" : 
     [
         {
-            "title": "Case Study #1",
+            "title": "Tehsla IP Theft Incident",
             "num" : 1,
-            "vidLink": null,
-            "caption": "this is a caption",
+            "vidLink": "https://www.youtube.com/watch?v=iNKaFiCc7DU&ab_channel=NathanKofoed",
+            "imgString" : "./images/CaseStudy1.png",
+            "caption": "Case Study #1",
 
             "pdfFile": "./caseStudies/Case_Study_1_Writeup.pdf",
             "regFiles": "./caseStudies/CaseStudy1.dat"
@@ -13,10 +14,11 @@
         },
 
         {
-            "title": "Case Study #2",
+            "title": "Arasaka Phishing Incident",
             "num" : 2,
-            "vidLink": null,
-            "caption": "this is a caption",
+            "vidLink": "https://www.youtube.com/watch?v=iNKaFiCc7DU&ab_channel=NathanKofoed",
+            "imgString" : "./images/CaseStudy2.png",
+            "caption": "Case Study #2",
             "pdfFile": "./caseStudies/Case_Study_2_Writeup.pdf",
             "regFiles": "./caseStudies/CaseStudy2.dat"
         }
@@ -25,10 +27,10 @@
     "outside": 
     [
         {
-            "title": "Case Study #3",
+            "title": "Hooli Investigation",
             "num" : 3,
             "vidLink": null,
-            "caption": "this is a caption",
+            "caption": "Case Study #3",
 
             "pdfFile": "./caseStudies/Case_Study_3_Writeup.pdf",
             "regFiles": "./caseStudies/CaseStudy3.dat"

@@ -24,8 +24,11 @@ export default function CaseStudies({size}) {
     `
     const ImageDiv = styled.div`
         margin-top: 15px;
-        height: ${mobile ? "125px" : "210px"};
-        width: ${mobile ? "125px" : "210px"};
+        height: ${mobile ? "40vh" : "40vh"};
+        width: ${mobile ? "60vw" : "45vw"};
+        max-height: 400px;
+        max-width: 450px;
+        min-width: 300px;
         background: #2C313D;
         border-radius: 10px;
     `
@@ -56,25 +59,83 @@ export default function CaseStudies({size}) {
         };
     `
     const Image = styled.img`
-        height: ${mobile ? "125px" : "210px"};
-        width: ${mobile ? "125px" : "210px"};
+    height: ${mobile ? "40vh" : "30vh"};
+    width: ${mobile ? "60vw" : "40vw"};
+    max-height: 400px;
+    max-width: 450px;
+    min-width: 300px;
+    opacity: .15;
     `
     const Logo = styled.img`
-        height: ${mobile ? "125px" : "210px"};
-        width: ${mobile ? "125px" : "210px"};
+    height: ${mobile ? "40vh" : "40vh"};
+    width: ${mobile ? "60vw" : "45vw"};
+    max-height: 400px;
+    max-width: 450px;
+    min-width: 300px;
+    background: #2C313D;
+    border-radius: 10px;
         
-
     `
 
-    function displayImageOrDefault(imgString) {
-        if (imgString == null) {
-            return <Logo src={logo} />
-        }
+    const Study = styled.div`
+    height: ${mobile ? "40vh" : "30vh"};
+    width: ${mobile ? "60vw" : "40vw"};
+    max-height: 400px;
+    max-width: 450px;
+    min-width: 300px;
+    border-radius: 10px;
+    background:#000;
+    position: relative;
+    &:hover {
+        cursor: pointer;
+    };
+    `
 
-        return (
-            <Image src={imgString} />
-        )
+    const StudyCaption = styled.div`
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        margin-top:15%;
+    `
+    const ImageWrapper = styled.div`
+        height: ${mobile ? "40vh" : "30vh"};
+        width: ${mobile ? "60vw" : "40vw"};
+        max-height: 400px;
+        max-width: 450px;
+        min-width: 300px;
+        position: absolute;
+    `
+    const AbsWrapper = styled.div`
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-content:center;
+        justify-content:center;
+        height:100%;
+        width:100%;
+    `
+    const StudyHeader = styled.div`
+        width: 100%;
+        font-weight: 600;
+        font-size: 30px;
+        display:flex;
+        justify-content:center;
+        margin-top: -15%;
+    `
+
+function displayImageOrDefault(imgString, vidLink) {
+    if (imgString == null || vidLink == null) {
+        return <Logo src={logo} />
     }
+
+    let image = require(`${imgString}`)
+
+    return (
+        <Image src={image} />
+    )
+}
 
     function downloadFile(regFile, num)
     {
@@ -113,6 +174,15 @@ export default function CaseStudies({size}) {
         }
     }
 
+    function openVideo(vidLink)
+    {
+        console.log(vidLink)
+        const button = document.createElement('a')
+        button.href = `${vidLink}`
+        button.setAttribute("target", "_blank")
+        button.click()
+        button.remove()
+    }
 
     return (
         <Contain>    
@@ -129,13 +199,25 @@ export default function CaseStudies({size}) {
                 <Grid container style={{justifyContent:"center"}} columns={14}>
                 {caseStudies.inside.map((Case) => {
                         return(
-                            <Grid  item align="center" xs={7} xl={5}>
+                            <Grid  item align="center" sm={14} md={7} xl={5}>
                                 <CaseTitle>
                                     {Case.title}
                                 </CaseTitle>
-                                    <ImageDiv>
-                                        {displayImageOrDefault(Case.vidLink)}
-                                    </ImageDiv>
+                                <Study  onClick={() => openVideo(Case.vidLink)}>
+                                    <ImageWrapper>
+                                        <Image src={logo}/>
+                                    </ImageWrapper>
+
+                                    <AbsWrapper>
+                                        <StudyHeader>
+                                            {Case.title}
+                                        </StudyHeader>
+                                        <StudyCaption>
+                                            Click here for a video walkthrough
+                                        </StudyCaption>
+                                    </AbsWrapper>
+
+                                </Study>
                                 <Caption>
                                     {Case.caption }
                                 </Caption>
@@ -161,9 +243,21 @@ export default function CaseStudies({size}) {
                                 <CaseTitle>
                                     {Case.title}
                                 </CaseTitle>
-                                    <ImageDiv>
-                                    {displayImageOrDefault(Case.vidLink)}
-                                </ImageDiv>
+                                <Study>
+                                    <ImageWrapper>
+                                        <Image src={logo} />
+                                    </ImageWrapper>
+
+                                    <AbsWrapper>
+                                        <StudyHeader>
+                                            {Case.title}
+                                        </StudyHeader>
+                                        <StudyCaption>
+                                            Click here for a video walkthrough
+                                        </StudyCaption>
+                                    </AbsWrapper>
+
+                                </Study>
                                 <Caption>
                                     {Case.caption }
                                 </Caption>
