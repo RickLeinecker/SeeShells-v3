@@ -53,8 +53,8 @@ export default function About({size})
     function downloadSeeShells()
     {
         const button = document.createElement('a')
-        button.href = "https://github.com/ShellBags/v2/releases/download/v2.0-beta.4/SeeShellsV2.zip"
-        button.setAttribute("download", "SeeShellsV2")
+        button.href = "https://github.com/RickLeinecker/SeeShells-v3/releases/download/v3.0-beta/SeeShellsV3.zip"
+        button.setAttribute("download", "SeeShellsV3")
         button.click()
         button.remove()
     }
