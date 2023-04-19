@@ -37,6 +37,7 @@ export default function CaseStudies({size}) {
         font-size: 18pt;
         font-weight: semibold;
         text-align: center;
+        margin-bottom: 15px;
     `
     const Caption = styled.div`
         font-family: "IBM Plex Sans Condensed";
@@ -59,8 +60,8 @@ export default function CaseStudies({size}) {
         };
     `
     const Image = styled.img`
-    height: ${mobile ? "40vh" : "30vh"};
-    width: ${mobile ? "60vw" : "40vw"};
+    height: ${mobile ? "250px" : "300px"};
+    width: ${mobile ? "300px" : "450px"};
     max-height: 400px;
     max-width: 450px;
     min-width: 300px;
@@ -78,8 +79,8 @@ export default function CaseStudies({size}) {
     `
 
     const Study = styled.div`
-    height: ${mobile ? "40vh" : "30vh"};
-    width: ${mobile ? "60vw" : "40vw"};
+    height: ${mobile ? "250px" : "300px"};
+    width: ${mobile ? "300px" : "450px"};
     max-height: 400px;
     max-width: 450px;
     min-width: 300px;
@@ -100,8 +101,8 @@ export default function CaseStudies({size}) {
         margin-top:15%;
     `
     const ImageWrapper = styled.div`
-        height: ${mobile ? "40vh" : "30vh"};
-        width: ${mobile ? "60vw" : "40vw"};
+       height: ${mobile ? "250px" : "300px"};
+        width: ${mobile ? "300px" : "450px"};
         max-height: 400px;
         max-width: 450px;
         min-width: 300px;
