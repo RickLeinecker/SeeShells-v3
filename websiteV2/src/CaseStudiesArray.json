@@ -5,7 +5,6 @@
             "title": "Tehsla IP Theft Incident",
             "num" : 1,
             "vidLink": "https://www.youtube.com/watch?v=iNKaFiCc7DU&ab_channel=NathanKofoed",
-            "imgString" : "./images/CaseStudy1.png",
             "caption": "Case Study #1",
 
             "pdfFile": "./caseStudies/Case_Study_1_Writeup.pdf",
@@ -16,8 +15,7 @@
         {
             "title": "Arasaka Phishing Incident",
             "num" : 2,
-            "vidLink": "https://www.youtube.com/watch?v=iNKaFiCc7DU&ab_channel=NathanKofoed",
-            "imgString" : "./images/CaseStudy2.png",
+            "vidLink": "https://www.youtube.com/watch?v=bVJ2Tcw7KWg&ab_channel=NathanKofoed",
             "caption": "Case Study #2",
             "pdfFile": "./caseStudies/Case_Study_2_Writeup.pdf",
             "regFiles": "./caseStudies/CaseStudy2.dat"
@@ -29,7 +27,7 @@
         {
             "title": "Hooli Investigation",
             "num" : 3,
-            "vidLink": null,
+            "vidLink": "https://www.youtube.com/watch?v=P81lPt1MU48&ab_channel=NathanKofoed",
             "caption": "Case Study #3",
 
             "pdfFile": "./caseStudies/Case_Study_3_Writeup.pdf",

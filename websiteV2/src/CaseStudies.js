@@ -244,7 +244,7 @@ function displayImageOrDefault(imgString, vidLink) {
                                 <CaseTitle>
                                     {Case.title}
                                 </CaseTitle>
-                                <Study>
+                                <Study onClick={() => openVideo(Case.vidLink)}>
                                     <ImageWrapper>
                                         <Image src={logo} />
                                     </ImageWrapper>
