@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/SeeShells-v3/static/css/main.610cfc1c.css",
-    "main.js": "/SeeShells-v3/static/js/main.04e2e92a.js",
+    "main.js": "/SeeShells-v3/static/js/main.ef9b221e.js",
     "static/js/787.cda612ba.chunk.js": "/SeeShells-v3/static/js/787.cda612ba.chunk.js",
     "static/media/CaseStudy1.dat": "/SeeShells-v3/static/media/CaseStudy1.a1090c37ebb89e219f99.dat",
     "static/media/CaseStudy2.dat": "/SeeShells-v3/static/media/CaseStudy2.9267706912035968741e.dat",
@@ -27,11 +27,11 @@
     "static/media/logo.svg": "/SeeShells-v3/static/media/logo.6ce24c58023cc2f8fd88.svg",
     "index.html": "/SeeShells-v3/index.html",
     "main.610cfc1c.css.map": "/SeeShells-v3/static/css/main.610cfc1c.css.map",
-    "main.04e2e92a.js.map": "/SeeShells-v3/static/js/main.04e2e92a.js.map",
+    "main.ef9b221e.js.map": "/SeeShells-v3/static/js/main.ef9b221e.js.map",
     "787.cda612ba.chunk.js.map": "/SeeShells-v3/static/js/787.cda612ba.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.610cfc1c.css",
-    "static/js/main.04e2e92a.js"
+    "static/js/main.ef9b221e.js"
   ]
 }
